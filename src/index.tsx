@@ -411,96 +411,96 @@ app.get('/', (c) => {
                         </p>
                         
                         <div class="bg-white rounded-lg p-5 text-sm text-wood-900 shadow-md">
-                            <p class="font-bold text-primary-700 mb-4 text-lg flex items-center">
-                                <i class="fas fa-tasks mr-2 text-2xl text-wood-500"></i>
+                            <p class="font-bold text-primary-700 mb-6 text-xl flex items-center">
+                                <i class="fas fa-tasks mr-2 text-3xl text-wood-500"></i>
                                 네 걸음으로, 함께 준비해요
                             </p>
                             
-                            <!-- 3D Quest Cards Grid - 2/3 Size -->
-                            <div class="parallax-scene grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                            <!-- 3D Quest Cards Grid - Large Size (2x CTA height) -->
+                            <div class="parallax-scene grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
                                 <!-- Quest Card 1 -->
-                                <div class="quest-card-3d relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-50 to-teal-100 border-2 border-emerald-200/50 cursor-pointer" data-quest="1" style="box-shadow: 0 6px 16px rgba(16, 185, 129, 0.2);">
-                                    <div class="quest-badge" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); top: 6px; right: 6px; width: 24px; height: 24px; font-size: 12px; line-height: 24px;">
+                                <div class="quest-card-3d relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-100 border-4 border-emerald-200/50 cursor-pointer transform hover:scale-105 transition-all duration-300" data-quest="1" style="box-shadow: 0 10px 30px rgba(16, 185, 129, 0.25);">
+                                    <div class="quest-badge" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); top: 12px; right: 12px; width: 40px; height: 40px; font-size: 18px; line-height: 40px; font-weight: bold;">
                                         1
                                     </div>
-                                    <img src="/static/quest-card-1.png" alt="환자분 이야기 듣기" class="quest-card-image" style="height: 100px; object-fit: cover;">
+                                    <img src="/static/quest-card-1.png" alt="환자분 이야기 듣기" class="quest-card-image" style="height: 200px; object-fit: cover;">
                                     <div class="quest-shine"></div>
-                                    <div class="absolute bottom-1.5 left-1.5 right-1.5 bg-white/95 backdrop-blur-md rounded-lg p-1.5 shadow-lg border border-white/50">
-                                        <p class="text-[11px] font-bold text-gray-800 text-center leading-tight">🩺 환자분 이야기</p>
-                                        <p class="text-[9px] text-gray-600 text-center mt-0.5">약 5분</p>
+                                    <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-4 shadow-2xl border-2 border-white/50">
+                                        <p class="text-sm font-bold text-gray-800 text-center mb-1">🩺 환자분 이야기 듣기</p>
+                                        <p class="text-xs text-gray-600 text-center">약 5분 • 천천히 작성하셔도 괜찮아요</p>
                                     </div>
                                 </div>
                                 
                                 <!-- Quest Card 2 -->
-                                <div class="quest-card-3d relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-50 to-indigo-100 border-2 border-blue-200/50 opacity-80 cursor-pointer" data-quest="2" style="box-shadow: 0 6px 16px rgba(59, 130, 246, 0.15);">
-                                    <div class="quest-badge" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); top: 6px; right: 6px; width: 24px; height: 24px; font-size: 12px; line-height: 24px;">
+                                <div class="quest-card-3d relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-100 border-4 border-blue-200/50 opacity-90 cursor-pointer transform hover:scale-105 transition-all duration-300" data-quest="2" style="box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);">
+                                    <div class="quest-badge" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); top: 12px; right: 12px; width: 40px; height: 40px; font-size: 18px; line-height: 40px; font-weight: bold;">
                                         2
                                     </div>
-                                    <img src="/static/quest-card-2.png" alt="맞춤 경로 함께 보기" class="quest-card-image" style="height: 100px; object-fit: cover;">
+                                    <img src="/static/quest-card-2.png" alt="맞춤 경로 함께 보기" class="quest-card-image" style="height: 200px; object-fit: cover;">
                                     <div class="quest-shine"></div>
-                                    <div class="absolute bottom-1.5 left-1.5 right-1.5 bg-white/95 backdrop-blur-md rounded-lg p-1.5 shadow-lg border border-white/50">
-                                        <p class="text-[11px] font-bold text-gray-800 text-center leading-tight">🗺️ 맞춤 경로</p>
-                                        <p class="text-[9px] text-gray-600 text-center mt-0.5">전문가 추천</p>
+                                    <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-4 shadow-2xl border-2 border-white/50">
+                                        <p class="text-sm font-bold text-gray-800 text-center mb-1">🗺️ 맞춤 경로 함께 보기</p>
+                                        <p class="text-xs text-gray-600 text-center">전문가의 추천을 쉽게 설명해드려요</p>
                                     </div>
                                 </div>
                                 
                                 <!-- Quest Card 3 -->
-                                <div class="quest-card-3d relative overflow-hidden rounded-xl bg-gradient-to-br from-purple-50 to-pink-100 border-2 border-purple-200/50 opacity-80 cursor-pointer" data-quest="3" style="box-shadow: 0 6px 16px rgba(168, 85, 247, 0.15);">
-                                    <div class="quest-badge" style="background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%); top: 6px; right: 6px; width: 24px; height: 24px; font-size: 12px; line-height: 24px;">
+                                <div class="quest-card-3d relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-50 to-pink-100 border-4 border-purple-200/50 opacity-90 cursor-pointer transform hover:scale-105 transition-all duration-300" data-quest="3" style="box-shadow: 0 10px 30px rgba(168, 85, 247, 0.2);">
+                                    <div class="quest-badge" style="background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%); top: 12px; right: 12px; width: 40px; height: 40px; font-size: 18px; line-height: 40px; font-weight: bold;">
                                         3
                                     </div>
-                                    <img src="/static/quest-card-3.png" alt="비용 미리 살펴보기" class="quest-card-image" style="height: 100px; object-fit: cover;">
+                                    <img src="/static/quest-card-3.png" alt="비용 미리 살펴보기" class="quest-card-image" style="height: 200px; object-fit: cover;">
                                     <div class="quest-shine"></div>
-                                    <div class="absolute bottom-1.5 left-1.5 right-1.5 bg-white/95 backdrop-blur-md rounded-lg p-1.5 shadow-lg border border-white/50">
-                                        <p class="text-[11px] font-bold text-gray-800 text-center leading-tight">💰 비용 계산</p>
-                                        <p class="text-[9px] text-gray-600 text-center mt-0.5">투명한 안내</p>
+                                    <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-4 shadow-2xl border-2 border-white/50">
+                                        <p class="text-sm font-bold text-gray-800 text-center mb-1">💰 비용 미리 살펴보기</p>
+                                        <p class="text-xs text-gray-600 text-center">걱정되는 비용, 투명하게 안내해요</p>
                                     </div>
                                 </div>
                                 
                                 <!-- Quest Card 4 -->
-                                <div class="quest-card-3d relative overflow-hidden rounded-xl bg-gradient-to-br from-amber-50 to-orange-100 border-2 border-amber-200/50 opacity-80 cursor-pointer" data-quest="4" style="box-shadow: 0 6px 16px rgba(245, 158, 11, 0.15);">
-                                    <div class="quest-badge" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); top: 6px; right: 6px; width: 24px; height: 24px; font-size: 12px; line-height: 24px;">
+                                <div class="quest-card-3d relative overflow-hidden rounded-2xl bg-gradient-to-br from-amber-50 to-orange-100 border-4 border-amber-200/50 opacity-90 cursor-pointer transform hover:scale-105 transition-all duration-300" data-quest="4" style="box-shadow: 0 10px 30px rgba(245, 158, 11, 0.2);">
+                                    <div class="quest-badge" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); top: 12px; right: 12px; width: 40px; height: 40px; font-size: 18px; line-height: 40px; font-weight: bold;">
                                         4
                                     </div>
-                                    <img src="/static/quest-card-4.png" alt="좋은 곳 함께 고르기" class="quest-card-image" style="height: 100px; object-fit: cover;">
+                                    <img src="/static/quest-card-4.png" alt="좋은 곳 함께 고르기" class="quest-card-image" style="height: 200px; object-fit: cover;">
                                     <div class="quest-shine"></div>
-                                    <div class="absolute bottom-1.5 left-1.5 right-1.5 bg-white/95 backdrop-blur-md rounded-lg p-1.5 shadow-lg border border-white/50">
-                                        <p class="text-[11px] font-bold text-gray-800 text-center leading-tight">🏥 좋은 곳 찾기</p>
-                                        <p class="text-[9px] text-gray-600 text-center mt-0.5">맞춤 추천</p>
+                                    <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-4 shadow-2xl border-2 border-white/50">
+                                        <p class="text-sm font-bold text-gray-800 text-center mb-1">🏥 좋은 곳 함께 고르기</p>
+                                        <p class="text-xs text-gray-600 text-center">환자분께 맞는 기관을 찾아드려요</p>
                                     </div>
                                 </div>
                             </div>
                             
                             <!-- Progress Bar -->
-                            <div class="mt-4">
+                            <div class="mt-6 mb-6">
                                 <div class="flex justify-between items-center mb-2">
-                                    <span class="text-xs font-semibold text-gray-600">전체 진행도</span>
-                                    <span class="text-xs font-bold text-primary-600" id="questProgress">0/4 완료</span>
+                                    <span class="text-sm font-semibold text-gray-600">전체 진행도</span>
+                                    <span class="text-sm font-bold text-primary-600" id="questProgress">0/4 완료</span>
                                 </div>
                                 <div class="progress-track">
                                     <div class="progress-bar" style="width: 0%" id="questProgressBar"></div>
                                 </div>
                             </div>
                             
-                            <!-- CTA Banner - Moved Below Cards -->
-                            <div class="mt-6 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-2xl p-1 shadow-2xl hover:shadow-3xl transform hover:scale-[1.02] transition-all duration-300">
-                                <div class="bg-white rounded-xl p-6 text-center">
-                                    <div class="flex items-center justify-center mb-3">
-                                        <i class="fas fa-heart text-red-500 text-3xl mr-3 animate-pulse"></i>
-                                        <h3 class="text-2xl font-bold text-gray-900">
+                            <!-- CTA Banner - Compact Size (Half of Cards Area) -->
+                            <div class="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-xl p-1 shadow-xl hover:shadow-2xl transform hover:scale-[1.01] transition-all duration-300">
+                                <div class="bg-white rounded-lg p-4 text-center">
+                                    <div class="flex items-center justify-center mb-2">
+                                        <i class="fas fa-heart text-red-500 text-2xl mr-2 animate-pulse"></i>
+                                        <h3 class="text-lg font-bold text-gray-900">
                                             이제 더 이상 혼란스러워하지 마세요!
                                         </h3>
                                     </div>
-                                    <p class="text-gray-700 mb-5 text-lg">
+                                    <p class="text-gray-700 mb-3 text-sm">
                                         <strong class="text-purple-700">환자분 정보를 입력</strong>하시면 똑순이가 모든 걸 정리해드릴게요
                                     </p>
                                     <button onclick="closeModalAndShowForm()" 
-                                            class="inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-10 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-bold text-xl shadow-xl hover:shadow-2xl transform hover:scale-105 active:scale-95">
-                                        <i class="fas fa-arrow-right mr-3 animate-bounce"></i>
+                                            class="inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-8 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-bold text-base shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95">
+                                        <i class="fas fa-arrow-right mr-2 animate-bounce"></i>
                                         지금 바로 시작하기
-                                        <i class="fas fa-chevron-right ml-3"></i>
+                                        <i class="fas fa-chevron-right ml-2"></i>
                                     </button>
-                                    <p class="text-sm text-gray-500 mt-3">
+                                    <p class="text-xs text-gray-500 mt-2">
                                         <i class="fas fa-clock mr-1"></i>
                                         단 5분이면 완료됩니다
                                     </p>
