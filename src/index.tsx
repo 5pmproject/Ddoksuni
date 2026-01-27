@@ -124,7 +124,7 @@ app.get('/', (c) => {
                         <a href="#facilities" class="hover:text-wood-100 transition">기관 찾기</a>
                     </nav>
                 </div>
-                <p class="mt-2 text-wood-100">재활·요양 전원 의사결정을 돕는 지능형 플랫폼</p>
+                <p class="mt-2 text-wood-100">간병하는 당신을 돌봐드립니다</p>
             </div>
         </header>
 
@@ -167,56 +167,61 @@ app.get('/', (c) => {
             <div id="welcomeMessage" class="mb-8 bg-gradient-to-r from-wood-50 via-primary-50 to-wood-100 rounded-lg p-8 border-2 border-wood-300 shadow-lg">
                 <div class="flex items-start">
                     <div class="flex-shrink-0">
-                        <i class="fas fa-hand-holding-heart text-5xl text-wood-500"></i>
+                        <i class="fas fa-hands-helping text-5xl text-wood-500"></i>
                     </div>
                     <div class="ml-6 flex-1">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-3">
-                            <span class="text-wood-500">환영합니다!</span> 하이브리브가 최적의 전원 경로를 찾아드립니다
+                        <h2 class="text-3xl font-bold text-gray-900 mb-2 leading-tight">
+                            <span class="text-wood-600">간병하는 당신을</span><br>
+                            <span class="text-primary-600">돌봐드립니다</span>
                         </h2>
-                        <p class="text-wood-900 mb-4 text-lg">
-                            재활·요양 전원은 환자의 회복에 매우 중요한 결정입니다. 
-                            하이브리브는 환자의 상태를 분석하여 <strong class="text-primary-700">맞춤형 전원 경로와 비용을 추천</strong>해드립니다.
+                        <p class="text-wood-800 mb-4 text-xl font-medium">
+                            우리 함께 가요.
+                        </p>
+                        <p class="text-wood-900 mb-4 text-base leading-relaxed">
+                            혼자 감당하기 어려운 전원 준비,<br>
+                            하이브리브가 <strong class="text-primary-700">따뜻한 동행자</strong>가 되어드리겠습니다.<br>
+                            환자분의 상태에 꼭 맞는 경로를 함께 찾아가요.
                         </p>
                         <div class="bg-white rounded-lg p-5 text-sm text-wood-900 shadow-md">
                             <p class="font-bold text-primary-700 mb-3 text-lg flex items-center">
-                                <i class="fas fa-route mr-2 text-2xl text-wood-500"></i>
-                                4단계로 간편하게 전원 계획 수립:
+                                <i class="fas fa-heart mr-2 text-2xl text-wood-500"></i>
+                                네 걸음으로, 함께 준비해요
                             </p>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                                 <div class="flex items-start bg-wood-50 rounded p-3 border border-wood-200">
                                     <span class="bg-wood-500 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm mr-3 flex-shrink-0">1</span>
                                     <div>
-                                        <strong class="text-wood-700">환자 정보 입력</strong>
-                                        <p class="text-xs text-gray-500 mt-1">약 5분 소요 • ADL 점수, GCS 등</p>
+                                        <strong class="text-wood-700">환자분 이야기 듣기</strong>
+                                        <p class="text-xs text-gray-500 mt-1">약 5분 • 천천히 작성하셔도 괜찮아요</p>
                                     </div>
                                 </div>
                                 <div class="flex items-start bg-primary-50 rounded p-3 border border-primary-200">
                                     <span class="bg-primary-500 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm mr-3 flex-shrink-0">2</span>
                                     <div>
-                                        <strong class="text-primary-700">맞춤 경로 확인</strong>
-                                        <p class="text-xs text-gray-500 mt-1">AI 기반 최적 전원 경로 추천</p>
+                                        <strong class="text-primary-700">맞춤 경로 함께 보기</strong>
+                                        <p class="text-xs text-gray-500 mt-1">전문가의 추천을 쉽게 설명해드려요</p>
                                     </div>
                                 </div>
                                 <div class="flex items-start bg-wood-100 rounded p-3 border border-wood-300">
                                     <span class="bg-wood-600 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm mr-3 flex-shrink-0">3</span>
                                     <div>
-                                        <strong class="text-wood-700">예상 비용 계산</strong>
-                                        <p class="text-xs text-gray-500 mt-1">단계별 비용 및 본인부담금</p>
+                                        <strong class="text-wood-700">비용 미리 살펴보기</strong>
+                                        <p class="text-xs text-gray-500 mt-1">걱정되는 비용, 투명하게 안내해요</p>
                                     </div>
                                 </div>
                                 <div class="flex items-start bg-primary-100 rounded p-3 border border-primary-300">
                                     <span class="bg-primary-600 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm mr-3 flex-shrink-0">4</span>
                                     <div>
-                                        <strong class="text-primary-700">기관 찾기</strong>
-                                        <p class="text-xs text-gray-500 mt-1">조건에 맞는 재활·요양 기관</p>
+                                        <strong class="text-primary-700">좋은 곳 함께 고르기</strong>
+                                        <p class="text-xs text-gray-500 mt-1">환자분께 맞는 기관을 찾아드려요</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="mt-4 bg-wood-100 border border-wood-300 rounded-lg p-3 text-center">
-                            <p class="text-wood-800 font-semibold">
+                            <p class="text-wood-800 font-medium">
                                 <i class="fas fa-arrow-down mr-2 animate-bounce inline-block text-wood-500"></i>
-                                아래에서 환자 정보를 입력하고 맞춤 전원 계획을 받아보세요!
+                                혼자 고민하지 마세요. 지금 시작해볼까요?
                             </p>
                         </div>
                     </div>
@@ -229,11 +234,11 @@ app.get('/', (c) => {
                     <div class="flex items-center justify-between mb-6">
                         <div>
                             <h2 class="text-2xl font-bold text-gray-900">
-                                <i class="fas fa-user-plus text-wood-500 mr-2"></i>
-                                1단계: 환자 정보 입력
+                                <i class="fas fa-user-heart text-wood-500 mr-2"></i>
+                                환자분 이야기를 들려주세요
                             </h2>
                             <p class="text-sm text-gray-500 mt-1">
-                                정확한 전원 경로와 비용 추천을 위해 환자의 상태 정보를 입력해주세요
+                                천천히 작성하셔도 괜찮아요. 모르는 부분은 <strong class="text-wood-600">?</strong> 아이콘을 눌러 도움을 받으세요
                             </p>
                         </div>
                     </div>
@@ -441,8 +446,8 @@ app.get('/', (c) => {
                         </div>
                         <button type="submit" 
                                 class="w-full bg-primary-500 text-white py-4 px-6 rounded-lg hover:bg-primary-700 transition font-semibold text-lg shadow-lg">
-                            <i class="fas fa-arrow-right mr-2"></i>
-                            환자 정보 입력 완료 및 맞춤 추천 받기
+                            <i class="fas fa-hands-helping mr-2"></i>
+                            함께 시작하기
                         </button>
                     </form>
                 </div>
@@ -455,10 +460,10 @@ app.get('/', (c) => {
                         <div>
                             <h2 class="text-2xl font-bold text-gray-900">
                                 <i class="fas fa-route text-wood-500 mr-2"></i>
-                                2단계: <span id="patientNameDisplay"></span>님의 맞춤 전원 경로
+                                <span id="patientNameDisplay"></span>님을 위한 경로를 추천해드려요
                             </h2>
                             <p class="text-sm text-gray-500 mt-1">
-                                환자 상태 분석 결과, 다음과 같은 전원 경로를 추천합니다
+                                환자분의 상태를 분석한 결과에요. 함께 살펴볼까요?
                             </p>
                         </div>
                     </div>
@@ -468,20 +473,20 @@ app.get('/', (c) => {
                     <div class="mt-6 bg-gradient-to-r from-wood-50 to-primary-50 border border-wood-300 rounded-lg p-4">
                         <p class="text-wood-900 text-center mb-3">
                             <i class="fas fa-lightbulb text-wood-500 mr-2"></i>
-                            <strong class="text-primary-700">추천 경로를 확인하셨나요?</strong> 
-                            이제 예상 비용과 적합한 기관을 찾아보세요!
+                            <strong class="text-primary-700">어떠세요?</strong> 
+                            이제 비용을 함께 살펴볼까요?
                         </p>
                         <div class="flex space-x-3">
                             <button onclick="goToStep(3)" 
                                     class="flex-1 bg-primary-500 text-white py-4 px-6 rounded-lg hover:bg-primary-700 transition font-bold text-lg shadow-lg">
-                                <i class="fas fa-arrow-right mr-2"></i>
-                                다음: 예상 비용 확인하기
+                                <i class="fas fa-hand-holding-usd mr-2"></i>
+                                다음: 비용 미리 보기
                             </button>
                         </div>
                         <button onclick="goToStep(4)" 
                                 class="mt-2 w-full bg-white border-2 border-primary-300 text-primary-700 py-2 px-4 rounded-lg hover:bg-primary-50 transition font-semibold text-sm">
                             <i class="fas fa-hospital mr-2"></i>
-                            또는 기관 바로 찾아보기
+                            기관부터 먼저 볼래요
                         </button>
                     </div>
                 </div>
@@ -493,11 +498,11 @@ app.get('/', (c) => {
                     <div class="flex items-center justify-between mb-6">
                         <div>
                             <h2 class="text-2xl font-bold text-gray-900">
-                                <i class="fas fa-calculator text-wood-600 mr-2"></i>
-                                3단계: 예상 비용 안내
+                                <i class="fas fa-piggy-bank text-wood-600 mr-2"></i>
+                                걱정되는 비용, 투명하게 보여드려요
                             </h2>
                             <p class="text-sm text-gray-500 mt-1">
-                                추천 경로별 예상 비용을 확인하세요
+                                대략적인 금액이지만, 미리 준비하시는 데 도움이 될 거예요
                             </p>
                         </div>
                     </div>
@@ -507,18 +512,18 @@ app.get('/', (c) => {
                     <div class="mt-6 bg-gradient-to-r from-wood-100 to-primary-100 border border-wood-400 rounded-lg p-4">
                         <p class="text-wood-900 text-center mb-3">
                             <i class="fas fa-lightbulb text-wood-500 mr-2"></i>
-                            <strong class="text-wood-700">예상 비용을 확인하셨나요?</strong> 
-                            이제 조건에 맞는 재활·요양 기관을 찾아보세요!
+                            <strong class="text-wood-700">비용을 확인하셨나요?</strong> 
+                            이제 좋은 기관을 함께 골라봐요
                         </p>
                         <button onclick="goToStep(4)" 
                                 class="w-full bg-wood-500 text-white py-4 px-6 rounded-lg hover:bg-wood-700 transition font-bold text-lg shadow-lg">
-                            <i class="fas fa-arrow-right mr-2"></i>
-                            다음: 적합한 기관 찾기
+                            <i class="fas fa-building mr-2"></i>
+                            다음: 기관 함께 골라보기
                         </button>
                         <button onclick="showDetailedCostCalculator()" 
                                 class="mt-2 w-full bg-white border-2 border-primary-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-primary-50 transition font-semibold text-sm">
                             <i class="fas fa-chart-line mr-2"></i>
-                            상세 비용 시뮬레이션 (선택사항)
+                            더 자세히 계산해볼까요? (선택)
                         </button>
                     </div>
                 </div>
@@ -530,11 +535,11 @@ app.get('/', (c) => {
                     <div class="flex items-center justify-between mb-6">
                         <div>
                             <h2 class="text-2xl font-bold text-gray-900">
-                                <i class="fas fa-hospital text-primary-600 mr-2"></i>
-                                4단계: 적합한 재활·요양 기관 찾기
+                                <i class="fas fa-hospital-alt text-primary-600 mr-2"></i>
+                                환자분께 맞는 기관을 찾아볼게요
                             </h2>
                             <p class="text-sm text-gray-500 mt-1">
-                                추천 경로에 맞는 기관을 찾아보세요
+                                가까운 곳부터, 조건에 맞는 곳까지 함께 살펴보아요
                             </p>
                         </div>
                     </div>
@@ -544,17 +549,17 @@ app.get('/', (c) => {
                     <div class="mt-6 bg-gradient-to-r from-wood-100 to-wood-200 border border-wood-400 rounded-lg p-4">
                         <p class="text-wood-900 text-center mb-3">
                             <i class="fas fa-check-circle text-primary-600 mr-2"></i>
-                            <strong class="text-wood-700">기관 정보를 확인하셨나요?</strong> 
-                            전원 준비를 위한 체크리스트를 확인하세요!
+                            <strong class="text-wood-700">기관을 살펴보셨나요?</strong> 
+                            마지막으로, 전원 준비 체크리스트도 확인해볼까요?
                         </p>
                         <button onclick="showChecklist()" 
                                 class="w-full bg-wood-600 text-white py-4 px-6 rounded-lg hover:bg-wood-800 transition font-bold text-lg shadow-lg">
-                            <i class="fas fa-tasks mr-2"></i>
-                            전원 준비 체크리스트 확인하기
+                            <i class="fas fa-clipboard-check mr-2"></i>
+                            체크리스트 함께 확인하기
                         </button>
                         <p class="text-xs text-gray-500 text-center mt-3">
-                            <i class="fas fa-info-circle mr-1"></i>
-                            체크리스트를 통해 전원에 필요한 서류와 절차를 빠짐없이 준비하세요.
+                            <i class="fas fa-heart mr-1 text-wood-500"></i>
+                            빠뜨린 서류가 없도록 하나하나 체크해드려요
                         </p>
                     </div>
                 </div>
@@ -567,8 +572,8 @@ app.get('/', (c) => {
         <!-- 푸터 -->
         <footer class="bg-gray-900 text-wood-200 py-8 mt-12">
             <div class="max-w-7xl mx-auto px-4 text-center">
-                <p class="text-gray-400">© 2025 하이브리브. 재활·요양 전원 의사결정 지원 플랫폼</p>
-                <p class="text-sm text-gray-500 mt-2">환자의 최적 회복을 위한 디지털 가이드</p>
+                <p class="text-gray-400">© 2025 하이브리브. 돌봄, 간병하는 당신을 돌봐드립니다</p>
+                <p class="text-sm text-gray-500 mt-2">우리 함께 가요 • 환자분의 최적 회복을 위한 동행</p>
             </div>
         </footer>
 
