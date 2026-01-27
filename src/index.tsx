@@ -419,7 +419,7 @@ app.get('/', (c) => {
                             <!-- 3D Quest Cards Grid - Extra Large Size -->
                             <div class="parallax-scene grid grid-cols-2 md:grid-cols-4 gap-4 mb-5">
                                 <!-- Quest Card 1 -->
-                                <div class="quest-card-3d relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-100 border-4 border-emerald-200/50 cursor-pointer transform hover:scale-105 transition-all duration-300" data-quest="1" style="box-shadow: 0 12px 35px rgba(16, 185, 129, 0.3);">
+                                <div class="quest-card-3d relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-100 cursor-pointer transform hover:scale-105 transition-all duration-300" data-quest="1" style="box-shadow: 0 12px 35px rgba(16, 185, 129, 0.3);">
                                     <div class="quest-badge" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); top: 10px; right: 10px; width: 44px; height: 44px; font-size: 20px; line-height: 44px; font-weight: bold;">
                                         1
                                     </div>
@@ -428,7 +428,7 @@ app.get('/', (c) => {
                                 </div>
                                 
                                 <!-- Quest Card 2 -->
-                                <div class="quest-card-3d relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-100 border-4 border-blue-200/50 opacity-90 cursor-pointer transform hover:scale-105 transition-all duration-300" data-quest="2" style="box-shadow: 0 12px 35px rgba(59, 130, 246, 0.25);">
+                                <div class="quest-card-3d relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-100 opacity-90 cursor-pointer transform hover:scale-105 transition-all duration-300" data-quest="2" style="box-shadow: 0 12px 35px rgba(59, 130, 246, 0.25);">
                                     <div class="quest-badge" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); top: 10px; right: 10px; width: 44px; height: 44px; font-size: 20px; line-height: 44px; font-weight: bold;">
                                         2
                                     </div>
@@ -437,7 +437,7 @@ app.get('/', (c) => {
                                 </div>
                                 
                                 <!-- Quest Card 3 -->
-                                <div class="quest-card-3d relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-50 to-pink-100 border-4 border-purple-200/50 opacity-90 cursor-pointer transform hover:scale-105 transition-all duration-300" data-quest="3" style="box-shadow: 0 12px 35px rgba(168, 85, 247, 0.25);">
+                                <div class="quest-card-3d relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-50 to-pink-100 opacity-90 cursor-pointer transform hover:scale-105 transition-all duration-300" data-quest="3" style="box-shadow: 0 12px 35px rgba(168, 85, 247, 0.25);">
                                     <div class="quest-badge" style="background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%); top: 10px; right: 10px; width: 44px; height: 44px; font-size: 20px; line-height: 44px; font-weight: bold;">
                                         3
                                     </div>
@@ -446,7 +446,7 @@ app.get('/', (c) => {
                                 </div>
                                 
                                 <!-- Quest Card 4 -->
-                                <div class="quest-card-3d relative overflow-hidden rounded-2xl bg-gradient-to-br from-amber-50 to-orange-100 border-4 border-amber-200/50 opacity-90 cursor-pointer transform hover:scale-105 transition-all duration-300" data-quest="4" style="box-shadow: 0 12px 35px rgba(245, 158, 11, 0.25);">
+                                <div class="quest-card-3d relative overflow-hidden rounded-2xl bg-gradient-to-br from-amber-50 to-orange-100 opacity-90 cursor-pointer transform hover:scale-105 transition-all duration-300" data-quest="4" style="box-shadow: 0 12px 35px rgba(245, 158, 11, 0.25);">
                                     <div class="quest-badge" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); top: 10px; right: 10px; width: 44px; height: 44px; font-size: 20px; line-height: 44px; font-weight: bold;">
                                         4
                                     </div>
