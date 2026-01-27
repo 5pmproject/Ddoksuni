@@ -5,6 +5,10 @@
 
 **핵심 가치**: 정보 제공이 아닌 실행 가능한 의사결정 지원
 
+## 공개 URL
+- **개발 서버**: https://3000-i4obuq255igd4vdlqtq14-a402f90a.sandbox.novita.ai
+- **API 엔드포인트**: https://3000-i4obuq255igd4vdlqtq14-a402f90a.sandbox.novita.ai/api
+
 ## 기술 스택
 - **Backend**: Hono (Cloudflare Workers)
 - **Frontend**: Vanilla JavaScript + Tailwind CSS
