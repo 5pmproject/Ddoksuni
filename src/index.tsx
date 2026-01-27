@@ -96,18 +96,21 @@ app.get('/', (c) => {
             background: linear-gradient(135deg, #8C9785 0%, #636B5C 100%);
           }
           
-          /* 3D Quest Card Styles */
+          /* 3D Quest Card Styles - Enhanced */
           .quest-card-3d {
             position: relative;
-            transition: all 0.3s ease-out;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-style: preserve-3d;
             cursor: pointer;
+            perspective: 1000px;
           }
           
           .quest-card-3d:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 12px 24px -8px rgba(50, 50, 93, 0.2),
-                        0 8px 16px -8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-15px) translateZ(50px) rotateX(5deg) scale(1.05);
+            box-shadow: 0 25px 50px -12px rgba(50, 50, 93, 0.35),
+                        0 15px 35px -15px rgba(0, 0, 0, 0.25),
+                        0 5px 15px -3px rgba(0, 0, 0, 0.1),
+                        inset 0 -5px 15px rgba(255, 255, 255, 0.1);
           }
           
           .quest-card-3d::before {
@@ -118,14 +121,38 @@ app.get('/', (c) => {
             right: 0;
             bottom: 0;
             border-radius: 1rem;
-            background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 50%);
+            background: linear-gradient(135deg, 
+              rgba(255,255,255,0.4) 0%, 
+              rgba(255,255,255,0.2) 25%,
+              rgba(255,255,255,0) 60%);
             opacity: 0;
-            transition: opacity 0.4s;
+            transition: opacity 0.5s ease-out;
             pointer-events: none;
+            z-index: 10;
           }
           
           .quest-card-3d:hover::before {
             opacity: 1;
+          }
+          
+          .quest-card-3d::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: all 0.6s ease-out;
+            pointer-events: none;
+            z-index: 5;
+          }
+          
+          .quest-card-3d:hover::after {
+            width: 300px;
+            height: 300px;
           }
           
           .quest-card-inner {
@@ -137,33 +164,43 @@ app.get('/', (c) => {
             position: absolute;
             top: -15px;
             left: -15px;
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            font-size: 32px;
             font-weight: bold;
             color: white;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3),
-                        inset 0 -3px 8px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease-out;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4),
+                        0 5px 10px rgba(0, 0, 0, 0.3),
+                        inset 0 -5px 10px rgba(0, 0, 0, 0.25),
+                        inset 0 2px 5px rgba(255, 255, 255, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 3px solid rgba(255, 255, 255, 0.3);
           }
           
           .quest-card-3d:hover .quest-badge {
-            transform: scale(1.05);
+            transform: translateZ(80px) scale(1.15) rotate(10deg);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5),
+                        0 8px 15px rgba(0, 0, 0, 0.4),
+                        inset 0 -5px 10px rgba(0, 0, 0, 0.25),
+                        inset 0 2px 5px rgba(255, 255, 255, 0.3);
           }
           
           .quest-card-image {
             width: 100%;
             height: auto;
             border-radius: 1rem;
-            transition: all 0.3s ease-out;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
           }
           
           .quest-card-3d:hover .quest-card-image {
-            transform: scale(1.01);
+            transform: translateZ(30px) scale(1.03);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
           }
           
           .quest-shine {
@@ -270,6 +307,65 @@ app.get('/', (c) => {
           .parallax-scene {
             perspective: 1000px;
           }
+          
+          /* Enhanced 3D Modal Styles */
+          .modal-backdrop {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            animation: fadeIn 0.3s ease-out;
+          }
+          
+          .modal-content-3d {
+            animation: modalSlideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.4),
+                        0 15px 30px -10px rgba(0, 0, 0, 0.3),
+                        0 5px 15px -5px rgba(0, 0, 0, 0.2),
+                        inset 0 -2px 10px rgba(0, 0, 0, 0.1);
+          }
+          
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+          
+          @keyframes modalSlideIn {
+            from {
+              opacity: 0;
+              transform: scale(0.8) translateY(-50px) rotateX(-15deg);
+            }
+            to {
+              opacity: 1;
+              transform: scale(1) translateY(0) rotateX(0deg);
+            }
+          }
+          
+          /* Form Section 3D Effect */
+          .form-section-3d {
+            transition: all 0.3s ease-out;
+            transform-style: preserve-3d;
+          }
+          
+          .form-section-3d:hover {
+            transform: translateZ(5px);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.15);
+          }
+          
+          /* Input 3D Effect */
+          .input-3d {
+            transition: all 0.3s ease-out;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+          }
+          
+          .input-3d:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(140, 151, 133, 0.2),
+                        inset 0 2px 4px rgba(0, 0, 0, 0.05);
+          }
         </style>
     </head>
     <body class="bg-wood-50">
@@ -325,71 +421,83 @@ app.get('/', (c) => {
                             </p>
                             
                             <!-- 3D Quest Cards Grid -->
-                            <div class="parallax-scene grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                            <div class="parallax-scene grid grid-cols-1 md:grid-cols-2 gap-8 mb-4">
                                 <!-- Quest Card 1 -->
-                                <div class="quest-card-3d relative overflow-hidden" data-quest="1">
-                                    <div class="quest-card-inner">
+                                <div class="quest-card-3d relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-100 border-4 border-emerald-200/50" data-quest="1" style="box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);">
+                                    <div class="quest-badge" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                                        1
+                                    </div>
+                                    <div class="quest-card-inner p-4">
                                         <img src="/static/quest-card-1.png" alt="환자분 이야기 듣기" class="quest-card-image">
                                         <div class="quest-shine"></div>
                                     </div>
-                                    <div class="absolute bottom-3 left-3 right-3 bg-white/90 backdrop-blur-sm rounded-lg p-2 shadow-lg">
+                                    <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-3 shadow-2xl border-2 border-white/50">
                                         <div class="flex items-center justify-between">
                                             <div class="flex-1">
-                                                <p class="text-xs font-bold text-gray-700">환자분 이야기 듣기</p>
-                                                <p class="text-xs text-gray-500">약 5분 • 천천히 작성하셔도 괜찮아요</p>
+                                                <p class="text-sm font-bold text-gray-800">🩺 환자분 이야기 듣기</p>
+                                                <p class="text-xs text-gray-600 mt-1">약 5분 • 천천히 작성하셔도 괜찮아요</p>
                                             </div>
-                                            <span class="quest-status status-available">시작</span>
+                                            <span class="quest-status status-available ml-2">시작</span>
                                         </div>
                                     </div>
                                 </div>
                                 
                                 <!-- Quest Card 2 -->
-                                <div class="quest-card-3d relative overflow-hidden opacity-60" data-quest="2">
-                                    <div class="quest-card-inner">
+                                <div class="quest-card-3d relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-100 border-4 border-blue-200/50 opacity-80" data-quest="2" style="box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);">
+                                    <div class="quest-badge" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
+                                        2
+                                    </div>
+                                    <div class="quest-card-inner p-4">
                                         <img src="/static/quest-card-2.png" alt="맞춤 경로 함께 보기" class="quest-card-image">
                                         <div class="quest-shine"></div>
                                     </div>
-                                    <div class="absolute bottom-3 left-3 right-3 bg-white/90 backdrop-blur-sm rounded-lg p-2 shadow-lg">
+                                    <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-3 shadow-2xl border-2 border-white/50">
                                         <div class="flex items-center justify-between">
                                             <div class="flex-1">
-                                                <p class="text-xs font-bold text-gray-700">맞춤 경로 함께 보기</p>
-                                                <p class="text-xs text-gray-500">전문가의 추천을 쉽게 설명해드려요</p>
+                                                <p class="text-sm font-bold text-gray-800">🗺️ 맞춤 경로 함께 보기</p>
+                                                <p class="text-xs text-gray-600 mt-1">전문가의 추천을 쉽게 설명해드려요</p>
                                             </div>
-                                            <span class="quest-status status-locked">잠김</span>
+                                            <span class="quest-status status-locked ml-2">잠김</span>
                                         </div>
                                     </div>
                                 </div>
                                 
                                 <!-- Quest Card 3 -->
-                                <div class="quest-card-3d relative overflow-hidden opacity-60" data-quest="3">
-                                    <div class="quest-card-inner">
+                                <div class="quest-card-3d relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-50 to-pink-100 border-4 border-purple-200/50 opacity-80" data-quest="3" style="box-shadow: 0 10px 30px rgba(168, 85, 247, 0.15);">
+                                    <div class="quest-badge" style="background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);">
+                                        3
+                                    </div>
+                                    <div class="quest-card-inner p-4">
                                         <img src="/static/quest-card-3.png" alt="비용 미리 살펴보기" class="quest-card-image">
                                         <div class="quest-shine"></div>
                                     </div>
-                                    <div class="absolute bottom-3 left-3 right-3 bg-white/90 backdrop-blur-sm rounded-lg p-2 shadow-lg">
+                                    <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-3 shadow-2xl border-2 border-white/50">
                                         <div class="flex items-center justify-between">
                                             <div class="flex-1">
-                                                <p class="text-xs font-bold text-gray-700">비용 미리 살펴보기</p>
-                                                <p class="text-xs text-gray-500">걱정되는 비용, 투명하게 안내해요</p>
+                                                <p class="text-sm font-bold text-gray-800">💰 비용 미리 살펴보기</p>
+                                                <p class="text-xs text-gray-600 mt-1">걱정되는 비용, 투명하게 안내해요</p>
                                             </div>
-                                            <span class="quest-status status-locked">잠김</span>
+                                            <span class="quest-status status-locked ml-2">잠김</span>
                                         </div>
                                     </div>
                                 </div>
                                 
                                 <!-- Quest Card 4 -->
-                                <div class="quest-card-3d relative overflow-hidden opacity-60" data-quest="4">
-                                    <div class="quest-card-inner">
+                                <div class="quest-card-3d relative overflow-hidden rounded-2xl bg-gradient-to-br from-amber-50 to-orange-100 border-4 border-amber-200/50 opacity-80" data-quest="4" style="box-shadow: 0 10px 30px rgba(245, 158, 11, 0.15);">
+                                    <div class="quest-badge" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                                        4
+                                    </div>
+                                    <div class="quest-card-inner p-4">
                                         <img src="/static/quest-card-4.png" alt="좋은 곳 함께 고르기" class="quest-card-image">
                                         <div class="quest-shine"></div>
                                     </div>
-                                    <div class="absolute bottom-3 left-3 right-3 bg-white/90 backdrop-blur-sm rounded-lg p-2 shadow-lg">
+                                    <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-3 shadow-2xl border-2 border-white/50">
                                         <div class="flex items-center justify-between">
                                             <div class="flex-1">
-                                                <p class="text-xs font-bold text-gray-700">좋은 곳 함께 고르기</p>
-                                                <p class="text-xs text-gray-500">환자분께 맞는 기관을 찾아드려요</p>
+                                                <p class="text-sm font-bold text-gray-800">🏥 좋은 곳 함께 고르기</p>
+                                                <p class="text-xs text-gray-600 mt-1">환자분께 맞는 기관을 찾아드려요</p>
                                             </div>
-                                            <span class="quest-status status-locked">잠김</span>
+                                            <span class="quest-status status-locked ml-2">잠김</span>
                                         </div>
                                     </div>
                                 </div>
@@ -432,7 +540,7 @@ app.get('/', (c) => {
                     </div>
                     <form id="patientForm" class="space-y-6">
                         <!-- 기본 정보 섹션 -->
-                        <div class="bg-blue-50 border-2 border-blue-200 rounded-lg p-5">
+                        <div class="form-section-3d bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all">
                             <h3 class="text-lg font-bold text-blue-800 mb-4 flex items-center">
                                 <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">1</span>
                                 기본 정보
@@ -444,7 +552,7 @@ app.get('/', (c) => {
                                     </label>
                                     <input type="text" name="name" required 
                                            placeholder="예: 김영희"
-                                           class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base">
+                                           class="input-3d w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base">
                                 </div>
                                 <div>
                                     <label class="block text-sm font-bold text-gray-800 mb-2">
@@ -452,13 +560,13 @@ app.get('/', (c) => {
                                     </label>
                                     <input type="number" name="age" required 
                                            placeholder="예: 75"
-                                           class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base">
+                                           class="input-3d w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base">
                                 </div>
                             </div>
                         </div>
                         
                         <!-- 진단 정보 섹션 -->
-                        <div class="bg-green-50 border-2 border-green-200 rounded-lg p-5">
+                        <div class="form-section-3d bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all">
                             <h3 class="text-lg font-bold text-green-800 mb-4 flex items-center">
                                 <span class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">2</span>
                                 진단 정보
@@ -470,7 +578,7 @@ app.get('/', (c) => {
                                     </label>
                                     <input type="text" name="diagnosis" required 
                                            placeholder="예: 뇌경색, 뇌출혈, 대장암"
-                                           class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-base">
+                                           class="input-3d w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 text-base">
                                     <p class="text-xs text-gray-600 mt-1 bg-white rounded px-2 py-1">
                                         💡 진료기록지나 진단서에 적힌 병명을 적어주세요
                                     </p>
@@ -484,7 +592,7 @@ app.get('/', (c) => {
                                         </button>
                                     </label>
                                     <input type="date" name="diagnosis_date" required 
-                                           class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-base">
+                                           class="input-3d w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 text-base">
                                     <p class="text-xs text-gray-600 mt-1 bg-white rounded px-2 py-1">
                                         📅 언제 쓰러지셨거나 수술하셨나요?
                                     </p>
@@ -493,7 +601,7 @@ app.get('/', (c) => {
                         </div>
                         
                         <!-- 건강 상태 섹션 -->
-                        <div class="bg-purple-50 border-2 border-purple-200 rounded-lg p-5">
+                        <div class="form-section-3d bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all">
                             <h3 class="text-lg font-bold text-purple-800 mb-4 flex items-center">
                                 <span class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">3</span>
                                 건강 상태 평가
@@ -600,71 +708,11 @@ app.get('/', (c) => {
                         </div>
                         
                         <!-- 보험 정보 섹션 -->
-                        <div class="bg-orange-50 border-2 border-orange-200 rounded-lg p-5">
+                        <div class="form-section-3d bg-gradient-to-br from-orange-50 to-amber-50 border-2 border-orange-200 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all">
                             <h3 class="text-lg font-bold text-orange-800 mb-4 flex items-center">
-                                <span class="bg-orange-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">4</span>
+                                <span class="bg-orange-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">4️⃣</span>
                                 보험 및 현재 위치
                             </h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <label class="flex items-center text-sm font-medium text-gray-700 mb-2">
-                                    의식 상태 평가 (Glasgow Coma Scale)
-                                    <button type="button" onclick="showGCSGuide()" 
-                                            class="ml-2 text-wood-500 hover:text-wood-700">
-                                        <i class="fas fa-question-circle"></i>
-                                    </button>
-                                </label>
-                                <div class="bg-gray-50 rounded-lg p-4 space-y-3">
-                                    <!-- 눈 뜨기 반응 -->
-                                    <div>
-                                        <label class="text-xs font-medium text-gray-600 mb-1 block">1. 눈 뜨기 반응 (Eye Opening)</label>
-                                        <select name="gcs_eye" onchange="updateGCSTotal()" 
-                                                class="w-full px-3 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-primary-500">
-                                            <option value="4">자발적으로 눈을 뜸 (4점)</option>
-                                            <option value="3">말에 반응하여 눈을 뜸 (3점)</option>
-                                            <option value="2">통증에 반응하여 눈을 뜸 (2점)</option>
-                                            <option value="1">전혀 눈을 뜨지 않음 (1점)</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <!-- 언어 반응 -->
-                                    <div>
-                                        <label class="text-xs font-medium text-gray-600 mb-1 block">2. 언어 반응 (Verbal Response)</label>
-                                        <select name="gcs_verbal" onchange="updateGCSTotal()" 
-                                                class="w-full px-3 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-primary-500">
-                                            <option value="5">대화 가능하고 지남력 정상 (5점)</option>
-                                            <option value="4">대화는 되나 지남력 저하/혼란스러움 (4점)</option>
-                                            <option value="3">단어만 말함, 문장 구성 불가 (3점)</option>
-                                            <option value="2">이해할 수 없는 소리만 냄 (2점)</option>
-                                            <option value="1">전혀 소리를 내지 않음 (1점)</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <!-- 운동 반응 -->
-                                    <div>
-                                        <label class="text-xs font-medium text-gray-600 mb-1 block">3. 운동 반응 (Motor Response)</label>
-                                        <select name="gcs_motor" onchange="updateGCSTotal()" 
-                                                class="w-full px-3 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-primary-500">
-                                            <option value="6">명령에 따라 움직임 (6점)</option>
-                                            <option value="5">통증 위치를 정확히 찾아 손으로 제거 (5점)</option>
-                                            <option value="4">통증에 손을 뻗으나 부정확 (4점)</option>
-                                            <option value="3">통증에 팔을 구부림 (3점)</option>
-                                            <option value="2">통증에 팔을 펴는 반응 (2점)</option>
-                                            <option value="1">전혀 움직이지 않음 (1점)</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <!-- 총점 표시 -->
-                                    <div class="bg-white rounded border-2 border-blue-500 p-3 flex items-center justify-between">
-                                        <span class="text-sm font-semibold text-gray-700">GCS 총점:</span>
-                                        <div class="flex items-center space-x-2">
-                                            <span id="gcsTotal" class="text-2xl font-bold text-blue-600">15점</span>
-                                            <span id="gcsLevel" class="text-xs px-2 py-1 rounded bg-green-100 text-green-800">정상</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="text-xs text-gray-500 mt-2">
-                                    <i class="fas fa-info-circle"></i> 15점: 정상 | 13-14점: 경미한 장애 | 9-12점: 중등도 | 8점 이하: 중증
-                                </p>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <label class="flex items-center text-sm font-bold text-gray-800 mb-2">
@@ -675,7 +723,7 @@ app.get('/', (c) => {
                                         </button>
                                     </label>
                                     <select name="insurance_type" 
-                                            class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 text-base">
+                                            class="input-3d w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 text-base">
                                         <option value="employee">💼 직장가입자 (회사 다님)</option>
                                         <option value="local">🏠 지역가입자 (자영업/무직)</option>
                                         <option value="medical_aid">❤️ 의료급여 (기초수급자)</option>

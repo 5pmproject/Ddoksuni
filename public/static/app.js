@@ -2101,21 +2101,29 @@ function formatCurrency(amount) {
 // 모달 생성 함수
 function createModal(content, widthClass = 'max-w-2xl') {
   const modal = document.createElement('div');
-  modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+  modal.className = 'modal-backdrop fixed inset-0 bg-black bg-opacity-70 backdrop-blur-md flex items-center justify-center z-50 p-4';
   modal.onclick = (e) => {
-    if (e.target === modal) modal.remove();
+    if (e.target === modal) {
+      modal.style.animation = 'fadeOut 0.3s ease-out';
+      setTimeout(() => modal.remove(), 300);
+    }
   };
   
   modal.innerHTML = `
-    <div class="bg-white rounded-lg ${widthClass} w-full max-h-[90vh] overflow-y-auto">
-      <div class="sticky top-0 bg-white border-b px-6 py-4 flex justify-between items-center">
-        <h2 class="text-xl font-bold text-gray-800">상세 정보</h2>
-        <button onclick="this.closest('.fixed').remove()" 
-                class="text-gray-500 hover:text-gray-700 text-2xl">
-          <i class="fas fa-times"></i>
+    <div class="modal-content-3d bg-gradient-to-br from-white to-gray-50 rounded-2xl ${widthClass} w-full max-h-[90vh] overflow-hidden border-4 border-white/50 shadow-2xl">
+      <div class="sticky top-0 bg-gradient-to-r from-primary-500 to-primary-600 backdrop-blur-lg border-b-4 border-white/30 px-6 py-4 flex justify-between items-center shadow-lg">
+        <h2 class="text-2xl font-bold text-white flex items-center">
+          <span class="bg-white/20 rounded-full w-10 h-10 flex items-center justify-center mr-3">
+            <i class="fas fa-clipboard-list"></i>
+          </span>
+          퀘스트 진행
+        </h2>
+        <button onclick="this.closest('.modal-backdrop').remove()" 
+                class="bg-white/20 hover:bg-white/30 text-white rounded-full w-10 h-10 flex items-center justify-center transition-all hover:rotate-90 hover:scale-110">
+          <i class="fas fa-times text-xl"></i>
         </button>
       </div>
-      <div class="p-6">
+      <div class="p-6 overflow-y-auto max-h-[calc(90vh-80px)]">
         ${content}
       </div>
     </div>
