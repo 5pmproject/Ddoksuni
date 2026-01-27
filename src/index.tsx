@@ -316,12 +316,10 @@ app.get('/', (c) => {
                 <div class="flex items-start">
                     <div class="flex-1">
                         <h2 class="text-3xl font-bold text-gray-900 mb-2 leading-tight">
-                            <span class="text-wood-600">간병하는 당신도</span><br>
-                            <span class="text-primary-600">돌봄이 필요해요</span>
+                            <span class="text-wood-600">간병하는 당신도</span> <span class="text-primary-600">돌봄이 필요해요</span>
                         </h2>
                         <p class="text-wood-900 mb-4 text-base leading-relaxed">
-                            혼자 감당하기 어려운 전원 준비,<br>
-                            똑순이가 <strong class="text-primary-700">환자분께 맞춤 경로</strong>를 알려드릴게요.
+                            혼자 감당하기 어려운 전원 준비, 똑순이가 <strong class="text-primary-700">환자분께 맞춤 경로</strong>를 알려드릴게요.
                         </p>
                         <div class="bg-white rounded-lg p-5 text-sm text-wood-900 shadow-md">
                             <p class="font-bold text-primary-700 mb-4 text-lg flex items-center">
