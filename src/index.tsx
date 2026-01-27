@@ -36,7 +36,7 @@ app.get('/', (c) => {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>하이브리브 - 재활·요양 전원 의사결정 지원 플랫폼</title>
+        <title>똑순이 - 간병하는 당신을 돌봐드립니다</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
         <script>
@@ -114,8 +114,8 @@ app.get('/', (c) => {
             <div class="max-w-7xl mx-auto px-4 py-6">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-3">
-                        <i class="fas fa-hospital-user text-3xl"></i>
-                        <h1 class="text-3xl font-bold">하이브리브</h1>
+                        <i class="fas fa-user-nurse text-3xl"></i>
+                        <h1 class="text-3xl font-bold">똑순이</h1>
                     </div>
                     <nav class="hidden md:flex space-x-6">
                         <a href="#dashboard" class="hover:text-wood-100 transition">대시보드</a>
@@ -124,7 +124,7 @@ app.get('/', (c) => {
                         <a href="#facilities" class="hover:text-wood-100 transition">기관 찾기</a>
                     </nav>
                 </div>
-                <p class="mt-2 text-wood-100">간병하는 당신을 돌봐드립니다</p>
+                <p class="mt-2 text-wood-100">간병하는 당신도 돌봄이 필요해요</p>
             </div>
         </header>
 
@@ -171,16 +171,12 @@ app.get('/', (c) => {
                     </div>
                     <div class="ml-6 flex-1">
                         <h2 class="text-3xl font-bold text-gray-900 mb-2 leading-tight">
-                            <span class="text-wood-600">간병하는 당신을</span><br>
-                            <span class="text-primary-600">돌봐드립니다</span>
+                            <span class="text-wood-600">간병하는 당신도</span><br>
+                            <span class="text-primary-600">돌봄이 필요해요</span>
                         </h2>
-                        <p class="text-wood-800 mb-4 text-xl font-medium">
-                            우리 함께 가요.
-                        </p>
                         <p class="text-wood-900 mb-4 text-base leading-relaxed">
                             혼자 감당하기 어려운 전원 준비,<br>
-                            하이브리브가 <strong class="text-primary-700">따뜻한 동행자</strong>가 되어드리겠습니다.<br>
-                            환자분의 상태에 꼭 맞는 경로를 함께 찾아가요.
+                            똑순이가 <strong class="text-primary-700">환자분께 맞춤 경로</strong>를 알려드릴게요.
                         </p>
                         <div class="bg-white rounded-lg p-5 text-sm text-wood-900 shadow-md">
                             <p class="font-bold text-primary-700 mb-3 text-lg flex items-center">
@@ -572,7 +568,7 @@ app.get('/', (c) => {
         <!-- 푸터 -->
         <footer class="bg-gray-900 text-wood-200 py-8 mt-12">
             <div class="max-w-7xl mx-auto px-4 text-center">
-                <p class="text-gray-400">© 2025 하이브리브. 돌봄, 간병하는 당신을 돌봐드립니다</p>
+                <p class="text-gray-400">© 2025 똑순이. 간병하는 당신도 돌봄이 필요해요</p>
                 <p class="text-sm text-gray-500 mt-2">우리 함께 가요 • 환자분의 최적 회복을 위한 동행</p>
             </div>
         </footer>
