@@ -86,77 +86,113 @@ app.get('/', (c) => {
 
         <!-- 메인 컨텐츠 -->
         <main class="max-w-7xl mx-auto px-4 py-8">
-            <!-- 대시보드 섹션 -->
-            <section id="dashboard" class="mb-12">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">
-                    <i class="fas fa-chart-line text-primary mr-2"></i>
-                    환자 대시보드
-                </h2>
-                <div id="patientsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- 환자 카드가 여기에 동적으로 추가됩니다 -->
-                </div>
-            </section>
-
-            <!-- 기능 카드 섹션 -->
-            <section class="mb-12">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">
-                    <i class="fas fa-tools text-primary mr-2"></i>
-                    주요 기능
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <!-- 경로 추천 -->
-                    <div class="bg-white rounded-lg shadow-md p-6 card-hover cursor-pointer" onclick="showPathway()">
-                        <div class="text-center">
-                            <div class="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-route text-3xl text-blue-600"></i>
-                            </div>
-                            <h3 class="text-lg font-semibold text-gray-800 mb-2">경로 추천</h3>
-                            <p class="text-sm text-gray-600">환자 상태 기반 최적 전원 경로 제시</p>
+            <!-- 진행 단계 표시 -->
+            <div id="progressSteps" class="mb-8">
+                <div class="flex items-center justify-center space-x-4">
+                    <div id="step1" class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
+                            1
                         </div>
+                        <span class="ml-2 text-sm font-medium text-gray-700">환자 정보</span>
                     </div>
-
-                    <!-- 비용 계산 -->
-                    <div class="bg-white rounded-lg shadow-md p-6 card-hover cursor-pointer" onclick="showCostCalculator()">
-                        <div class="text-center">
-                            <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-calculator text-3xl text-green-600"></i>
-                            </div>
-                            <h3 class="text-lg font-semibold text-gray-800 mb-2">비용 계산</h3>
-                            <p class="text-sm text-gray-600">실시간 비용 시뮬레이션 및 비교</p>
+                    <div class="w-16 h-1 bg-gray-300"></div>
+                    <div id="step2" class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold">
+                            2
                         </div>
+                        <span class="ml-2 text-sm font-medium text-gray-400">전원 경로</span>
                     </div>
-
-                    <!-- 기관 찾기 -->
-                    <div class="bg-white rounded-lg shadow-md p-6 card-hover cursor-pointer" onclick="showFacilities()">
-                        <div class="text-center">
-                            <div class="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-hospital text-3xl text-purple-600"></i>
-                            </div>
-                            <h3 class="text-lg font-semibold text-gray-800 mb-2">기관 찾기</h3>
-                            <p class="text-sm text-gray-600">조건별 재활·요양 기관 검색</p>
+                    <div class="w-16 h-1 bg-gray-300"></div>
+                    <div id="step3" class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold">
+                            3
                         </div>
+                        <span class="ml-2 text-sm font-medium text-gray-400">비용 확인</span>
                     </div>
-
-                    <!-- 전원 체크리스트 -->
-                    <div class="bg-white rounded-lg shadow-md p-6 card-hover cursor-pointer" onclick="showChecklist()">
-                        <div class="text-center">
-                            <div class="bg-yellow-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-tasks text-3xl text-yellow-600"></i>
-                            </div>
-                            <h3 class="text-lg font-semibold text-gray-800 mb-2">체크리스트</h3>
-                            <p class="text-sm text-gray-600">전원 준비 사항 관리</p>
+                    <div class="w-16 h-1 bg-gray-300"></div>
+                    <div id="step4" class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold">
+                            4
                         </div>
+                        <span class="ml-2 text-sm font-medium text-gray-400">기관 찾기</span>
                     </div>
                 </div>
-            </section>
+            </div>
 
-            <!-- 환자 등록 폼 -->
+            <!-- 웰컴 메시지 (최초 진입 시만) -->
+            <div id="welcomeMessage" class="mb-8 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 rounded-lg p-8 border-2 border-blue-300 shadow-lg">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-hand-holding-heart text-5xl text-blue-600"></i>
+                    </div>
+                    <div class="ml-6 flex-1">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-3">
+                            <span class="text-blue-600">환영합니다!</span> 하이브리브가 최적의 전원 경로를 찾아드립니다
+                        </h2>
+                        <p class="text-gray-700 mb-4 text-lg">
+                            재활·요양 전원은 환자의 회복에 매우 중요한 결정입니다. 
+                            하이브리브는 환자의 상태를 분석하여 <strong class="text-blue-700">맞춤형 전원 경로와 비용을 추천</strong>해드립니다.
+                        </p>
+                        <div class="bg-white rounded-lg p-5 text-sm text-gray-600 shadow-md">
+                            <p class="font-bold text-blue-700 mb-3 text-lg flex items-center">
+                                <i class="fas fa-route mr-2 text-2xl"></i>
+                                4단계로 간편하게 전원 계획 수립:
+                            </p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div class="flex items-start bg-blue-50 rounded p-3">
+                                    <span class="bg-blue-600 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm mr-3 flex-shrink-0">1</span>
+                                    <div>
+                                        <strong class="text-blue-700">환자 정보 입력</strong>
+                                        <p class="text-xs text-gray-600 mt-1">약 5분 소요 • ADL 점수, GCS 등</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start bg-green-50 rounded p-3">
+                                    <span class="bg-green-600 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm mr-3 flex-shrink-0">2</span>
+                                    <div>
+                                        <strong class="text-green-700">맞춤 경로 확인</strong>
+                                        <p class="text-xs text-gray-600 mt-1">AI 기반 최적 전원 경로 추천</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start bg-purple-50 rounded p-3">
+                                    <span class="bg-purple-600 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm mr-3 flex-shrink-0">3</span>
+                                    <div>
+                                        <strong class="text-purple-700">예상 비용 계산</strong>
+                                        <p class="text-xs text-gray-600 mt-1">단계별 비용 및 본인부담금</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start bg-yellow-50 rounded p-3">
+                                    <span class="bg-yellow-600 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm mr-3 flex-shrink-0">4</span>
+                                    <div>
+                                        <strong class="text-yellow-700">기관 찾기</strong>
+                                        <p class="text-xs text-gray-600 mt-1">조건에 맞는 재활·요양 기관</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 bg-yellow-50 border border-yellow-300 rounded-lg p-3 text-center">
+                            <p class="text-yellow-800 font-semibold">
+                                <i class="fas fa-arrow-down mr-2 animate-bounce inline-block"></i>
+                                아래에서 환자 정보를 입력하고 맞춤 전원 계획을 받아보세요!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1단계: 환자 등록 폼 -->
             <section id="registerForm" class="mb-12">
-                <div class="bg-white rounded-lg shadow-md p-8">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6">
-                        <i class="fas fa-user-plus text-primary mr-2"></i>
-                        환자 등록
-                    </h2>
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-800">
+                                <i class="fas fa-user-plus text-blue-600 mr-2"></i>
+                                1단계: 환자 정보 입력
+                            </h2>
+                            <p class="text-sm text-gray-600 mt-1">
+                                정확한 전원 경로와 비용 추천을 위해 환자의 상태 정보를 입력해주세요
+                            </p>
+                        </div>
+                    </div>
                     <form id="patientForm" class="space-y-4">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
@@ -321,10 +357,123 @@ app.get('/', (c) => {
                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
                         </div>
                         <button type="submit" 
-                                class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition font-semibold">
-                            <i class="fas fa-plus mr-2"></i>환자 등록하기
+                                class="w-full bg-blue-600 text-white py-4 px-6 rounded-lg hover:bg-blue-700 transition font-semibold text-lg shadow-lg">
+                            <i class="fas fa-arrow-right mr-2"></i>
+                            환자 정보 입력 완료 및 맞춤 추천 받기
                         </button>
                     </form>
+                </div>
+            </section>
+
+            <!-- 2단계: 전원 경로 추천 결과 (등록 후 표시) -->
+            <section id="pathwayResult" class="mb-12 hidden">
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-800">
+                                <i class="fas fa-route text-blue-600 mr-2"></i>
+                                2단계: <span id="patientNameDisplay"></span>님의 맞춤 전원 경로
+                            </h2>
+                            <p class="text-sm text-gray-600 mt-1">
+                                환자 상태 분석 결과, 다음과 같은 전원 경로를 추천합니다
+                            </p>
+                        </div>
+                    </div>
+                    <div id="pathwayContent"></div>
+                    
+                    <!-- 다음 단계 안내 -->
+                    <div class="mt-6 bg-gradient-to-r from-green-50 to-blue-50 border border-green-300 rounded-lg p-4">
+                        <p class="text-gray-700 text-center mb-3">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                            <strong class="text-green-700">추천 경로를 확인하셨나요?</strong> 
+                            이제 예상 비용과 적합한 기관을 찾아보세요!
+                        </p>
+                        <div class="flex space-x-3">
+                            <button onclick="goToStep(3)" 
+                                    class="flex-1 bg-gradient-to-r from-green-600 to-green-500 text-white py-4 px-6 rounded-lg hover:from-green-700 hover:to-green-600 transition font-bold text-lg shadow-lg">
+                                <i class="fas fa-arrow-right mr-2"></i>
+                                다음: 예상 비용 확인하기
+                            </button>
+                        </div>
+                        <button onclick="goToStep(4)" 
+                                class="mt-2 w-full bg-white border-2 border-purple-300 text-purple-700 py-2 px-4 rounded-lg hover:bg-purple-50 transition font-semibold text-sm">
+                            <i class="fas fa-hospital mr-2"></i>
+                            또는 기관 바로 찾아보기
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3단계: 비용 계산 결과 (경로 확인 후 표시) -->
+            <section id="costResult" class="mb-12 hidden">
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-800">
+                                <i class="fas fa-calculator text-green-600 mr-2"></i>
+                                3단계: 예상 비용 안내
+                            </h2>
+                            <p class="text-sm text-gray-600 mt-1">
+                                추천 경로별 예상 비용을 확인하세요
+                            </p>
+                        </div>
+                    </div>
+                    <div id="costContent"></div>
+                    
+                    <!-- 다음 단계 안내 -->
+                    <div class="mt-6 bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-300 rounded-lg p-4">
+                        <p class="text-gray-700 text-center mb-3">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                            <strong class="text-purple-700">예상 비용을 확인하셨나요?</strong> 
+                            이제 조건에 맞는 재활·요양 기관을 찾아보세요!
+                        </p>
+                        <button onclick="goToStep(4)" 
+                                class="w-full bg-gradient-to-r from-purple-600 to-purple-500 text-white py-4 px-6 rounded-lg hover:from-purple-700 hover:to-purple-600 transition font-bold text-lg shadow-lg">
+                            <i class="fas fa-arrow-right mr-2"></i>
+                            다음: 적합한 기관 찾기
+                        </button>
+                        <button onclick="showDetailedCostCalculator()" 
+                                class="mt-2 w-full bg-white border-2 border-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-50 transition font-semibold text-sm">
+                            <i class="fas fa-chart-line mr-2"></i>
+                            상세 비용 시뮬레이션 (선택사항)
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4단계: 기관 찾기 (비용 확인 후 표시) -->
+            <section id="facilitiesResult" class="mb-12 hidden">
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-800">
+                                <i class="fas fa-hospital text-purple-600 mr-2"></i>
+                                4단계: 적합한 재활·요양 기관 찾기
+                            </h2>
+                            <p class="text-sm text-gray-600 mt-1">
+                                추천 경로에 맞는 기관을 찾아보세요
+                            </p>
+                        </div>
+                    </div>
+                    <div id="facilitiesContent"></div>
+                    
+                    <!-- 완료 안내 -->
+                    <div class="mt-6 bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-300 rounded-lg p-4">
+                        <p class="text-gray-700 text-center mb-3">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <strong class="text-yellow-700">기관 정보를 확인하셨나요?</strong> 
+                            전원 준비를 위한 체크리스트를 확인하세요!
+                        </p>
+                        <button onclick="showChecklist()" 
+                                class="w-full bg-gradient-to-r from-yellow-600 to-orange-500 text-white py-4 px-6 rounded-lg hover:from-yellow-700 hover:to-orange-600 transition font-bold text-lg shadow-lg">
+                            <i class="fas fa-tasks mr-2"></i>
+                            전원 준비 체크리스트 확인하기
+                        </button>
+                        <p class="text-xs text-gray-600 text-center mt-3">
+                            <i class="fas fa-info-circle mr-1"></i>
+                            체크리스트를 통해 전원에 필요한 서류와 절차를 빠짐없이 준비하세요.
+                        </p>
+                    </div>
                 </div>
             </section>
 

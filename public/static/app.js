@@ -1,11 +1,12 @@
 // 하이브리브 - 프론트엔드 애플리케이션
 
 const API_BASE = '/api';
+let currentPatient = null; // 현재 등록된 환자 정보
 
 // 페이지 로드 시 초기화
 document.addEventListener('DOMContentLoaded', () => {
-  loadPatients();
   setupEventListeners();
+  // 환자 목록 로드는 제거 - 단일 플로우로 변경
 });
 
 // 이벤트 리스너 설정
@@ -13,6 +14,71 @@ function setupEventListeners() {
   const form = document.getElementById('patientForm');
   if (form) {
     form.addEventListener('submit', handlePatientSubmit);
+  }
+}
+
+// 진행 단계 업데이트
+function updateProgressSteps(currentStep) {
+  // 모든 단계 초기화
+  for (let i = 1; i <= 4; i++) {
+    const stepEl = document.getElementById(`step${i}`);
+    const circle = stepEl.querySelector('div');
+    const text = stepEl.querySelector('span');
+    
+    if (i < currentStep) {
+      // 완료된 단계
+      circle.className = 'w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center font-bold';
+      circle.innerHTML = '<i class="fas fa-check"></i>';
+      text.className = 'ml-2 text-sm font-medium text-green-700';
+    } else if (i === currentStep) {
+      // 현재 단계
+      circle.className = 'w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold';
+      circle.textContent = i;
+      text.className = 'ml-2 text-sm font-medium text-gray-700';
+    } else {
+      // 미완료 단계
+      circle.className = 'w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold';
+      circle.textContent = i;
+      text.className = 'ml-2 text-sm font-medium text-gray-400';
+    }
+  }
+}
+
+// 단계 이동
+function goToStep(step) {
+  updateProgressSteps(step);
+  
+  // 섹션 표시/숨김
+  const sections = ['registerForm', 'pathwayResult', 'costResult', 'facilitiesResult'];
+  sections.forEach((id, index) => {
+    const section = document.getElementById(id);
+    if (section) {
+      if (index + 1 === step) {
+        section.classList.remove('hidden');
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        section.classList.add('hidden');
+      }
+    }
+  });
+  
+  // 웰컴 메시지는 1단계에만 표시
+  const welcomeMsg = document.getElementById('welcomeMessage');
+  if (welcomeMsg) {
+    if (step === 1) {
+      welcomeMsg.classList.remove('hidden');
+    } else {
+      welcomeMsg.classList.add('hidden');
+    }
+  }
+  
+  // 각 단계별 콘텐츠 로드
+  if (step === 2 && currentPatient) {
+    loadPathwayRecommendation();
+  } else if (step === 3 && currentPatient) {
+    loadCostEstimation();
+  } else if (step === 4 && currentPatient) {
+    loadFacilities();
   }
 }
 
@@ -674,24 +740,267 @@ async function handlePatientSubmit(e) {
   };
   
   try {
+    // 로딩 표시
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>분석 중...';
+    
     const response = await axios.post(`${API_BASE}/patients`, data);
     
     if (response.data.success) {
-      showSuccess('환자가 성공적으로 등록되었습니다!');
-      e.target.reset();
-      updateADLValue(50);
-      updateGCSTotal();
-      loadPatients();
+      // 환자 정보 저장
+      currentPatient = {
+        id: response.data.data.id,
+        ...data
+      };
       
       // 체크리스트 자동 생성
       await axios.post(`${API_BASE}/checklists/generate`, {
-        patientId: response.data.data.id,
+        patientId: currentPatient.id,
         transferType: 'acute_to_rehab'
       });
+      
+      showSuccess('환자 정보가 등록되었습니다! 맞춤형 전원 경로를 분석 중입니다...');
+      
+      // 폼 숨기기 및 2단계로 자동 이동 (웰컴 메시지도 숨김)
+      setTimeout(() => {
+        document.getElementById('welcomeMessage').classList.add('hidden');
+        goToStep(2);
+      }, 1500);
     }
+    
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalText;
   } catch (error) {
     console.error('Failed to register patient:', error);
-    showError('환자 등록에 실패했습니다.');
+    showError('환자 등록에 실패했습니다. 다시 시도해주세요.');
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalText;
+  }
+}
+
+// 경로 추천 로드
+async function loadPathwayRecommendation() {
+  try {
+    const response = await axios.get(`${API_BASE}/patients/${currentPatient.id}`);
+    const { patient, pathways } = response.data.data;
+    
+    // 환자 이름 표시
+    document.getElementById('patientNameDisplay').textContent = patient.name;
+    
+    const content = document.getElementById('pathwayContent');
+    
+    if (pathways.length === 0) {
+      content.innerHTML = '<p class="text-gray-500 text-center py-8">경로 추천 정보를 불러올 수 없습니다.</p>';
+      return;
+    }
+    
+    // 환자 상태 요약
+    const statusSummary = `
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-5 mb-6">
+        <h3 class="font-bold text-blue-800 mb-3 flex items-center">
+          <i class="fas fa-user-injured mr-2"></i>
+          환자 상태 요약
+        </h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+          <div>
+            <span class="text-gray-600">중증도:</span>
+            <span class="font-semibold ml-2 ${getSeverityColor(patient.severity)}">${getSeverityLabel(patient.severity)}</span>
+          </div>
+          <div>
+            <span class="text-gray-600">ADL 점수:</span>
+            <span class="font-semibold ml-2">${patient.adl_score}점</span>
+          </div>
+          <div>
+            <span class="text-gray-600">의식 상태:</span>
+            <span class="font-semibold ml-2">${patient.consciousness_level}</span>
+          </div>
+          <div>
+            <span class="text-gray-600">장기요양등급:</span>
+            <span class="font-semibold ml-2">${patient.ltc_grade ? patient.ltc_grade + '급' : '미신청'}</span>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    // 경로 단계 표시
+    const pathwaySteps = pathways.map((pathway, index) => `
+      <div class="relative ${index < pathways.length - 1 ? 'mb-6' : ''}">
+        ${index < pathways.length - 1 ? '<div class="absolute left-6 top-16 bottom-0 w-0.5 bg-gray-300"></div>' : ''}
+        <div class="flex items-start">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full ${index === 0 ? 'bg-blue-600' : 'bg-gray-400'} text-white flex items-center justify-center font-bold text-lg z-10">
+            ${pathway.step_order}
+          </div>
+          <div class="ml-4 flex-1 bg-gray-50 rounded-lg p-5 border-2 ${index === 0 ? 'border-blue-500' : 'border-gray-200'}">
+            <div class="flex items-center justify-between mb-2">
+              <h4 class="font-bold text-lg text-gray-800">${getPathwayTypeLabel(pathway.step_type)}</h4>
+              <span class="px-3 py-1 text-sm font-semibold rounded-full ${getPathwayTypeColor(pathway.step_type)}">
+                ${pathway.duration_weeks}주 예상
+              </span>
+            </div>
+            <p class="text-gray-700 mb-3">${pathway.treatment_goal}</p>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-gray-600">
+                <i class="fas fa-won-sign mr-1"></i>
+                예상 비용: <strong class="text-gray-800">${formatCurrency(pathway.estimated_cost)}</strong>
+              </span>
+              ${pathway.ltc_application_timing ? 
+                '<span class="text-orange-600 font-semibold"><i class="fas fa-exclamation-circle mr-1"></i>장기요양등급 신청 권장 시점</span>' 
+                : ''}
+            </div>
+          </div>
+        </div>
+      </div>
+    `).join('');
+    
+    content.innerHTML = statusSummary + '<div class="space-y-4">' + pathwaySteps + '</div>';
+    
+  } catch (error) {
+    console.error('Failed to load pathway:', error);
+    showError('경로 추천을 불러오는데 실패했습니다.');
+  }
+}
+
+// 비용 계산 로드
+async function loadCostEstimation() {
+  try {
+    const response = await axios.get(`${API_BASE}/patients/${currentPatient.id}`);
+    const { patient, pathways } = response.data.data;
+    
+    const content = document.getElementById('costContent');
+    
+    if (pathways.length === 0) {
+      content.innerHTML = '<p class="text-gray-500 text-center py-8">비용 정보를 불러올 수 없습니다.</p>';
+      return;
+    }
+    
+    // 전체 비용 계산
+    const totalCost = pathways.reduce((sum, p) => sum + p.estimated_cost, 0);
+    const totalWeeks = pathways.reduce((sum, p) => sum + p.duration_weeks, 0);
+    const totalMonths = Math.ceil(totalWeeks / 4);
+    
+    const costSummary = `
+      <div class="bg-gradient-to-r from-green-50 to-blue-50 border-2 border-green-500 rounded-lg p-6 mb-6">
+        <div class="text-center mb-4">
+          <h3 class="text-2xl font-bold text-gray-800 mb-2">전체 예상 비용</h3>
+          <div class="text-5xl font-bold text-green-600 mb-2">${formatCurrency(totalCost)}</div>
+          <p class="text-gray-600">전체 기간: 약 ${totalMonths}개월 (${totalWeeks}주)</p>
+        </div>
+        <div class="bg-yellow-50 border border-yellow-200 rounded p-4 mt-4">
+          <p class="text-sm text-yellow-800 text-center">
+            <i class="fas fa-info-circle mr-1"></i>
+            실제 비용은 ±15% 범위로 변동될 수 있습니다. 기관별 비급여 항목과 간병 방식에 따라 차이가 있습니다.
+          </p>
+        </div>
+      </div>
+    `;
+    
+    // 단계별 비용 상세
+    const costDetails = pathways.map((pathway, index) => `
+      <div class="bg-white border border-gray-200 rounded-lg p-5 mb-4">
+        <div class="flex items-center justify-between mb-3">
+          <h4 class="font-bold text-gray-800">
+            ${getPathwayTypeLabel(pathway.step_type)}
+            <span class="text-sm font-normal text-gray-600 ml-2">(${pathway.duration_weeks}주)</span>
+          </h4>
+          <span class="text-xl font-bold text-green-600">${formatCurrency(pathway.estimated_cost)}</span>
+        </div>
+        <div class="text-sm text-gray-600 space-y-1">
+          <p><i class="fas fa-arrow-right text-gray-400 mr-2"></i>월평균: ${formatCurrency(Math.round(pathway.estimated_cost / (pathway.duration_weeks / 4)))}</p>
+          <p><i class="fas fa-calendar text-gray-400 mr-2"></i>예상 기간: ${pathway.duration_weeks}주 (약 ${Math.ceil(pathway.duration_weeks / 4)}개월)</p>
+        </div>
+      </div>
+    `).join('');
+    
+    content.innerHTML = costSummary + '<h3 class="font-bold text-gray-800 mb-4 text-lg">단계별 비용 상세</h3>' + costDetails;
+    
+  } catch (error) {
+    console.error('Failed to load cost:', error);
+    showError('비용 정보를 불러오는데 실패했습니다.');
+  }
+}
+
+// 기관 찾기 로드
+async function loadFacilities() {
+  try {
+    const response = await axios.get(`${API_BASE}/patients/${currentPatient.id}`);
+    const { pathways } = response.data.data;
+    
+    // 첫 번째 단계의 기관 유형 가져오기
+    const firstStepType = pathways[0]?.step_type || 'rehabilitation';
+    
+    const facilitiesResponse = await axios.get(`${API_BASE}/facilities/search?type=${firstStepType}`);
+    const facilities = facilitiesResponse.data.data;
+    
+    const content = document.getElementById('facilitiesContent');
+    
+    const intro = `
+      <div class="bg-purple-50 border border-purple-200 rounded-lg p-5 mb-6">
+        <h3 class="font-bold text-purple-800 mb-2">
+          <i class="fas fa-info-circle mr-2"></i>
+          추천 기관 유형: ${getPathwayTypeLabel(firstStepType)}
+        </h3>
+        <p class="text-sm text-gray-700">
+          환자의 상태 분석 결과, 첫 번째 단계로 <strong>${getPathwayTypeLabel(firstStepType)}</strong>를 추천합니다.
+          아래 기관들을 참고하여 상담을 진행해보세요.
+        </p>
+      </div>
+    `;
+    
+    if (facilities.length === 0) {
+      content.innerHTML = intro + '<p class="text-gray-500 text-center py-8">해당 유형의 기관 정보가 없습니다.</p>';
+      return;
+    }
+    
+    const facilityList = facilities.map(facility => `
+      <div class="bg-white border border-gray-200 rounded-lg p-5 hover:shadow-lg transition mb-4">
+        <div class="flex justify-between items-start mb-3">
+          <div>
+            <h4 class="font-bold text-lg text-gray-800 mb-1">${facility.name}</h4>
+            <p class="text-sm text-gray-600">
+              <i class="fas fa-map-marker-alt mr-1"></i>${facility.address}
+            </p>
+          </div>
+          <span class="px-3 py-1 text-sm font-semibold rounded-full ${getFacilityTypeColor(facility.type)}">
+            ${getFacilityTypeLabel(facility.type)}
+          </span>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm mb-3">
+          <div>
+            <span class="text-gray-600">병상:</span>
+            <span class="font-semibold ml-1">${facility.available_beds}/${facility.total_beds}</span>
+          </div>
+          <div>
+            <span class="text-gray-600">월 평균:</span>
+            <span class="font-semibold ml-1">${formatCurrency(facility.average_cost)}</span>
+          </div>
+          <div>
+            <span class="text-gray-600">대기:</span>
+            <span class="font-semibold ml-1">${facility.waiting_period}일</span>
+          </div>
+          <div>
+            <span class="text-gray-600">평가:</span>
+            <span class="font-semibold ml-1">${facility.evaluation_grade || 'N/A'}</span>
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-gray-600">
+            <i class="fas fa-phone mr-1"></i>${facility.phone || '정보 없음'}
+          </span>
+          <button onclick="alert('전화 연결: ${facility.phone}')" 
+                  class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition text-sm font-semibold">
+            <i class="fas fa-phone mr-1"></i>전화 문의
+          </button>
+        </div>
+      </div>
+    `).join('');
+    
+    content.innerHTML = intro + facilityList;
+    
+  } catch (error) {
+    console.error('Failed to load facilities:', error);
+    showError('기관 정보를 불러오는데 실패했습니다.');
   }
 }
 
@@ -908,6 +1217,11 @@ function showCostCalculator() {
       showError('비용 계산에 실패했습니다.');
     }
   });
+}
+
+// 상세 비용 계산기 표시 (showCostCalculator 호출)
+function showDetailedCostCalculator() {
+  showCostCalculator();
 }
 
 // 기관 찾기 표시
