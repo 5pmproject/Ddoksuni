@@ -438,6 +438,164 @@ function showTransferGuide() {
         </div>
       </div>
 
+      <!-- GCS 의식 상태 평가 -->
+      <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-6 border-2 border-purple-200">
+        <h3 class="text-xl font-bold text-purple-800 mb-4 flex items-center">
+          <span class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">3</span>
+          <i class="fas fa-brain mr-2"></i>
+          의식 상태 평가 (GCS)
+        </h3>
+        
+        <div class="bg-white rounded-lg p-4 mb-4 border-l-4 border-purple-500">
+          <p class="text-sm text-gray-700 mb-2">
+            <strong class="text-purple-700">GCS(Glasgow Coma Scale)</strong>는 의식 수준을 평가하는 가장 표준화되고 객관적인 방법입니다.
+            세 가지 영역을 각각 평가하여 총점으로 의식 수준을 판단합니다.
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <!-- 1. 눈 뜨기 반응 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-blue-300">
+            <div class="flex items-center mb-3">
+              <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 font-bold">1</span>
+              <h4 class="text-lg font-bold text-blue-700">👁️ 눈 뜨기 반응 (1~4점)</h4>
+            </div>
+            
+            <div class="space-y-2 text-sm">
+              <div class="flex items-start p-2 bg-green-50 rounded">
+                <span class="font-bold text-green-700 mr-2 min-w-[60px]">4점:</span>
+                <span class="text-gray-700">자발적으로 눈을 뜸 (정상)</span>
+              </div>
+              <div class="flex items-start p-2 bg-blue-50 rounded">
+                <span class="font-bold text-blue-700 mr-2 min-w-[60px]">3점:</span>
+                <span class="text-gray-700">말을 걸면 눈을 뜸 (이름을 부르거나 "눈을 떠보세요"라고 하면 반응)</span>
+              </div>
+              <div class="flex items-start p-2 bg-yellow-50 rounded">
+                <span class="font-bold text-yellow-700 mr-2 min-w-[60px]">2점:</span>
+                <span class="text-gray-700">통증 자극에만 눈을 뜸 (손톱을 꼬집는 등의 자극 필요)</span>
+              </div>
+              <div class="flex items-start p-2 bg-red-50 rounded">
+                <span class="font-bold text-red-700 mr-2 min-w-[60px]">1점:</span>
+                <span class="text-gray-700">어떤 자극에도 눈을 뜨지 않음</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. 언어 반응 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-green-300">
+            <div class="flex items-center mb-3">
+              <span class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 font-bold">2</span>
+              <h4 class="text-lg font-bold text-green-700">💬 언어 반응 (1~5점)</h4>
+            </div>
+            
+            <div class="space-y-2 text-sm">
+              <div class="flex items-start p-2 bg-green-50 rounded">
+                <span class="font-bold text-green-700 mr-2 min-w-[60px]">5점:</span>
+                <div class="text-gray-700">
+                  <strong>정상적인 대화 가능하고 지남력 정상</strong>
+                  <ul class="ml-4 mt-1 text-xs space-y-1">
+                    <li>• 오늘이 몇 월 며칠인지 알고 있음</li>
+                    <li>• 여기가 어디인지 알고 있음</li>
+                    <li>• 자신과 가족의 이름을 정확히 말함</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="flex items-start p-2 bg-blue-50 rounded">
+                <span class="font-bold text-blue-700 mr-2 min-w-[60px]">4점:</span>
+                <div class="text-gray-700">
+                  <strong>대화는 되지만 혼란스러움 (지남력 저하)</strong>
+                  <ul class="ml-4 mt-1 text-xs space-y-1">
+                    <li>• 날짜나 장소를 헷갈려 함</li>
+                    <li>• 질문에 부적절한 답변을 함</li>
+                    <li>• 섬망 증상이 있을 수 있음</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="flex items-start p-2 bg-yellow-50 rounded">
+                <span class="font-bold text-yellow-700 mr-2 min-w-[60px]">3점:</span>
+                <span class="text-gray-700">단어만 말함 (문장 구성 불가, 단답형 반응만)</span>
+              </div>
+              <div class="flex items-start p-2 bg-orange-50 rounded">
+                <span class="font-bold text-orange-700 mr-2 min-w-[60px]">2점:</span>
+                <span class="text-gray-700">이해할 수 없는 소리만 냄 (신음, 끙끙거림)</span>
+              </div>
+              <div class="flex items-start p-2 bg-red-50 rounded">
+                <span class="font-bold text-red-700 mr-2 min-w-[60px]">1점:</span>
+                <span class="text-gray-700">전혀 소리를 내지 않음 (기관삽관 환자 포함)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. 운동 반응 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-purple-300">
+            <div class="flex items-center mb-3">
+              <span class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 font-bold">3</span>
+              <h4 class="text-lg font-bold text-purple-700">🤚 운동 반응 (1~6점)</h4>
+            </div>
+            
+            <div class="space-y-2 text-sm">
+              <div class="flex items-start p-2 bg-green-50 rounded">
+                <span class="font-bold text-green-700 mr-2 min-w-[60px]">6점:</span>
+                <span class="text-gray-700">명령에 따라 움직임 ("손을 들어보세요" 등의 지시에 정확히 반응)</span>
+              </div>
+              <div class="flex items-start p-2 bg-teal-50 rounded">
+                <span class="font-bold text-teal-700 mr-2 min-w-[60px]">5점:</span>
+                <span class="text-gray-700">통증 위치를 정확히 찾아 손으로 제거 (통증 자극한 곳을 손으로 밀어냄)</span>
+              </div>
+              <div class="flex items-start p-2 bg-blue-50 rounded">
+                <span class="font-bold text-blue-700 mr-2 min-w-[60px]">4점:</span>
+                <span class="text-gray-700">통증에 손을 뻗으나 부정확 (대충 통증 쪽으로 손을 가져감)</span>
+              </div>
+              <div class="flex items-start p-2 bg-yellow-50 rounded">
+                <span class="font-bold text-yellow-700 mr-2 min-w-[60px]">3점:</span>
+                <span class="text-gray-700">통증에 팔을 구부리는 비정상 반응 (굴곡 반응)</span>
+              </div>
+              <div class="flex items-start p-2 bg-orange-50 rounded">
+                <span class="font-bold text-orange-700 mr-2 min-w-[60px]">2점:</span>
+                <span class="text-gray-700">통증에 팔을 펴는 비정상 반응 (신전 반응, 더 심각)</span>
+              </div>
+              <div class="flex items-start p-2 bg-red-50 rounded">
+                <span class="font-bold text-red-700 mr-2 min-w-[60px]">1점:</span>
+                <span class="text-gray-700">전혀 움직이지 않음 (마비 또는 무반응)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- GCS 총점 해석 -->
+          <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg p-4 border-2 border-indigo-300">
+            <h4 class="font-bold text-indigo-800 mb-3 flex items-center">
+              <i class="fas fa-chart-line mr-2"></i>
+              GCS 총점 해석 (3~15점)
+            </h4>
+            <div class="space-y-2 text-sm">
+              <div class="flex items-center p-2 bg-green-100 rounded">
+                <span class="font-bold text-green-700 mr-2 min-w-[80px]">15점:</span>
+                <span class="text-gray-700">정상 의식</span>
+              </div>
+              <div class="flex items-center p-2 bg-blue-100 rounded">
+                <span class="font-bold text-blue-700 mr-2 min-w-[80px]">13-14점:</span>
+                <span class="text-gray-700">경미한 의식 장애</span>
+              </div>
+              <div class="flex items-center p-2 bg-yellow-100 rounded">
+                <span class="font-bold text-yellow-700 mr-2 min-w-[80px]">9-12점:</span>
+                <span class="text-gray-700">중등도 의식 장애</span>
+              </div>
+              <div class="flex items-center p-2 bg-red-100 rounded">
+                <span class="font-bold text-red-700 mr-2 min-w-[80px]">3-8점:</span>
+                <span class="text-gray-700">중증 의식 장애 (혼수 상태)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-blue-50 rounded-lg p-3 mt-4 border-l-4 border-blue-500">
+          <p class="text-sm text-blue-800">
+            <i class="fas fa-info-circle mr-2"></i>
+            <strong>참고:</strong> GCS 점수는 환자의 의식 수준을 객관적으로 평가하고, 적절한 치료 경로를 결정하는 데 중요한 지표입니다.
+          </p>
+        </div>
+      </div>
+
       <!-- 다음 단계 안내 -->
       <div class="bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg p-6 text-center">
         <p class="text-lg text-gray-800 mb-4">
