@@ -1269,7 +1269,7 @@ function showFacilityGuide() {
           </p>
           <p class="flex items-start">
             <span class="text-green-600 mr-2">✓</span>
-            <span><strong>섬망 위험</strong>이 있다면 전담팀이 있는 곳을 선택하세요</span>
+            <span><strong>섬망 위험</strong>이 있다면 케어가 가능한지 꼭 물어보세요</span>
           </p>
           <p class="flex items-start">
             <span class="text-green-600 mr-2">✓</span>
