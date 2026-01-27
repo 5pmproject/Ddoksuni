@@ -1147,56 +1147,10 @@ function showFacilityGuide() {
         </div>
       </div>
 
-      <!-- 전원 결정 순서 -->
-      <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg p-6 border-2 border-indigo-200">
-        <h3 class="text-xl font-bold text-indigo-800 mb-4 flex items-center">
-          <span class="bg-indigo-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">4</span>
-          전원 결정 순서 (단계별 가이드)
-        </h3>
-
-        <div class="space-y-3">
-          <div class="bg-white rounded-lg p-4 border-l-4 border-indigo-500">
-            <p class="font-bold text-indigo-700 mb-2">STEP 1: 거리 확인</p>
-            <p class="text-sm text-gray-700">
-              보호자 집에서 30km 이내인가요?<br>
-              → <strong class="text-green-600">예:</strong> 다음 단계로<br>
-              → <strong class="text-orange-600">아니오:</strong> 교통·통근 비용 고려
-            </p>
-          </div>
-
-          <div class="bg-white rounded-lg p-4 border-l-4 border-purple-500">
-            <p class="font-bold text-purple-700 mb-2">STEP 2: 환자 상태 확인</p>
-            <p class="text-sm text-gray-700">
-              ADL 점수가 30점 이하인가요?<br>
-              → <strong class="text-green-600">예:</strong> <strong>회복기 재활병원</strong> 우선<br>
-              → <strong class="text-blue-600">아니오:</strong> 다음 단계로
-            </p>
-          </div>
-
-          <div class="bg-white rounded-lg p-4 border-l-4 border-blue-500">
-            <p class="font-bold text-blue-700 mb-2">STEP 3: 특수 검사 필요성</p>
-            <p class="text-sm text-gray-700">
-              연하검사·영상검사가 필요한가요?<br>
-              → <strong class="text-green-600">예:</strong> <strong>회복기 재활병원</strong> 또는 <strong>일반 재활병원</strong><br>
-              → <strong class="text-blue-600">아니오:</strong> 다음 단계로
-            </p>
-          </div>
-
-          <div class="bg-white rounded-lg p-4 border-l-4 border-green-500">
-            <p class="font-bold text-green-700 mb-2">STEP 4: 재활·요양·섬망 관리 필요성</p>
-            <p class="text-sm text-gray-700">
-              의료·재활·섬망 전담팀이 필요한가요?<br>
-              → <strong class="text-green-600">예:</strong> <strong>요양병원</strong><br>
-              → <strong class="text-purple-600">아니오:</strong> <strong>요양원</strong> (일상 보조 위주)
-            </p>
-          </div>
-        </div>
-      </div>
-
       <!-- 체크리스트 -->
       <div class="bg-gradient-to-r from-pink-50 to-red-50 rounded-lg p-6 border-2 border-pink-200">
         <h3 class="text-xl font-bold text-pink-800 mb-4 flex items-center">
-          <span class="bg-pink-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">5</span>
+          <span class="bg-pink-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">4</span>
           전원 전 반드시 체크하세요! ✅
         </h3>
 
@@ -1248,6 +1202,52 @@ function showFacilityGuide() {
               <input type="checkbox" class="mt-1 mr-3">
               <span><strong>보험·등급:</strong> 장기요양등급·재활특례 적용 여부를 확인했나요?</span>
             </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 전원 결정 순서 -->
+      <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg p-6 border-2 border-indigo-200">
+        <h3 class="text-xl font-bold text-indigo-800 mb-4 flex items-center">
+          <span class="bg-indigo-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">5</span>
+          전원 결정 순서 (단계별 가이드)
+        </h3>
+
+        <div class="space-y-3">
+          <div class="bg-white rounded-lg p-4 border-l-4 border-indigo-500">
+            <p class="font-bold text-indigo-700 mb-2">STEP 1: 거리 확인</p>
+            <p class="text-sm text-gray-700">
+              보호자 집에서 30km 이내인가요?<br>
+              → <strong class="text-green-600">예:</strong> 다음 단계로<br>
+              → <strong class="text-orange-600">아니오:</strong> 교통·통근 비용 고려
+            </p>
+          </div>
+
+          <div class="bg-white rounded-lg p-4 border-l-4 border-purple-500">
+            <p class="font-bold text-purple-700 mb-2">STEP 2: 환자 상태 확인</p>
+            <p class="text-sm text-gray-700">
+              ADL 점수가 30점 이하인가요?<br>
+              → <strong class="text-green-600">예:</strong> <strong>회복기 재활병원</strong> 우선<br>
+              → <strong class="text-blue-600">아니오:</strong> 다음 단계로
+            </p>
+          </div>
+
+          <div class="bg-white rounded-lg p-4 border-l-4 border-blue-500">
+            <p class="font-bold text-blue-700 mb-2">STEP 3: 특수 검사 필요성</p>
+            <p class="text-sm text-gray-700">
+              연하검사·영상검사가 필요한가요?<br>
+              → <strong class="text-green-600">예:</strong> <strong>회복기 재활병원</strong> 또는 <strong>일반 재활병원</strong><br>
+              → <strong class="text-blue-600">아니오:</strong> 다음 단계로
+            </p>
+          </div>
+
+          <div class="bg-white rounded-lg p-4 border-l-4 border-green-500">
+            <p class="font-bold text-green-700 mb-2">STEP 4: 재활·요양·섬망 관리 필요성</p>
+            <p class="text-sm text-gray-700">
+              의료·재활·섬망 전담팀이 필요한가요?<br>
+              → <strong class="text-green-600">예:</strong> <strong>요양병원</strong><br>
+              → <strong class="text-purple-600">아니오:</strong> <strong>요양원</strong> (일상 보조 위주)
+            </p>
           </div>
         </div>
       </div>
