@@ -404,7 +404,7 @@ app.get('/', (c) => {
                 <div class="flex items-start">
                     <div class="flex-1">
                         <h2 class="text-3xl font-bold text-gray-900 mb-2 leading-tight">
-                            <span class="text-wood-600">간병하는 당신도</span> <span class="text-primary-600">돌봄이 필요해요</span>
+                            <span class="text-wood-600">중증환자를 간병하는 당신도</span> <span class="text-primary-600">돌봄이 필요해요</span>
                         </h2>
                         <p class="text-wood-900 mb-4 text-base leading-relaxed">
                             혼자 감당하기 어려운 전원 준비, 똑순이가 <strong class="text-primary-700">환자분께 맞춤 경로</strong>를 알려드릴게요.
@@ -912,7 +912,7 @@ app.get('/', (c) => {
         <!-- 푸터 -->
         <footer class="bg-gray-900 text-wood-200 py-8 mt-12">
             <div class="max-w-7xl mx-auto px-4 text-center">
-                <p class="text-gray-400">© 2025 똑순이. 간병하는 당신도 돌봄이 필요해요</p>
+                <p class="text-gray-400">© 2025 똑순이. 중증환자를 간병하는 당신도 돌봄이 필요해요</p>
                 <p class="text-sm text-gray-500 mt-2">우리 함께 가요 • 환자분의 최적 회복을 위한 동행</p>
             </div>
         </footer>
