@@ -6,6 +6,7 @@ let currentPatient = null; // 현재 등록된 환자 정보
 // 페이지 로드 시 초기화
 document.addEventListener('DOMContentLoaded', () => {
   setupEventListeners();
+  initializeQuestCards();
   // 환자 목록 로드는 제거 - 단일 플로우로 변경
 });
 
@@ -41,6 +42,86 @@ function updateProgressSteps(currentStep) {
       circle.textContent = i;
       text.className = 'ml-2 text-sm font-medium text-gray-400';
     }
+  }
+  
+  // 퀘스트 카드 업데이트
+  updateQuestCards(currentStep);
+}
+
+// 퀘스트 카드 초기화
+function initializeQuestCards() {
+  const cards = document.querySelectorAll('.quest-card-3d');
+  cards.forEach((card, index) => {
+    card.addEventListener('click', function() {
+      const questNumber = parseInt(this.dataset.quest);
+      // 첫 번째 퀘스트만 클릭 가능
+      if (questNumber === 1) {
+        document.getElementById('registerForm').scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+    
+    // 마우스 이동에 따른 3D 효과
+    card.addEventListener('mousemove', function(e) {
+      const rect = this.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = (y - centerY) / 10;
+      const rotateY = (centerX - x) / 10;
+      
+      this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px) scale(1.05)`;
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      this.style.transform = '';
+    });
+  });
+}
+
+// 퀘스트 카드 상태 업데이트
+function updateQuestCards(currentStep) {
+  const cards = document.querySelectorAll('.quest-card-3d');
+  let completedQuests = currentStep - 1;
+  
+  cards.forEach((card, index) => {
+    const questNumber = index + 1;
+    const statusBadge = card.querySelector('.quest-status');
+    
+    if (questNumber < currentStep) {
+      // 완료된 퀘스트
+      card.classList.remove('opacity-60');
+      statusBadge.className = 'quest-status status-completed';
+      statusBadge.textContent = '완료';
+      card.style.pointerEvents = 'none';
+    } else if (questNumber === currentStep) {
+      // 현재 진행 중인 퀘스트
+      card.classList.remove('opacity-60');
+      statusBadge.className = 'quest-status status-available';
+      statusBadge.textContent = '진행중';
+      card.style.pointerEvents = 'auto';
+    } else {
+      // 잠금된 퀘스트
+      card.classList.add('opacity-60');
+      statusBadge.className = 'quest-status status-locked';
+      statusBadge.textContent = '잠김';
+      card.style.pointerEvents = 'none';
+    }
+  });
+  
+  // 진행도 바 업데이트
+  const progress = (completedQuests / 4) * 100;
+  const progressBar = document.getElementById('questProgressBar');
+  const progressText = document.getElementById('questProgress');
+  
+  if (progressBar) {
+    progressBar.style.width = progress + '%';
+  }
+  
+  if (progressText) {
+    progressText.textContent = `${completedQuests}/4 완료`;
   }
 }
 

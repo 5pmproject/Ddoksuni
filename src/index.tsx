@@ -95,6 +95,168 @@ app.get('/', (c) => {
           .gradient-bg {
             background: linear-gradient(135deg, #8C9785 0%, #636B5C 100%);
           }
+          
+          /* 3D Quest Card Styles */
+          .quest-card-3d {
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            cursor: pointer;
+          }
+          
+          .quest-card-3d:hover {
+            transform: translateY(-15px) rotateX(5deg) scale(1.05);
+            box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25),
+                        0 18px 36px -18px rgba(0, 0, 0, 0.3),
+                        0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+          }
+          
+          .quest-card-3d::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 50%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+          }
+          
+          .quest-card-3d:hover::before {
+            opacity: 1;
+          }
+          
+          .quest-card-inner {
+            position: relative;
+            z-index: 1;
+          }
+          
+          .quest-badge {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3),
+                        inset 0 -3px 8px rgba(0, 0, 0, 0.2);
+            transform: translateZ(30px);
+            transition: all 0.3s;
+          }
+          
+          .quest-card-3d:hover .quest-badge {
+            transform: translateZ(50px) rotate(5deg) scale(1.1);
+          }
+          
+          .quest-card-image {
+            width: 100%;
+            height: auto;
+            border-radius: 1rem;
+            transform: translateZ(10px);
+            transition: all 0.4s;
+          }
+          
+          .quest-card-3d:hover .quest-card-image {
+            transform: translateZ(30px) scale(1.02);
+          }
+          
+          .quest-shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+            border-radius: 1rem;
+          }
+          
+          .quest-card-3d:hover .quest-shine {
+            left: 100%;
+          }
+          
+          .quest-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+          }
+          
+          .status-locked {
+            background: linear-gradient(135deg, #cbd5e0 0%, #a0aec0 100%);
+            color: #2d3748;
+          }
+          
+          .status-available {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            animation: pulse 2s infinite;
+          }
+          
+          .status-completed {
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: white;
+          }
+          
+          @keyframes pulse {
+            0%, 100% {
+              opacity: 1;
+            }
+            50% {
+              opacity: 0.8;
+            }
+          }
+          
+          .progress-track {
+            height: 8px;
+            background: linear-gradient(90deg, #e2e8f0 0%, #cbd5e0 100%);
+            border-radius: 999px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+          }
+          
+          .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #48bb78 0%, #38a169 50%, #2f855a 100%);
+            border-radius: 999px;
+            transition: width 1s cubic-bezier(0.65, 0, 0.35, 1);
+            position: relative;
+            overflow: hidden;
+          }
+          
+          .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+          }
+          
+          @keyframes shimmer {
+            0% {
+              transform: translateX(-100%);
+            }
+            100% {
+              transform: translateX(100%);
+            }
+          }
+          
           .card-hover {
             transition: all 0.3s ease;
           }
@@ -105,6 +267,11 @@ app.get('/', (c) => {
           .section-card {
             background-color: #F2F3F0;
             border-color: #E3E6DF;
+          }
+          
+          /* Parallax effect */
+          .parallax-scene {
+            perspective: 1000px;
           }
         </style>
     </head>
@@ -179,38 +346,90 @@ app.get('/', (c) => {
                             똑순이가 <strong class="text-primary-700">환자분께 맞춤 경로</strong>를 알려드릴게요.
                         </p>
                         <div class="bg-white rounded-lg p-5 text-sm text-wood-900 shadow-md">
-                            <p class="font-bold text-primary-700 mb-3 text-lg flex items-center">
+                            <p class="font-bold text-primary-700 mb-4 text-lg flex items-center">
                                 <i class="fas fa-heart mr-2 text-2xl text-wood-500"></i>
                                 네 걸음으로, 함께 준비해요
                             </p>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                <div class="flex items-start bg-wood-50 rounded p-3 border border-wood-200">
-                                    <span class="bg-wood-500 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm mr-3 flex-shrink-0">1</span>
-                                    <div>
-                                        <strong class="text-wood-700">환자분 이야기 듣기</strong>
-                                        <p class="text-xs text-gray-500 mt-1">약 5분 • 천천히 작성하셔도 괜찮아요</p>
+                            
+                            <!-- 3D Quest Cards Grid -->
+                            <div class="parallax-scene grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                                <!-- Quest Card 1 -->
+                                <div class="quest-card-3d relative overflow-hidden" data-quest="1">
+                                    <div class="quest-card-inner">
+                                        <img src="/static/quest-card-1.png" alt="환자분 이야기 듣기" class="quest-card-image">
+                                        <div class="quest-shine"></div>
+                                    </div>
+                                    <div class="absolute bottom-3 left-3 right-3 bg-white/90 backdrop-blur-sm rounded-lg p-2 shadow-lg">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex-1">
+                                                <p class="text-xs font-bold text-gray-700">환자분 이야기 듣기</p>
+                                                <p class="text-xs text-gray-500">약 5분 • 천천히 작성하셔도 괜찮아요</p>
+                                            </div>
+                                            <span class="quest-status status-available">시작</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="flex items-start bg-primary-50 rounded p-3 border border-primary-200">
-                                    <span class="bg-primary-500 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm mr-3 flex-shrink-0">2</span>
-                                    <div>
-                                        <strong class="text-primary-700">맞춤 경로 함께 보기</strong>
-                                        <p class="text-xs text-gray-500 mt-1">전문가의 추천을 쉽게 설명해드려요</p>
+                                
+                                <!-- Quest Card 2 -->
+                                <div class="quest-card-3d relative overflow-hidden opacity-60" data-quest="2">
+                                    <div class="quest-card-inner">
+                                        <img src="/static/quest-card-2.png" alt="맞춤 경로 함께 보기" class="quest-card-image">
+                                        <div class="quest-shine"></div>
+                                    </div>
+                                    <div class="absolute bottom-3 left-3 right-3 bg-white/90 backdrop-blur-sm rounded-lg p-2 shadow-lg">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex-1">
+                                                <p class="text-xs font-bold text-gray-700">맞춤 경로 함께 보기</p>
+                                                <p class="text-xs text-gray-500">전문가의 추천을 쉽게 설명해드려요</p>
+                                            </div>
+                                            <span class="quest-status status-locked">잠김</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="flex items-start bg-wood-100 rounded p-3 border border-wood-300">
-                                    <span class="bg-wood-600 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm mr-3 flex-shrink-0">3</span>
-                                    <div>
-                                        <strong class="text-wood-700">비용 미리 살펴보기</strong>
-                                        <p class="text-xs text-gray-500 mt-1">걱정되는 비용, 투명하게 안내해요</p>
+                                
+                                <!-- Quest Card 3 -->
+                                <div class="quest-card-3d relative overflow-hidden opacity-60" data-quest="3">
+                                    <div class="quest-card-inner">
+                                        <img src="/static/quest-card-3.png" alt="비용 미리 살펴보기" class="quest-card-image">
+                                        <div class="quest-shine"></div>
+                                    </div>
+                                    <div class="absolute bottom-3 left-3 right-3 bg-white/90 backdrop-blur-sm rounded-lg p-2 shadow-lg">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex-1">
+                                                <p class="text-xs font-bold text-gray-700">비용 미리 살펴보기</p>
+                                                <p class="text-xs text-gray-500">걱정되는 비용, 투명하게 안내해요</p>
+                                            </div>
+                                            <span class="quest-status status-locked">잠김</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="flex items-start bg-primary-100 rounded p-3 border border-primary-300">
-                                    <span class="bg-primary-600 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm mr-3 flex-shrink-0">4</span>
-                                    <div>
-                                        <strong class="text-primary-700">좋은 곳 함께 고르기</strong>
-                                        <p class="text-xs text-gray-500 mt-1">환자분께 맞는 기관을 찾아드려요</p>
+                                
+                                <!-- Quest Card 4 -->
+                                <div class="quest-card-3d relative overflow-hidden opacity-60" data-quest="4">
+                                    <div class="quest-card-inner">
+                                        <img src="/static/quest-card-4.png" alt="좋은 곳 함께 고르기" class="quest-card-image">
+                                        <div class="quest-shine"></div>
                                     </div>
+                                    <div class="absolute bottom-3 left-3 right-3 bg-white/90 backdrop-blur-sm rounded-lg p-2 shadow-lg">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex-1">
+                                                <p class="text-xs font-bold text-gray-700">좋은 곳 함께 고르기</p>
+                                                <p class="text-xs text-gray-500">환자분께 맞는 기관을 찾아드려요</p>
+                                            </div>
+                                            <span class="quest-status status-locked">잠김</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Progress Bar -->
+                            <div class="mt-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs font-semibold text-gray-600">전체 진행도</span>
+                                    <span class="text-xs font-bold text-primary-600" id="questProgress">0/4 완료</span>
+                                </div>
+                                <div class="progress-track">
+                                    <div class="progress-bar" style="width: 0%" id="questProgressBar"></div>
                                 </div>
                             </div>
                         </div>
