@@ -276,25 +276,6 @@ app.get('/', (c) => {
         </style>
     </head>
     <body class="bg-wood-50">
-        <!-- 헤더 -->
-        <header class="gradient-bg text-white shadow-lg">
-            <div class="max-w-7xl mx-auto px-4 py-6">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-3">
-                        <i class="fas fa-user-nurse text-3xl"></i>
-                        <h1 class="text-3xl font-bold">똑순이</h1>
-                    </div>
-                    <nav class="hidden md:flex space-x-6">
-                        <a href="#dashboard" class="hover:text-wood-100 transition">대시보드</a>
-                        <a href="#pathway" class="hover:text-wood-100 transition">경로 추천</a>
-                        <a href="#cost" class="hover:text-wood-100 transition">비용 계산</a>
-                        <a href="#facilities" class="hover:text-wood-100 transition">기관 찾기</a>
-                    </nav>
-                </div>
-                <p class="mt-2 text-wood-100">간병하는 당신도 돌봄이 필요해요</p>
-            </div>
-        </header>
-
         <!-- 메인 컨텐츠 -->
         <main class="max-w-7xl mx-auto px-4 py-8">
             <!-- 진행 단계 표시 -->
