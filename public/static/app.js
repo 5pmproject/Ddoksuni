@@ -258,52 +258,72 @@ function showTransferGuide() {
         </h3>
         
         <div class="space-y-4">
-          <!-- 재활병원 -->
-          <div class="bg-white rounded-lg p-4 border-2 border-green-300">
+          <!-- 회복기 재활병원 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-green-400 shadow-md">
             <div class="flex items-center mb-2">
               <span class="text-2xl mr-3">🏥</span>
-              <h4 class="text-lg font-bold text-green-700">재활병원</h4>
+              <h4 class="text-lg font-bold text-green-700">회복기 재활병원</h4>
               <span class="ml-auto bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">2-4주</span>
             </div>
-            <p class="text-gray-700 mb-2">집중적으로 몸 기능을 회복하는 곳이에요</p>
-            <div class="flex flex-wrap gap-2 text-xs">
-              <span class="bg-green-50 text-green-700 px-2 py-1 rounded">💪 물리치료</span>
-              <span class="bg-green-50 text-green-700 px-2 py-1 rounded">🖐️ 작업치료</span>
-              <span class="bg-green-50 text-green-700 px-2 py-1 rounded">🗣️ 언어치료</span>
+            <p class="text-gray-700 mb-2 font-semibold">급성·중증 환자의 집중 재활! (뇌졸중, 척수손상 등)</p>
+            <div class="flex flex-wrap gap-2 text-xs mb-2">
+              <span class="bg-green-50 text-green-700 px-2 py-1 rounded">💪 하루 2시간+ 고강도 재활</span>
+              <span class="bg-green-50 text-green-700 px-2 py-1 rounded">🤖 로봇·VR 보조</span>
+              <span class="bg-green-50 text-green-700 px-2 py-1 rounded">👨‍⚕️ 의사 상주</span>
+              <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded">건강보험 + 재활특례</span>
+            </div>
+            <p class="text-xs text-gray-600">💰 하루 15~20만원 (2인실) / 월 30~50만원 본인부담</p>
+          </div>
+
+          <!-- 일반 재활병원 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-teal-300">
+            <div class="flex items-center mb-2">
+              <span class="text-2xl mr-3">🏥</span>
+              <h4 class="text-lg font-bold text-teal-700">일반 재활병원</h4>
+              <span class="ml-auto bg-teal-100 text-teal-700 px-3 py-1 rounded-full text-sm font-semibold">단기·외래</span>
+            </div>
+            <p class="text-gray-700 mb-2">중·경증 환자의 재활 (골절, 수술 후 회복 등)</p>
+            <div class="flex flex-wrap gap-2 text-xs mb-2">
+              <span class="bg-teal-50 text-teal-700 px-2 py-1 rounded">💪 물리·작업·언어치료</span>
+              <span class="bg-teal-50 text-teal-700 px-2 py-1 rounded">🚶 외래 위주</span>
               <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded">건강보험 적용</span>
             </div>
+            <p class="text-xs text-gray-600">💰 하루 12~15만원 (2인실)</p>
           </div>
 
           <!-- 요양병원 -->
-          <div class="bg-white rounded-lg p-4 border-2 border-blue-300">
+          <div class="bg-white rounded-lg p-4 border-2 border-blue-400 shadow-md">
             <div class="flex items-center mb-2">
               <span class="text-2xl mr-3">🏨</span>
-              <h4 class="text-lg font-bold text-blue-700">요양병원</h4>
+              <h4 class="text-lg font-bold text-blue-700">요양병원 (의료기관)</h4>
               <span class="ml-auto bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">1-6개월</span>
             </div>
-            <p class="text-gray-700 mb-2">장기간 치료와 돌봄을 함께 받는 곳이에요</p>
-            <div class="flex flex-wrap gap-2 text-xs">
-              <span class="bg-blue-50 text-blue-700 px-2 py-1 rounded">💊 의료 서비스</span>
-              <span class="bg-blue-50 text-blue-700 px-2 py-1 rounded">👩‍⚕️ 간호 돌봄</span>
-              <span class="bg-blue-50 text-blue-700 px-2 py-1 rounded">🍚 식사 제공</span>
+            <p class="text-gray-700 mb-2 font-semibold">의료·재활·간호가 모두 필요한 환자</p>
+            <div class="flex flex-wrap gap-2 text-xs mb-2">
+              <span class="bg-blue-50 text-blue-700 px-2 py-1 rounded">💊 의사 상주</span>
+              <span class="bg-blue-50 text-blue-700 px-2 py-1 rounded">👩‍⚕️ 24시간 간호</span>
+              <span class="bg-blue-50 text-blue-700 px-2 py-1 rounded">💪 물리·작업치료</span>
               <span class="bg-orange-100 text-orange-700 px-2 py-1 rounded">장기요양보험</span>
             </div>
+            <p class="text-xs text-gray-600">💰 하루 10~15만원 (2인실) / 월 20~40만원 본인부담</p>
           </div>
 
           <!-- 요양원 -->
           <div class="bg-white rounded-lg p-4 border-2 border-purple-300">
             <div class="flex items-center mb-2">
               <span class="text-2xl mr-3">🏡</span>
-              <h4 class="text-lg font-bold text-purple-700">요양원 (요양시설)</h4>
+              <h4 class="text-lg font-bold text-purple-700">요양원 (거주시설)</h4>
               <span class="ml-auto bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-semibold">6개월+</span>
             </div>
-            <p class="text-gray-700 mb-2">일상생활을 도와드리는 생활시설이에요</p>
-            <div class="flex flex-wrap gap-2 text-xs">
-              <span class="bg-purple-50 text-purple-700 px-2 py-1 rounded">🛏️ 거주 지원</span>
+            <p class="text-gray-700 mb-2">일상생활 보조가 주목적 (치매, 노인 장기 돌봄)</p>
+            <div class="flex flex-wrap gap-2 text-xs mb-2">
+              <span class="bg-purple-50 text-purple-700 px-2 py-1 rounded">🛏️ 생활 지원</span>
               <span class="bg-purple-50 text-purple-700 px-2 py-1 rounded">🍽️ 식사·돌봄</span>
               <span class="bg-purple-50 text-purple-700 px-2 py-1 rounded">🚿 목욕 지원</span>
-              <span class="bg-orange-100 text-orange-700 px-2 py-1 rounded">장기요양등급 필수</span>
+              <span class="bg-red-100 text-red-700 px-2 py-1 rounded">장기요양등급 필수</span>
             </div>
+            <p class="text-xs text-gray-600">💰 하루 8~12만원 (2인실) / 월 20~40만원 본인부담</p>
+            <p class="text-xs text-orange-600 mt-1">⚠️ 의사 상주 안 함 (외부 병원 연계)</p>
           </div>
 
           <!-- 재활센터 -->
@@ -313,12 +333,38 @@ function showTransferGuide() {
               <h4 class="text-lg font-bold text-yellow-700">재활센터 (통원)</h4>
               <span class="ml-auto bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-semibold">주 1-5회</span>
             </div>
-            <p class="text-gray-700 mb-2">집에서 생활하며 정기적으로 치료받는 곳이에요</p>
-            <div class="flex flex-wrap gap-2 text-xs">
+            <p class="text-gray-700 mb-2">집에서 생활하며 정기적으로 치료받는 곳</p>
+            <div class="flex flex-wrap gap-2 text-xs mb-2">
               <span class="bg-yellow-50 text-yellow-700 px-2 py-1 rounded">🏠 재가</span>
               <span class="bg-yellow-50 text-yellow-700 px-2 py-1 rounded">🚶 통원 치료</span>
               <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded">건강보험 적용</span>
             </div>
+          </div>
+        </div>
+
+        <!-- 요양병원 vs 요양원 차이 -->
+        <div class="bg-red-50 border-2 border-red-300 rounded-lg p-5 mt-4">
+          <h3 class="text-lg font-bold text-red-800 mb-3 flex items-center">
+            <i class="fas fa-exclamation-triangle text-red-600 mr-2 text-xl"></i>
+            요양병원 ≠ 요양원! 완전히 다른 곳이에요!
+          </h3>
+          <div class="space-y-2 text-sm">
+            <p class="flex items-start">
+              <span class="text-blue-600 mr-2 font-bold">🏨</span>
+              <span><strong>요양병원</strong>: 의료기관 → 의사·간호사 상주, 의료·재활 제공</span>
+            </p>
+            <p class="flex items-start">
+              <span class="text-purple-600 mr-2 font-bold">🏡</span>
+              <span><strong>요양원</strong>: 생활시설 → 일상 돌봄 중심, 의료는 외부 병원</span>
+            </p>
+            <p class="flex items-start">
+              <span class="text-green-600 mr-2">✓</span>
+              <span>요양병원은 <strong class="text-blue-600">의료·재활</strong>이 필요할 때!</span>
+            </p>
+            <p class="flex items-start">
+              <span class="text-green-600 mr-2">✓</span>
+              <span>요양원은 <strong class="text-purple-600">생활 보조</strong>가 필요할 때!</span>
+            </p>
           </div>
         </div>
       </div>
@@ -362,15 +408,27 @@ function showTransferGuide() {
         <div class="space-y-2 text-sm">
           <p class="flex items-start">
             <span class="text-green-600 mr-2">✓</span>
-            <span><strong>재활병원·재활센터</strong>는 <strong class="text-blue-600">건강보험</strong>으로 이용해요</span>
+            <span><strong>회복기 재활병원</strong>은 급성·중증 → 집중 재활 (재활특례 가능)</span>
           </p>
           <p class="flex items-start">
             <span class="text-green-600 mr-2">✓</span>
-            <span><strong>요양병원·요양원</strong>은 <strong class="text-orange-600">장기요양보험</strong>으로 이용해요</span>
+            <span><strong>일반 재활병원</strong>은 중·경증 → 외래·단기 입원</span>
           </p>
           <p class="flex items-start">
             <span class="text-green-600 mr-2">✓</span>
-            <span><strong>요양원</strong>은 꼭 <strong class="text-red-600">장기요양등급</strong>이 있어야 해요!</span>
+            <span><strong>요양병원</strong>은 의료기관 → 의사 상주, 의료·재활 제공</span>
+          </p>
+          <p class="flex items-start">
+            <span class="text-green-600 mr-2">✓</span>
+            <span><strong>요양원</strong>은 생활시설 → 돌봄 중심, 장기요양등급 필수!</span>
+          </p>
+          <p class="flex items-start">
+            <span class="text-green-600 mr-2">✓</span>
+            <span>재활병원·재활센터는 <strong class="text-blue-600">건강보험</strong> 적용</span>
+          </p>
+          <p class="flex items-start">
+            <span class="text-green-600 mr-2">✓</span>
+            <span>요양병원·요양원은 <strong class="text-orange-600">장기요양보험</strong> 적용</span>
           </p>
         </div>
       </div>
@@ -524,17 +582,31 @@ function showCostGuide() {
                 </td>
               </tr>
               <tr class="border-b border-gray-200 bg-green-50">
-                <td class="px-3 py-2 border border-gray-200">💪 재활전문병원</td>
+                <td class="px-3 py-2 border border-gray-200">💪 회복기 재활병원</td>
                 <td class="px-3 py-2 text-right border border-gray-200 text-gray-600">120~150만원</td>
                 <td class="px-3 py-2 text-right border border-gray-200">
                   <span class="font-bold text-green-600">30~50만원</span>
                 </td>
               </tr>
-              <tr class="bg-blue-50">
-                <td class="px-3 py-2 border border-gray-200">🏨 요양병원·요양원</td>
+              <tr class="border-b border-gray-200 bg-teal-50">
+                <td class="px-3 py-2 border border-gray-200">🏥 일반 재활병원</td>
+                <td class="px-3 py-2 text-right border border-gray-200 text-gray-600">100~120만원</td>
+                <td class="px-3 py-2 text-right border border-gray-200">
+                  <span class="font-bold text-teal-600">25~35만원</span>
+                </td>
+              </tr>
+              <tr class="border-b border-gray-200 bg-blue-50">
+                <td class="px-3 py-2 border border-gray-200">🏨 요양병원 (의료기관)</td>
                 <td class="px-3 py-2 text-right border border-gray-200 text-gray-600">100~130만원</td>
                 <td class="px-3 py-2 text-right border border-gray-200">
-                  <span class="font-bold text-indigo-600">20~40만원</span>
+                  <span class="font-bold text-blue-600">20~40만원</span>
+                </td>
+              </tr>
+              <tr class="bg-purple-50">
+                <td class="px-3 py-2 border border-gray-200">🏡 요양원 (거주시설)</td>
+                <td class="px-3 py-2 text-right border border-gray-200 text-gray-600">90~120만원</td>
+                <td class="px-3 py-2 text-right border border-gray-200">
+                  <span class="font-bold text-purple-600">20~40만원</span>
                 </td>
               </tr>
             </tbody>
@@ -553,6 +625,10 @@ function showCostGuide() {
           <p class="flex items-start">
             <span class="mr-1">※</span>
             <span><strong class="text-red-600">상급병실(1인실)</strong>을 선택하시면 <strong>월 100~300만원</strong>이 추가로 들어요</span>
+          </p>
+          <p class="flex items-start bg-red-50 p-2 rounded mt-2">
+            <span class="mr-1 text-red-600">⚠️</span>
+            <span><strong class="text-red-700">요양병원 ≠ 요양원!</strong> 요양병원은 의료기관(의사 상주), 요양원은 생활시설(돌봄 중심)이에요</span>
           </p>
         </div>
       </div>
