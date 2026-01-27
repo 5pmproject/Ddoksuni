@@ -1649,14 +1649,24 @@ function closeModalAndShowForm() {
   const registerForm = document.getElementById('registerForm');
   const progressSteps = document.getElementById('progressSteps');
   
-  if (welcomeMessage && registerForm) {
+  if (welcomeMessage) {
     welcomeMessage.style.display = 'none';
-    registerForm.classList.remove('hidden');
-    progressSteps.classList.remove('hidden');
-    
-    // 페이지 상단으로 부드럽게 스크롤
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+  
+  if (registerForm) {
+    registerForm.classList.remove('hidden');
+    registerForm.style.display = 'block';
+  }
+  
+  if (progressSteps) {
+    progressSteps.classList.remove('hidden');
+    progressSteps.style.display = 'block';
+  }
+  
+  // 페이지 상단으로 부드럽게 스크롤
+  setTimeout(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 100);
 }
 
 // 퀘스트 카드 상태 업데이트
