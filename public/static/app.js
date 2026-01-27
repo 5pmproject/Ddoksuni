@@ -438,7 +438,7 @@ function showCostGuide() {
             </div>
             <p class="text-gray-700 mb-2">본인이 전부 내야 하는 추가 비용이에요</p>
             <div class="flex flex-wrap gap-2 text-xs">
-              <span class="bg-orange-50 text-orange-700 px-2 py-1 rounded">🛏️ 1인실</span>
+              <span class="bg-orange-50 text-orange-700 px-2 py-1 rounded">🛏️ 상급병실</span>
               <span class="bg-orange-50 text-orange-700 px-2 py-1 rounded">🤖 특수 재활</span>
               <span class="bg-orange-50 text-orange-700 px-2 py-1 rounded">🦽 전동 휠체어</span>
               <span class="bg-orange-50 text-orange-700 px-2 py-1 rounded">🥗 특수 식단</span>
@@ -448,11 +448,120 @@ function showCostGuide() {
         </div>
       </div>
 
+      <!-- 병실 구분 설명 -->
+      <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-6 border-2 border-purple-200">
+        <h3 class="text-xl font-bold text-purple-800 mb-4 flex items-center">
+          <span class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">2</span>
+          병실 종류, 어떻게 다를까요?
+        </h3>
+        
+        <div class="space-y-3">
+          <div class="bg-white rounded-lg p-4 border-l-4 border-purple-500">
+            <div class="flex items-center mb-2">
+              <span class="text-2xl mr-3">🏨</span>
+              <h4 class="text-lg font-bold text-purple-700">상급병실 (1인실)</h4>
+            </div>
+            <p class="text-gray-700 mb-1">완전히 혼자 쓰는 방이에요</p>
+            <div class="text-sm text-gray-600 space-y-1">
+              <p>✓ 프라이버시 완벽 보장</p>
+              <p>✓ 조용하고 편안한 환경</p>
+              <p class="text-orange-700 font-semibold">⚠️ 추가 비용이 많이 들어요 (비급여)</p>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg p-4 border-l-4 border-blue-500">
+            <div class="flex items-center mb-2">
+              <span class="text-2xl mr-3">🛏️</span>
+              <h4 class="text-lg font-bold text-blue-700">다인실 (2-6인)</h4>
+            </div>
+            <p class="text-gray-700 mb-1">여러 환자분이 함께 쓰는 방이에요</p>
+            <div class="text-sm text-gray-600 space-y-1">
+              <p>• <strong>2인실</strong>: 두 분이 함께 (중급병실)</p>
+              <p>• <strong>3-4인실</strong>: 세 분 이상이 함께</p>
+              <p>• <strong>5-6인실</strong>: 더 많은 분들과 함께</p>
+              <p class="text-green-700 font-semibold">✓ 보험 적용으로 본인 부담이 적어요</p>
+            </div>
+          </div>
+
+          <div class="bg-blue-50 rounded-lg p-3 border-l-4 border-blue-400">
+            <p class="text-sm text-blue-800">
+              <i class="fas fa-lightbulb mr-1"></i>
+              <strong>꿀팁:</strong> 2인실은 다인실에 속하지만 프라이버시와 비용의 중간 옵션이에요!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 실제 비용 테이블 -->
+      <div class="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg p-6 border-2 border-indigo-200">
+        <h3 class="text-xl font-bold text-indigo-800 mb-4 flex items-center">
+          <span class="bg-indigo-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">3</span>
+          2025년 실제 비용 (한 달 기준)
+        </h3>
+        
+        <div class="bg-yellow-50 rounded-lg p-3 mb-4 border-l-4 border-yellow-500">
+          <p class="text-sm text-yellow-800">
+            <i class="fas fa-exclamation-circle mr-1"></i>
+            <strong>2인실 기준</strong>으로 계산한 평균 비용이에요 (보험 적용 후 본인 부담)
+          </p>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="bg-indigo-100">
+                <th class="px-3 py-2 text-left text-indigo-900 font-bold border border-indigo-200">시설 종류</th>
+                <th class="px-3 py-2 text-right text-indigo-900 font-bold border border-indigo-200">기본료 (보험 전)</th>
+                <th class="px-3 py-2 text-right text-indigo-900 font-bold border border-indigo-200">본인 부담 (월)</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white">
+              <tr class="border-b border-gray-200">
+                <td class="px-3 py-2 border border-gray-200">🏥 일반·1차 병원</td>
+                <td class="px-3 py-2 text-right border border-gray-200 text-gray-600">70~100만원</td>
+                <td class="px-3 py-2 text-right border border-gray-200">
+                  <span class="font-bold text-blue-600">20~30만원</span>
+                </td>
+              </tr>
+              <tr class="border-b border-gray-200 bg-green-50">
+                <td class="px-3 py-2 border border-gray-200">💪 재활전문병원</td>
+                <td class="px-3 py-2 text-right border border-gray-200 text-gray-600">120~150만원</td>
+                <td class="px-3 py-2 text-right border border-gray-200">
+                  <span class="font-bold text-green-600">30~50만원</span>
+                </td>
+              </tr>
+              <tr class="bg-blue-50">
+                <td class="px-3 py-2 border border-gray-200">🏨 요양병원·요양원</td>
+                <td class="px-3 py-2 text-right border border-gray-200 text-gray-600">100~130만원</td>
+                <td class="px-3 py-2 text-right border border-gray-200">
+                  <span class="font-bold text-indigo-600">20~40만원</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-4 space-y-2 text-xs text-gray-600">
+          <p class="flex items-start">
+            <span class="mr-1">※</span>
+            <span>실제 금액은 병원·지역·보험 종류·환자 상태에 따라 달라질 수 있어요</span>
+          </p>
+          <p class="flex items-start">
+            <span class="mr-1">※</span>
+            <span>건강보험은 약 70%, 장기요양보험은 60~80%를 지원해요</span>
+          </p>
+          <p class="flex items-start">
+            <span class="mr-1">※</span>
+            <span><strong class="text-red-600">상급병실(1인실)</strong>을 선택하시면 <strong>월 100~300만원</strong>이 추가로 들어요</span>
+          </p>
+        </div>
+      </div>
+
       <!-- 재활병원 비용 -->
       <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-6 border-2 border-green-200">
         <h3 class="text-xl font-bold text-green-800 mb-4 flex items-center">
-          <span class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">2</span>
-          재활병원 비용 (하루 기준)
+          <span class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">4</span>
+          재활병원 하루 비용 상세
         </h3>
         
         <div class="bg-yellow-50 rounded-lg p-3 mb-4 border-l-4 border-yellow-500">
@@ -495,8 +604,8 @@ function showCostGuide() {
       <!-- 요양병원 비용 -->
       <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border-2 border-blue-200">
         <h3 class="text-xl font-bold text-blue-800 mb-4 flex items-center">
-          <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">3</span>
-          요양병원 비용 (하루 기준)
+          <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">5</span>
+          요양병원 하루 비용 상세
         </h3>
         
         <div class="bg-yellow-50 rounded-lg p-3 mb-4 border-l-4 border-yellow-500">
@@ -540,7 +649,7 @@ function showCostGuide() {
       <!-- 비급여 체크리스트 -->
       <div class="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-lg p-6 border-2 border-yellow-300">
         <h3 class="text-xl font-bold text-yellow-800 mb-4 flex items-center">
-          <span class="bg-yellow-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">4</span>
+          <span class="bg-yellow-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">6</span>
           비용이 더 나올 수 있는 경우
         </h3>
         
