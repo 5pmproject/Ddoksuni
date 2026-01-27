@@ -591,14 +591,14 @@ app.get('/', (c) => {
                         <div class="form-section-3d bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all">
                             <h3 class="text-lg font-bold text-purple-800 mb-4 flex items-center">
                                 <span class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">3</span>
-                                Glasgow Coma Scale (GCS) 의식 상태 평가
+                                환자 건강 평가
                             </h3>
                             
                             <!-- GCS 설명 -->
                             <div class="bg-purple-100 rounded-lg p-4 mb-4 border-l-4 border-purple-500">
                                 <p class="text-sm text-purple-900">
                                     <i class="fas fa-info-circle mr-2"></i>
-                                    <strong>GCS는 의식 수준을 평가하는 가장 표준화되고 객관적인 방법입니다.</strong><br>
+                                    <strong>GCS(Glasgow Coma Scale)은 병원에서 의식 수준을 평가하는 가장 표준화되고 객관적인 방법입니다.</strong><br>
                                     세 가지 영역(눈 뜨기, 언어 반응, 운동 반응)을 각각 평가하여 총점으로 의식 수준을 판단합니다.
                                 </p>
                             </div>
@@ -737,9 +737,9 @@ app.get('/', (c) => {
                                     </label>
                                     <select name="insurance_type" 
                                             class="input-3d w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 text-base">
-                                        <option value="employee">💼 직장가입자 (회사 다님)</option>
-                                        <option value="local">🏠 지역가입자 (자영업/무직)</option>
-                                        <option value="medical_aid">❤️ 의료급여 (기초수급자)</option>
+                                        <option value="employee">💼 직장가입자 (고용보험)</option>
+                                        <option value="local">🏠 지역가입자 (주민보험)</option>
+                                        <option value="special">🏛️ 특수·공공지원</option>
                                     </select>
                                     <p class="text-xs text-gray-600 mt-1 bg-white rounded px-2 py-1">
                                         📄 건강보험증을 확인해주세요
