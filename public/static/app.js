@@ -17,11 +17,58 @@ function setupEventListeners() {
   }
 }
 
+// 랜딩 페이지로 돌아가기
+function backToLanding() {
+  // 랜딩 페이지 표시
+  const landing = document.getElementById('landingPage');
+  if (landing) {
+    landing.classList.remove('hidden');
+  }
+  
+  // 진행 단계 표시 숨김
+  const progress = document.getElementById('progressSteps');
+  if (progress) {
+    progress.classList.add('hidden');
+  }
+  
+  // 모든 섹션 숨김
+  const sections = ['registerForm', 'pathwayResult', 'costResult', 'facilitiesResult'];
+  sections.forEach(id => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.classList.add('hidden');
+    }
+  });
+  
+  // 페이지 최상단으로 스크롤
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// 섹션 네비게이션 (랜딩 카드 클릭)
+function navigateToSection(sectionNumber) {
+  // 랜딩 페이지 숨김
+  const landing = document.getElementById('landingPage');
+  if (landing) {
+    landing.classList.add('hidden');
+  }
+  
+  // 진행 단계 표시
+  const progress = document.getElementById('progressSteps');
+  if (progress) {
+    progress.classList.remove('hidden');
+  }
+  
+  // 해당 단계로 이동
+  goToStep(sectionNumber);
+}
+
 // 진행 단계 업데이트
 function updateProgressSteps(currentStep) {
   // 모든 단계 초기화
   for (let i = 1; i <= 4; i++) {
     const stepEl = document.getElementById(`step${i}`);
+    if (!stepEl) continue;
+    
     const circle = stepEl.querySelector('div');
     const text = stepEl.querySelector('span');
     
@@ -62,22 +109,21 @@ function goToStep(step) {
     }
   });
   
-  // 웰컴 메시지는 1단계에만 표시
-  const welcomeMsg = document.getElementById('welcomeMessage');
-  if (welcomeMsg) {
-    if (step === 1) {
-      welcomeMsg.classList.remove('hidden');
-    } else {
-      welcomeMsg.classList.add('hidden');
-    }
-  }
-  
   // 각 단계별 콘텐츠 로드
   if (step === 2 && currentPatient) {
     loadPathwayRecommendation();
+  } else if (step === 2 && !currentPatient) {
+    // 환자 정보 없이 경로 추천 단계로 이동한 경우
+    showWarningModal('먼저 환자 정보를 입력해주세요', '맞춤 경로 추천을 위해서는 환자 정보가 필요합니다.', () => {
+      navigateToSection(1);
+    });
   } else if (step === 3 && currentPatient) {
     loadCostEstimation();
-  } else if (step === 4 && currentPatient) {
+  } else if (step === 3 && !currentPatient) {
+    showWarningModal('먼저 환자 정보를 입력해주세요', '비용 계산을 위해서는 환자 정보가 필요합니다.', () => {
+      navigateToSection(1);
+    });
+  } else if (step === 4) {
     loadFacilities();
   }
 }
@@ -1743,4 +1789,41 @@ function showNotification(message, type = 'info') {
     notification.style.transition = 'opacity 0.5s';
     setTimeout(() => notification.remove(), 500);
   }, 3000);
+}
+
+// 경고 모달 표시 함수
+function showWarningModal(title, message, onConfirm) {
+  const modal = document.createElement('div');
+  modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+  
+  modal.innerHTML = `
+    <div class="bg-white rounded-lg max-w-md w-full p-6">
+      <div class="flex items-center mb-4">
+        <div class="bg-yellow-100 rounded-full p-3 mr-4">
+          <i class="fas fa-exclamation-triangle text-yellow-600 text-2xl"></i>
+        </div>
+        <h2 class="text-xl font-bold text-gray-800">${title}</h2>
+      </div>
+      <p class="text-gray-600 mb-6">${message}</p>
+      <div class="flex space-x-3">
+        <button onclick="this.closest('.fixed').remove()" 
+                class="flex-1 bg-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-400 transition font-semibold">
+          취소
+        </button>
+        <button id="confirmBtn"
+                class="flex-1 bg-primary-500 text-white py-2 px-4 rounded-lg hover:bg-primary-700 transition font-semibold">
+          확인
+        </button>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(modal);
+  
+  // 확인 버튼 클릭 이벤트
+  const confirmBtn = modal.querySelector('#confirmBtn');
+  confirmBtn.onclick = () => {
+    modal.remove();
+    if (onConfirm) onConfirm();
+  };
 }
