@@ -455,31 +455,38 @@ function showCostGuide() {
           재활병원 비용 (하루 기준)
         </h3>
         
+        <div class="bg-yellow-50 rounded-lg p-3 mb-4 border-l-4 border-yellow-500">
+          <p class="text-sm text-yellow-800 font-semibold">
+            <i class="fas fa-info-circle mr-1"></i>
+            병원·지역마다 차이가 있어요! 아래는 평균 범위입니다
+          </p>
+        </div>
+        
         <div class="space-y-3">
           <div class="bg-white rounded-lg p-4 border-l-4 border-green-500">
             <div class="flex justify-between items-center mb-2">
-              <h4 class="font-bold text-gray-800">🛏️ 2인실 (일반)</h4>
-              <span class="text-green-600 font-bold text-lg">4만원/일</span>
+              <h4 class="font-bold text-gray-800">🛏️ 다인실 (2-6인)</h4>
+              <span class="text-green-600 font-bold text-lg">3~5만원/일</span>
             </div>
             <p class="text-sm text-gray-600">건강보험 70% 적용 → 본인 부담 30%</p>
-            <p class="text-xs text-green-700 mt-1">💰 한 달: 약 120만원</p>
+            <p class="text-xs text-green-700 mt-1">💰 한 달: 약 90~150만원</p>
           </div>
 
           <div class="bg-white rounded-lg p-4 border-l-4 border-purple-500">
             <div class="flex justify-between items-center mb-2">
-              <h4 class="font-bold text-gray-800">🏨 1인실 (프라이빗)</h4>
-              <span class="text-purple-600 font-bold text-lg">10만원/일</span>
+              <h4 class="font-bold text-gray-800">🏨 상급병실 (1인실)</h4>
+              <span class="text-purple-600 font-bold text-lg">8~15만원/일</span>
             </div>
-            <p class="text-sm text-gray-600">기본 4만원 + 1인실 추가 6만원 (비급여)</p>
-            <p class="text-xs text-purple-700 mt-1">💰 한 달: 약 300만원</p>
+            <p class="text-sm text-gray-600">다인실 비용 + 상급병실 추가비 (비급여)</p>
+            <p class="text-xs text-purple-700 mt-1">💰 한 달: 약 240~450만원</p>
           </div>
 
           <div class="bg-blue-50 rounded-lg p-3 text-sm">
             <p class="text-blue-800 font-semibold mb-1">➕ 추가 비용 예시</p>
             <div class="space-y-1 text-xs text-gray-700">
-              <p>• 🤖 로봇 재활: 3만원/회 (주 2회 → 월 6만원)</p>
-              <p>• 🦽 전동 휠체어: 15-20만원/월</p>
-              <p>• 🥗 특수 식단: 1-2만원/일 (월 30-60만원)</p>
+              <p>• 🤖 로봇 재활: 2~5만원/회 (주 2회 → 월 약 16~40만원)</p>
+              <p>• 🦽 전동 휠체어: 15~30만원/월</p>
+              <p>• 🥗 특수 식단: 1~3만원/일 (월 약 30~90만원)</p>
             </div>
           </div>
         </div>
@@ -492,23 +499,30 @@ function showCostGuide() {
           요양병원 비용 (하루 기준)
         </h3>
         
+        <div class="bg-yellow-50 rounded-lg p-3 mb-4 border-l-4 border-yellow-500">
+          <p class="text-sm text-yellow-800 font-semibold">
+            <i class="fas fa-info-circle mr-1"></i>
+            병원·요양등급마다 차이가 있어요! 아래는 평균 범위입니다
+          </p>
+        </div>
+        
         <div class="space-y-3">
           <div class="bg-white rounded-lg p-4 border-l-4 border-blue-500">
             <div class="flex justify-between items-center mb-2">
-              <h4 class="font-bold text-gray-800">🛏️ 2인실 (일반)</h4>
-              <span class="text-blue-600 font-bold text-lg">3만원/일</span>
+              <h4 class="font-bold text-gray-800">🛏️ 다인실 (2-6인)</h4>
+              <span class="text-blue-600 font-bold text-lg">2~4만원/일</span>
             </div>
             <p class="text-sm text-gray-600">장기요양보험 60-80% 적용</p>
-            <p class="text-xs text-blue-700 mt-1">💰 한 달: 약 90만원</p>
+            <p class="text-xs text-blue-700 mt-1">💰 한 달: 약 60~120만원</p>
           </div>
 
           <div class="bg-white rounded-lg p-4 border-l-4 border-indigo-500">
             <div class="flex justify-between items-center mb-2">
-              <h4 class="font-bold text-gray-800">🏨 1인실 (프라이빗)</h4>
-              <span class="text-indigo-600 font-bold text-lg">8만원/일</span>
+              <h4 class="font-bold text-gray-800">🏨 상급병실 (1인실)</h4>
+              <span class="text-indigo-600 font-bold text-lg">6~12만원/일</span>
             </div>
-            <p class="text-sm text-gray-600">기본 3만원 + 1인실 추가 5만원 (비급여)</p>
-            <p class="text-xs text-indigo-700 mt-1">💰 한 달: 약 240만원</p>
+            <p class="text-sm text-gray-600">다인실 비용 + 상급병실 추가비 (비급여)</p>
+            <p class="text-xs text-indigo-700 mt-1">💰 한 달: 약 180~360만원</p>
           </div>
 
           <div class="bg-orange-50 rounded-lg p-3 text-sm">
@@ -517,6 +531,7 @@ function showCostGuide() {
               <p>• 1등급: 보험 80% → 본인 부담 20%</p>
               <p>• 2등급: 보험 70% → 본인 부담 30%</p>
               <p>• 3등급: 보험 60% → 본인 부담 40%</p>
+              <p class="text-blue-700 font-semibold mt-2">→ 등급이 높을수록 본인 부담이 줄어요!</p>
             </div>
           </div>
         </div>
@@ -533,8 +548,8 @@ function showCostGuide() {
           <div class="bg-white rounded-lg p-3 flex items-start">
             <span class="text-xl mr-3">🛏️</span>
             <div class="flex-1">
-              <p class="font-semibold text-gray-800">1인실을 원하시나요?</p>
-              <p class="text-sm text-gray-600">→ 하루 5-10만원 추가</p>
+              <p class="font-semibold text-gray-800">상급병실(1인실)을 원하시나요?</p>
+              <p class="text-sm text-gray-600">→ 하루 4~10만원 추가 (병원마다 다름)</p>
             </div>
           </div>
 
@@ -542,7 +557,7 @@ function showCostGuide() {
             <span class="text-xl mr-3">🤖</span>
             <div class="flex-1">
               <p class="font-semibold text-gray-800">로봇·특수 재활을 하실 건가요?</p>
-              <p class="text-sm text-gray-600">→ 회당 2-3만원 추가</p>
+              <p class="text-sm text-gray-600">→ 회당 2~5만원 추가</p>
             </div>
           </div>
 
@@ -550,7 +565,7 @@ function showCostGuide() {
             <span class="text-xl mr-3">🦽</span>
             <div class="flex-1">
               <p class="font-semibold text-gray-800">전동 휠체어가 필요하신가요?</p>
-              <p class="text-sm text-gray-600">→ 한 달 15-20만원 추가</p>
+              <p class="text-sm text-gray-600">→ 한 달 15~30만원 추가</p>
             </div>
           </div>
 
@@ -558,7 +573,7 @@ function showCostGuide() {
             <span class="text-xl mr-3">🥗</span>
             <div class="flex-1">
               <p class="font-semibold text-gray-800">특수 식단이 필요하신가요?</p>
-              <p class="text-sm text-gray-600">→ 하루 1-2만원 추가</p>
+              <p class="text-sm text-gray-600">→ 하루 1~3만원 추가</p>
             </div>
           </div>
 
@@ -566,9 +581,16 @@ function showCostGuide() {
             <span class="text-xl mr-3">👤</span>
             <div class="flex-1">
               <p class="font-semibold text-gray-800">추가 간병인이 필요하신가요?</p>
-              <p class="text-sm text-gray-600">→ 한 달 30-60만원 추가</p>
+              <p class="text-sm text-gray-600">→ 한 달 30~80만원 추가</p>
             </div>
           </div>
+        </div>
+        
+        <div class="mt-4 bg-blue-50 rounded-lg p-3 border-l-4 border-blue-500">
+          <p class="text-sm text-blue-800">
+            <i class="fas fa-chart-line mr-1"></i>
+            <strong>지역별 차이:</strong> 서울·수도권이 지방보다 20-40% 더 비쌀 수 있어요
+          </p>
         </div>
       </div>
 
