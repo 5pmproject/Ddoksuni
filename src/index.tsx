@@ -702,7 +702,7 @@ app.get('/', (c) => {
                         <div class="form-section-3d bg-gradient-to-br from-orange-50 to-amber-50 border-2 border-orange-200 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all">
                             <h3 class="text-lg font-bold text-orange-800 mb-4 flex items-center">
                                 <span class="bg-orange-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">4️⃣</span>
-                                보험 및 현재 위치
+                                보험 가입 현황
                             </h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
