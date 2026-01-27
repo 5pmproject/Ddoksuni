@@ -2491,33 +2491,90 @@ function showHelp(type) {
           </h3>
           <div class="space-y-4">
             <div class="bg-blue-50 border-l-4 border-blue-500 p-4">
-              <h4 class="font-semibold text-blue-800 mb-2">
-                <i class="fas fa-building mr-2"></i>직장가입자
+              <h4 class="font-semibold text-blue-800 mb-3">
+                <i class="fas fa-building mr-2"></i>직장가입자 (고용보험)
               </h4>
-              <p class="text-sm text-gray-700">
+              <p class="text-sm text-gray-700 mb-3">
                 회사나 직장에 다니면서 건강보험료를 회사와 본인이 반반씩 부담하는 경우입니다.
                 건강보험증에 "직장"이라고 표시되어 있습니다.
               </p>
+              
+              <div class="bg-white rounded-lg p-3 mt-2 space-y-2 border border-blue-200">
+                <div class="text-xs text-gray-700">
+                  <div class="font-semibold text-blue-700 mb-2">📋 주요 특징:</div>
+                  <ul class="space-y-1 ml-4">
+                    <li>• <strong>고용주가 50%를 부담</strong> (본인 부담 50%)</li>
+                    <li>• 급여 비율: <strong>입원 약 80%</strong>, <strong>외래 약 30%</strong></li>
+                    <li>• <strong>가족·피부양자</strong>(배우자, 자녀, 부모 등)도 동일 보험 적용 가능</li>
+                  </ul>
+                </div>
+                
+                <div class="text-xs text-gray-700 mt-2 pt-2 border-t border-blue-100">
+                  <div class="font-semibold text-blue-700 mb-2">👥 적용 대상:</div>
+                  <ul class="space-y-1 ml-4">
+                    <li>• <strong>본인인 경우:</strong> 현재 직장(사업장)에 고용된 사람</li>
+                    <li>• <strong>피부양자:</strong> 직장에 다니는 사람의 가족·피부양자 (직장보험 적용)</li>
+                  </ul>
+                </div>
+              </div>
             </div>
             
             <div class="bg-green-50 border-l-4 border-green-500 p-4">
-              <h4 class="font-semibold text-green-800 mb-2">
-                <i class="fas fa-home mr-2"></i>지역가입자
+              <h4 class="font-semibold text-green-800 mb-3">
+                <i class="fas fa-home mr-2"></i>지역가입자 (주민보험)
               </h4>
-              <p class="text-sm text-gray-700">
+              <p class="text-sm text-gray-700 mb-3">
                 자영업자, 무직자 등 직장에 다니지 않아 개인이 건강보험료를 전액 부담하는 경우입니다.
                 건강보험증에 "지역"이라고 표시되어 있습니다.
               </p>
+              
+              <div class="bg-white rounded-lg p-3 mt-2 space-y-2 border border-green-200">
+                <div class="text-xs text-gray-700">
+                  <div class="font-semibold text-green-700 mb-2">📋 주요 특징:</div>
+                  <ul class="space-y-1 ml-4">
+                    <li>• <strong>본인이 100% 부담</strong> (고용주 부담 없음)</li>
+                    <li>• 급여 비율: <strong>입원 약 80%</strong>, <strong>외래 약 30%</strong> (직장가입자와 동일)</li>
+                    <li>• 소득·재산에 따라 보험료 산정</li>
+                  </ul>
+                </div>
+                
+                <div class="text-xs text-gray-700 mt-2 pt-2 border-t border-green-100">
+                  <div class="font-semibold text-green-700 mb-2">👥 적용 대상:</div>
+                  <ul class="space-y-1 ml-4">
+                    <li>• 자영업자, 프리랜서, 무직자</li>
+                    <li>• 직장가입자의 피부양자 자격이 없는 사람</li>
+                  </ul>
+                </div>
+              </div>
             </div>
             
             <div class="bg-purple-50 border-l-4 border-purple-500 p-4">
-              <h4 class="font-semibold text-purple-800 mb-2">
-                <i class="fas fa-hand-holding-heart mr-2"></i>의료급여
+              <h4 class="font-semibold text-purple-800 mb-3">
+                <i class="fas fa-landmark mr-2"></i>특수·공공지원
               </h4>
-              <p class="text-sm text-gray-700">
-                기초생활수급자나 차상위계층으로 국가에서 의료비를 지원받는 경우입니다.
-                의료급여증을 가지고 있으면 이에 해당합니다.
+              <p class="text-sm text-gray-700 mb-3">
+                의료급여, 산재보험, 보훈, 기타 공공 지원 등 특수한 보험 혜택을 받는 경우입니다.
               </p>
+              
+              <div class="bg-white rounded-lg p-3 mt-2 space-y-2 border border-purple-200">
+                <div class="text-xs text-gray-700">
+                  <div class="font-semibold text-purple-700 mb-2">📋 포함 항목:</div>
+                  <ul class="space-y-1 ml-4">
+                    <li>• <strong>의료급여 (1종/2종):</strong> 기초생활수급자, 차상위계층</li>
+                    <li>• <strong>산재보험:</strong> 업무상 재해로 인한 경우 (본인 부담 0%)</li>
+                    <li>• <strong>보훈 대상자:</strong> 국가유공자, 보훈 등록자</li>
+                    <li>• <strong>기타 공공지원:</strong> 특수 공무원, 군인 가족 등</li>
+                  </ul>
+                </div>
+                
+                <div class="text-xs text-gray-700 mt-2 pt-2 border-t border-purple-100">
+                  <div class="font-semibold text-purple-700 mb-2">💡 확인 방법:</div>
+                  <ul class="space-y-1 ml-4">
+                    <li>• 의료급여증, 산재승인서, 보훈등록증 등 확인</li>
+                    <li>• 해당 증명서가 있으면 특수·공공지원에 해당</li>
+                  </ul>
+                </div>
+              </div>
             </div>
 
             <div class="bg-gray-50 border border-gray-200 rounded p-4 mt-4">
