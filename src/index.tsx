@@ -425,10 +425,6 @@ app.get('/', (c) => {
                                     </div>
                                     <img src="/static/quest-card-1.png" alt="환자분 이야기 듣기" class="quest-card-image w-full" style="height: 240px; object-fit: contain; object-position: center;">
                                     <div class="quest-shine"></div>
-                                    <div class="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur-md rounded-xl p-3 shadow-2xl border-2 border-white/50">
-                                        <p class="text-sm font-bold text-gray-800 text-center mb-1">🩺 환자분 이야기 듣기</p>
-                                        <p class="text-xs text-gray-600 text-center">약 5분 • 천천히 작성하셔도 괜찮아요</p>
-                                    </div>
                                 </div>
                                 
                                 <!-- Quest Card 2 -->
@@ -438,10 +434,6 @@ app.get('/', (c) => {
                                     </div>
                                     <img src="/static/quest-card-2.png" alt="맞춤 경로 함께 보기" class="quest-card-image w-full" style="height: 240px; object-fit: contain; object-position: center;">
                                     <div class="quest-shine"></div>
-                                    <div class="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur-md rounded-xl p-3 shadow-2xl border-2 border-white/50">
-                                        <p class="text-sm font-bold text-gray-800 text-center mb-1">🗺️ 맞춤 경로 함께 보기</p>
-                                        <p class="text-xs text-gray-600 text-center">전문가의 추천을 쉽게 설명해드려요</p>
-                                    </div>
                                 </div>
                                 
                                 <!-- Quest Card 3 -->
@@ -451,10 +443,6 @@ app.get('/', (c) => {
                                     </div>
                                     <img src="/static/quest-card-3.png" alt="비용 미리 살펴보기" class="quest-card-image w-full" style="height: 240px; object-fit: contain; object-position: center;">
                                     <div class="quest-shine"></div>
-                                    <div class="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur-md rounded-xl p-3 shadow-2xl border-2 border-white/50">
-                                        <p class="text-sm font-bold text-gray-800 text-center mb-1">💰 비용 미리 살펴보기</p>
-                                        <p class="text-xs text-gray-600 text-center">걱정되는 비용, 투명하게 안내해요</p>
-                                    </div>
                                 </div>
                                 
                                 <!-- Quest Card 4 -->
@@ -464,10 +452,6 @@ app.get('/', (c) => {
                                     </div>
                                     <img src="/static/quest-card-4.png" alt="좋은 곳 함께 고르기" class="quest-card-image w-full" style="height: 240px; object-fit: contain; object-position: center;">
                                     <div class="quest-shine"></div>
-                                    <div class="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur-md rounded-xl p-3 shadow-2xl border-2 border-white/50">
-                                        <p class="text-sm font-bold text-gray-800 text-center mb-1">🏥 좋은 곳 함께 고르기</p>
-                                        <p class="text-xs text-gray-600 text-center">환자분께 맞는 기관을 찾아드려요</p>
-                                    </div>
                                 </div>
                             </div>
                             
