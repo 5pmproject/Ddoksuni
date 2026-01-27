@@ -798,19 +798,7 @@ function showCostGuide() {
         </div>
       </div>
 
-      <!-- 다음 단계 안내 -->
-      <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg p-6 text-center">
-        <p class="text-lg text-gray-800 mb-4">
-          <i class="fas fa-heart text-red-500 mr-2"></i>
-          대략적인 비용 감이 오셨나요?<br>
-          <strong class="text-purple-700">환자분 정보를 입력하시면 정확한 예상 비용</strong>을 알려드릴게요!
-        </p>
-        <button onclick="closeModalAndShowForm()" 
-                class="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 px-8 rounded-lg hover:from-purple-700 hover:to-pink-700 transition font-bold text-lg shadow-lg">
-          <i class="fas fa-calculator mr-2"></i>
-          정확한 비용 계산하러 가기
-        </button>
-      </div>
+
     </div>
   `, 'max-w-4xl');
   
@@ -1270,19 +1258,7 @@ function showFacilityGuide() {
         </div>
       </div>
 
-      <!-- 다음 단계 안내 -->
-      <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg p-6 text-center">
-        <p class="text-lg text-gray-800 mb-4">
-          <i class="fas fa-heart text-red-500 mr-2"></i>
-          어떤 곳이 좋을지 감이 오셨나요?<br>
-          <strong class="text-purple-700">환자분 정보를 입력하시면 딱 맞는 장소</strong>를 추천해드릴게요!
-        </p>
-        <button onclick="closeModalAndShowForm()" 
-                class="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 px-8 rounded-lg hover:from-purple-700 hover:to-pink-700 transition font-bold text-lg shadow-lg">
-          <i class="fas fa-search mr-2"></i>
-          맞춤 장소 찾으러 가기
-        </button>
-      </div>
+
     </div>
   `, 'max-w-4xl');
   
