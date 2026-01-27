@@ -430,64 +430,182 @@ app.get('/', (c) => {
                             </p>
                         </div>
                     </div>
-                    <form id="patientForm" class="space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">환자명</label>
-                                <input type="text" name="name" required 
-                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">나이</label>
-                                <input type="number" name="age" required 
-                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">진단명</label>
-                                <input type="text" name="diagnosis" required placeholder="예: 뇌경색, 뇌출혈, 대장암"
-                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500">
-                                <p class="text-xs text-gray-500 mt-1">
-                                    <i class="fas fa-info-circle"></i> 진료기록지나 진단서에 적힌 질병명을 입력하세요
-                                </p>
-                            </div>
-                            <div>
-                                <label class="flex items-center text-sm font-medium text-gray-700 mb-2">
-                                    발병/수술일
-                                    <button type="button" onclick="showHelp('diagnosis_date')" 
-                                            class="ml-2 text-wood-500 hover:text-wood-700">
-                                        <i class="fas fa-question-circle"></i>
-                                    </button>
-                                </label>
-                                <input type="date" name="diagnosis_date" required 
-                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500">
-                                <p class="text-xs text-gray-500 mt-1">
-                                    <i class="fas fa-info-circle"></i> 뇌졸중 발생일, 암 수술일 등 주요 치료가 시작된 날짜
-                                </p>
-                            </div>
-                            <div>
-                                <label class="flex items-center text-sm font-medium text-gray-700 mb-2">
-                                    일상생활 수행능력 (ADL)
-                                    <button type="button" onclick="showADLGuide()" 
-                                            class="ml-2 text-wood-500 hover:text-wood-700">
-                                        <i class="fas fa-question-circle"></i>
-                                    </button>
-                                </label>
-                                <div class="flex items-center space-x-2">
-                                    <input type="range" name="adl_score" min="0" max="100" value="50" 
-                                           oninput="updateADLValue(this.value)"
-                                           class="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
-                                    <span id="adlValue" class="text-lg font-semibold text-blue-600 w-12">50점</span>
+                    <form id="patientForm" class="space-y-6">
+                        <!-- 기본 정보 섹션 -->
+                        <div class="bg-blue-50 border-2 border-blue-200 rounded-lg p-5">
+                            <h3 class="text-lg font-bold text-blue-800 mb-4 flex items-center">
+                                <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">1</span>
+                                기본 정보
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-800 mb-2">
+                                        <span class="text-red-500">*</span> 환자 이름
+                                    </label>
+                                    <input type="text" name="name" required 
+                                           placeholder="예: 김영희"
+                                           class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base">
                                 </div>
-                                <div class="flex justify-between text-xs text-gray-500 mt-1">
-                                    <span>전혀 못함</span>
-                                    <span>부분 도움</span>
-                                    <span>혼자 가능</span>
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-800 mb-2">
+                                        <span class="text-red-500">*</span> 나이
+                                    </label>
+                                    <input type="number" name="age" required 
+                                           placeholder="예: 75"
+                                           class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base">
                                 </div>
-                                <p class="text-xs text-blue-600 mt-2">
-                                    <i class="fas fa-lightbulb"></i> 잘 모르시면 간단한 평가를 해보세요
-                                </p>
                             </div>
-                            <div class="md:col-span-2">
+                        </div>
+                        
+                        <!-- 진단 정보 섹션 -->
+                        <div class="bg-green-50 border-2 border-green-200 rounded-lg p-5">
+                            <h3 class="text-lg font-bold text-green-800 mb-4 flex items-center">
+                                <span class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">2</span>
+                                진단 정보
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-800 mb-2">
+                                        <span class="text-red-500">*</span> 진단명 (질병명)
+                                    </label>
+                                    <input type="text" name="diagnosis" required 
+                                           placeholder="예: 뇌경색, 뇌출혈, 대장암"
+                                           class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-base">
+                                    <p class="text-xs text-gray-600 mt-1 bg-white rounded px-2 py-1">
+                                        💡 진료기록지나 진단서에 적힌 병명을 적어주세요
+                                    </p>
+                                </div>
+                                <div>
+                                    <label class="flex items-center text-sm font-bold text-gray-800 mb-2">
+                                        <span class="text-red-500">*</span> 발병/수술일
+                                        <button type="button" onclick="showHelp('diagnosis_date')" 
+                                                class="ml-2 text-green-600 hover:text-green-800 text-lg">
+                                            <i class="fas fa-question-circle"></i>
+                                        </button>
+                                    </label>
+                                    <input type="date" name="diagnosis_date" required 
+                                           class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-base">
+                                    <p class="text-xs text-gray-600 mt-1 bg-white rounded px-2 py-1">
+                                        📅 언제 쓰러지셨거나 수술하셨나요?
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 건강 상태 섹션 -->
+                        <div class="bg-purple-50 border-2 border-purple-200 rounded-lg p-5">
+                            <h3 class="text-lg font-bold text-purple-800 mb-4 flex items-center">
+                                <span class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">3</span>
+                                건강 상태 평가
+                            </h3>
+                            <div class="space-y-4">
+                                <!-- ADL 점수 -->
+                                <div>
+                                    <label class="flex items-center text-sm font-bold text-gray-800 mb-2">
+                                        혼자서 할 수 있는 일 (일상생활 능력)
+                                        <button type="button" onclick="showADLGuide()" 
+                                                class="ml-2 text-purple-600 hover:text-purple-800 text-lg">
+                                            <i class="fas fa-question-circle"></i>
+                                        </button>
+                                    </label>
+                                    <div class="bg-white rounded-lg p-4 border-2 border-purple-200">
+                                        <div class="flex items-center space-x-3 mb-2">
+                                            <input type="range" name="adl_score" min="0" max="100" value="50" 
+                                                   oninput="updateADLValue(this.value)"
+                                                   class="flex-1 h-3 bg-gradient-to-r from-red-200 via-yellow-200 to-green-200 rounded-lg appearance-none cursor-pointer">
+                                            <span id="adlValue" class="text-2xl font-bold text-purple-600 w-16 text-center">50점</span>
+                                        </div>
+                                        <div class="flex justify-between text-xs font-semibold text-gray-600 mt-1">
+                                            <span>❌ 전혀 못함</span>
+                                            <span>⚠️ 부분 도움</span>
+                                            <span>✅ 혼자 가능</span>
+                                        </div>
+                                        <p class="text-xs text-purple-600 mt-3 bg-purple-50 rounded px-3 py-2">
+                                            💡 식사, 옷 입기, 화장실, 목욕, 걷기를 얼마나 혼자 하시나요?
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <!-- GCS -->
+                                <div>
+                                    <label class="flex items-center text-sm font-bold text-gray-800 mb-2">
+                                        의식 상태 (얼마나 깨어 계신가요?)
+                                        <button type="button" onclick="showGCSGuide()" 
+                                                class="ml-2 text-purple-600 hover:text-purple-800 text-lg">
+                                            <i class="fas fa-question-circle"></i>
+                                        </button>
+                                    </label>
+                                    <div class="bg-white rounded-lg p-4 border-2 border-purple-200 space-y-3">
+                                        <!-- 눈 뜨기 반응 -->
+                                        <div>
+                                            <label class="text-sm font-bold text-gray-700 mb-2 block flex items-center">
+                                                <span class="bg-purple-100 text-purple-700 rounded-full w-6 h-6 flex items-center justify-center mr-2 text-xs">1</span>
+                                                👁️ 눈을 뜨시나요?
+                                            </label>
+                                            <select name="gcs_eye" onchange="updateGCSTotal()" 
+                                                    class="w-full px-4 py-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+                                                <option value="4">✅ 자발적으로 눈을 뜸 (4점)</option>
+                                                <option value="3">🔊 말하면 눈을 뜸 (3점)</option>
+                                                <option value="2">⚠️ 통증에만 눈을 뜸 (2점)</option>
+                                                <option value="1">❌ 전혀 눈을 뜨지 않음 (1점)</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <!-- 언어 반응 -->
+                                        <div>
+                                            <label class="text-sm font-bold text-gray-700 mb-2 block flex items-center">
+                                                <span class="bg-purple-100 text-purple-700 rounded-full w-6 h-6 flex items-center justify-center mr-2 text-xs">2</span>
+                                                💬 말씀하시나요?
+                                            </label>
+                                            <select name="gcs_verbal" onchange="updateGCSTotal()" 
+                                                    class="w-full px-4 py-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+                                                <option value="5">✅ 정상적으로 대화 가능 (5점)</option>
+                                                <option value="4">😵 대화는 되나 헷갈려함 (4점)</option>
+                                                <option value="3">🗣️ 단어만 말함 (3점)</option>
+                                                <option value="2">😣 알아들을 수 없는 소리 (2점)</option>
+                                                <option value="1">❌ 전혀 소리를 내지 않음 (1점)</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <!-- 운동 반응 -->
+                                        <div>
+                                            <label class="text-sm font-bold text-gray-700 mb-2 block flex items-center">
+                                                <span class="bg-purple-100 text-purple-700 rounded-full w-6 h-6 flex items-center justify-center mr-2 text-xs">3</span>
+                                                🤚 움직이시나요?
+                                            </label>
+                                            <select name="gcs_motor" onchange="updateGCSTotal()" 
+                                                    class="w-full px-4 py-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+                                                <option value="6">✅ 시키는 대로 움직임 (6점)</option>
+                                                <option value="5">👌 통증 부위를 정확히 짚음 (5점)</option>
+                                                <option value="4">👈 통증 쪽으로 손을 뻗음 (4점)</option>
+                                                <option value="3">😖 팔을 구부림 (3점)</option>
+                                                <option value="2">😣 팔을 펴는 반응 (2점)</option>
+                                                <option value="1">❌ 전혀 움직이지 않음 (1점)</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <!-- 총점 표시 -->
+                                        <div class="bg-gradient-to-r from-purple-100 to-blue-100 rounded-lg border-2 border-purple-400 p-4 mt-4">
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-base font-bold text-gray-800">의식 상태 총점:</span>
+                                                <div class="flex items-center space-x-3">
+                                                    <span id="gcsTotal" class="text-3xl font-bold text-purple-700">15점</span>
+                                                    <span id="gcsLevel" class="text-sm px-3 py-1 rounded-full bg-green-500 text-white font-semibold">정상</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 보험 정보 섹션 -->
+                        <div class="bg-orange-50 border-2 border-orange-200 rounded-lg p-5">
+                            <h3 class="text-lg font-bold text-orange-800 mb-4 flex items-center">
+                                <span class="bg-orange-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">4</span>
+                                보험 및 현재 위치
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <label class="flex items-center text-sm font-medium text-gray-700 mb-2">
                                     의식 상태 평가 (Glasgow Coma Scale)
                                     <button type="button" onclick="showGCSGuide()" 
@@ -547,96 +665,107 @@ app.get('/', (c) => {
                                 <p class="text-xs text-gray-500 mt-2">
                                     <i class="fas fa-info-circle"></i> 15점: 정상 | 13-14점: 경미한 장애 | 9-12점: 중등도 | 8점 이하: 중증
                                 </p>
-                            </div>
-                            <div>
-                                <label class="flex items-center text-sm font-medium text-gray-700 mb-2">
-                                    건강보험 유형
-                                    <button type="button" onclick="showHelp('insurance')" 
-                                            class="ml-2 text-wood-500 hover:text-wood-700">
-                                        <i class="fas fa-question-circle"></i>
-                                    </button>
-                                </label>
-                                <select name="insurance_type" 
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500">
-                                    <option value="employee">직장가입자 (회사에서 보험료 납부)</option>
-                                    <option value="local">지역가입자 (개인이 보험료 납부)</option>
-                                    <option value="medical_aid">의료급여 (기초생활수급자)</option>
-                                </select>
-                                <p class="text-xs text-gray-500 mt-1">
-                                    <i class="fas fa-info-circle"></i> 건강보험증에서 확인 가능합니다
-                                </p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="flex items-center text-sm font-bold text-gray-800 mb-2">
+                                        <span class="text-red-500">*</span> 건강보험 종류
+                                        <button type="button" onclick="showHelp('insurance')" 
+                                                class="ml-2 text-orange-600 hover:text-orange-800 text-lg">
+                                            <i class="fas fa-question-circle"></i>
+                                        </button>
+                                    </label>
+                                    <select name="insurance_type" 
+                                            class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 text-base">
+                                        <option value="employee">💼 직장가입자 (회사 다님)</option>
+                                        <option value="local">🏠 지역가입자 (자영업/무직)</option>
+                                        <option value="medical_aid">❤️ 의료급여 (기초수급자)</option>
+                                    </select>
+                                    <p class="text-xs text-gray-600 mt-1 bg-white rounded px-2 py-1">
+                                        📄 건강보험증을 확인해주세요
+                                    </p>
+                                </div>
+                                <div>
+                                    <label class="flex items-center text-sm font-bold text-gray-800 mb-2">
+                                        장기요양등급 (있으면 선택)
+                                        <button type="button" onclick="showHelp('ltc')" 
+                                                class="ml-2 text-orange-600 hover:text-orange-800 text-lg">
+                                            <i class="fas fa-question-circle"></i>
+                                        </button>
+                                    </label>
+                                    <select name="ltc_grade" 
+                                            class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 text-base">
+                                        <option value="">❔ 신청 안했거나 모름</option>
+                                        <option value="1">1급 (가장 심함)</option>
+                                        <option value="2">2급 (심함)</option>
+                                        <option value="3">3급 (보통)</option>
+                                        <option value="4">4급 (약함)</option>
+                                        <option value="5">5급 (약함)</option>
+                                    </select>
+                                    <p class="text-xs text-gray-600 mt-1 bg-white rounded px-2 py-1">
+                                        💡 없으면 첫 번째 선택하세요
+                                    </p>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block text-sm font-bold text-gray-800 mb-2">
+                                        <span class="text-red-500">*</span> 현재 입원 병원 이름
+                                    </label>
+                                    <input type="text" name="current_hospital" required 
+                                           placeholder="예: 서울대학교병원, 삼성서울병원"
+                                           class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 text-base">
+                                    <p class="text-xs text-gray-600 mt-1 bg-white rounded px-2 py-1">
+                                        🏥 지금 계신 병원 이름을 적어주세요
+                                    </p>
+                                </div>
                             </div>
                         </div>
                         
                         <!-- 요양병원 vs 요양시설 차이 안내 -->
-                        <div class="bg-gradient-to-r from-orange-50 to-red-50 border-2 border-orange-300 rounded-lg p-4 mt-6 mb-6">
+                        <div class="bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-400 rounded-lg p-5">
                             <div class="flex items-start">
                                 <div class="flex-shrink-0">
-                                    <i class="fas fa-exclamation-triangle text-3xl text-orange-600"></i>
+                                    <i class="fas fa-exclamation-triangle text-4xl text-yellow-600"></i>
                                 </div>
                                 <div class="ml-4 flex-1">
-                                    <h4 class="font-bold text-orange-800 mb-2 text-base">
+                                    <h4 class="font-bold text-yellow-900 mb-2 text-lg">
                                         잠깐! 요양병원 vs 요양시설의 차이를 아시나요?
                                     </h4>
-                                    <p class="text-sm text-gray-700 mb-3">
-                                        많은 분들이 혼동하시는데, <strong class="text-red-600">완전히 다른 기관</strong>입니다!
+                                    <p class="text-sm text-gray-800 mb-3">
+                                        많은 분들이 헷갈려하시는데, <strong class="text-red-700">완전히 다른 곳</strong>입니다!
                                     </p>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs mb-3">
-                                        <div class="bg-white rounded p-2 border border-blue-200">
-                                            <p class="font-semibold text-blue-700 mb-1">
-                                                <i class="fas fa-hospital mr-1"></i>요양병원 (의료기관)
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm mb-3">
+                                        <div class="bg-white rounded-lg p-3 border-2 border-blue-300">
+                                            <p class="font-bold text-blue-700 mb-1 flex items-center">
+                                                <i class="fas fa-hospital mr-2"></i>요양병원
                                             </p>
-                                            <p class="text-gray-600">장기요양등급 불필요 • 건강보험</p>
+                                            <p class="text-gray-700">✅ 장기요양등급 필요없음</p>
+                                            <p class="text-gray-700">💊 건강보험 적용</p>
                                         </div>
-                                        <div class="bg-white rounded p-2 border border-orange-200">
-                                            <p class="font-semibold text-orange-700 mb-1">
-                                                <i class="fas fa-home mr-1"></i>요양시설 (복지시설)
+                                        <div class="bg-white rounded-lg p-3 border-2 border-orange-300">
+                                            <p class="font-bold text-orange-700 mb-1 flex items-center">
+                                                <i class="fas fa-home mr-2"></i>요양시설 (요양원)
                                             </p>
-                                            <p class="text-gray-600">장기요양등급 필수 • 요양보험</p>
+                                            <p class="text-gray-700">⚠️ 장기요양등급 필수</p>
+                                            <p class="text-gray-700">🏥 요양보험 적용</p>
                                         </div>
                                     </div>
                                     <button type="button" onclick="showHelp('facility_types')" 
-                                            class="w-full bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-orange-700 transition text-sm font-semibold">
+                                            class="w-full bg-yellow-600 text-white py-3 px-4 rounded-lg hover:bg-yellow-700 transition font-bold text-base">
                                         <i class="fas fa-search mr-2"></i>
-                                        상세 차이점 보기 (필독!)
+                                        자세한 차이점 보기 (꼭 읽어보세요!)
                                     </button>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="flex items-center text-sm font-medium text-gray-700 mb-2">
-                                    장기요양등급
-                                    <button type="button" onclick="showHelp('ltc')" 
-                                            class="ml-2 text-wood-500 hover:text-wood-700">
-                                        <i class="fas fa-question-circle"></i>
-                                    </button>
-                                </label>
-                                <select name="ltc_grade" 
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500">
-                                    <option value="">아직 신청 안함 (모르겠음)</option>
-                                    <option value="1">1급 (최중증 - 완전 와상)</option>
-                                    <option value="2">2급 (중증 - 거의 와상)</option>
-                                    <option value="3">3급 (중등증 - 부분 도움 필요)</option>
-                                    <option value="4">4급 (경증 - 약간의 도움 필요)</option>
-                                    <option value="5">5급 (경증 - 일부 도움 필요)</option>
-                                </select>
-                                <p class="text-xs text-blue-600 mt-1">
-                                    <i class="fas fa-lightbulb"></i> 신청하지 않았다면 '아직 신청 안함'을 선택하세요
-                                </p>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">현재 입원 병원</label>
-                            <input type="text" name="current_hospital" required 
-                                   class="w-full px-4 py-2 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 bg-white">
-                        </div>
+                        <!-- 제출 버튼 -->
                         <button type="submit" 
-                                class="w-full bg-primary-500 text-white py-4 px-6 rounded-lg hover:bg-primary-700 transition font-semibold text-lg shadow-lg">
-                            <i class="fas fa-hands-helping mr-2"></i>
-                            함께 시작하기
+                                class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-5 px-8 rounded-xl hover:from-blue-700 hover:to-purple-700 transition font-bold text-xl shadow-2xl transform hover:scale-105">
+                            <i class="fas fa-rocket mr-3 text-2xl"></i>
+                            분석 시작하기
                         </button>
+                        <p class="text-center text-gray-500 text-sm mt-3">
+                            <span class="text-red-500">*</span> 표시는 필수 입력 항목입니다
+                        </p>
                     </form>
                 </div>
             </section>
