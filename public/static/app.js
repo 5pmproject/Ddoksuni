@@ -54,7 +54,8 @@ function initializeQuestCards() {
   cards.forEach((card, index) => {
     card.addEventListener('click', function() {
       const questNumber = parseInt(this.dataset.quest);
-      // 첫 번째 퀘스트만 클릭 가능
+      
+      // 첫 번째 퀘스트 - 환자 정보 입력
       if (questNumber === 1) {
         // 웰컴 메시지 숨기고 폼 보이기 (페이지 전환 효과)
         const welcomeMessage = document.getElementById('welcomeMessage');
@@ -70,8 +71,192 @@ function initializeQuestCards() {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       }
+      
+      // 두 번째 퀘스트 - 전원 가이드
+      else if (questNumber === 2) {
+        showTransferGuide();
+      }
     });
   });
+}
+
+// 전원 가이드 표시
+function showTransferGuide() {
+  const modal = createModal(`
+    <div class="space-y-6">
+      <div class="text-center">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">
+          <i class="fas fa-map-signs text-blue-600 mr-2"></i>
+          전원, 어디로 가야 할까요?
+        </h2>
+        <p class="text-lg text-gray-700">
+          똑순이가 쉽게 알려드릴게요! 천천히 읽어보세요 😊
+        </p>
+      </div>
+
+      <!-- 주요 기관 종류 -->
+      <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 border-2 border-blue-200">
+        <h3 class="text-xl font-bold text-blue-800 mb-4 flex items-center">
+          <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">1</span>
+          병원과 요양시설, 어떻게 다를까요?
+        </h3>
+        
+        <div class="space-y-4">
+          <!-- 재활병원 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-green-300">
+            <div class="flex items-center mb-2">
+              <span class="text-2xl mr-3">🏥</span>
+              <h4 class="text-lg font-bold text-green-700">재활병원</h4>
+              <span class="ml-auto bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">2-4주</span>
+            </div>
+            <p class="text-gray-700 mb-2">집중적으로 몸 기능을 회복하는 곳이에요</p>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="bg-green-50 text-green-700 px-2 py-1 rounded">💪 물리치료</span>
+              <span class="bg-green-50 text-green-700 px-2 py-1 rounded">🖐️ 작업치료</span>
+              <span class="bg-green-50 text-green-700 px-2 py-1 rounded">🗣️ 언어치료</span>
+              <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded">건강보험 적용</span>
+            </div>
+          </div>
+
+          <!-- 요양병원 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-blue-300">
+            <div class="flex items-center mb-2">
+              <span class="text-2xl mr-3">🏨</span>
+              <h4 class="text-lg font-bold text-blue-700">요양병원</h4>
+              <span class="ml-auto bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">1-6개월</span>
+            </div>
+            <p class="text-gray-700 mb-2">장기간 치료와 돌봄을 함께 받는 곳이에요</p>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="bg-blue-50 text-blue-700 px-2 py-1 rounded">💊 의료 서비스</span>
+              <span class="bg-blue-50 text-blue-700 px-2 py-1 rounded">👩‍⚕️ 간호 돌봄</span>
+              <span class="bg-blue-50 text-blue-700 px-2 py-1 rounded">🍚 식사 제공</span>
+              <span class="bg-orange-100 text-orange-700 px-2 py-1 rounded">장기요양보험</span>
+            </div>
+          </div>
+
+          <!-- 요양원 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-purple-300">
+            <div class="flex items-center mb-2">
+              <span class="text-2xl mr-3">🏡</span>
+              <h4 class="text-lg font-bold text-purple-700">요양원 (요양시설)</h4>
+              <span class="ml-auto bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-semibold">6개월+</span>
+            </div>
+            <p class="text-gray-700 mb-2">일상생활을 도와드리는 생활시설이에요</p>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="bg-purple-50 text-purple-700 px-2 py-1 rounded">🛏️ 거주 지원</span>
+              <span class="bg-purple-50 text-purple-700 px-2 py-1 rounded">🍽️ 식사·돌봄</span>
+              <span class="bg-purple-50 text-purple-700 px-2 py-1 rounded">🚿 목욕 지원</span>
+              <span class="bg-orange-100 text-orange-700 px-2 py-1 rounded">장기요양등급 필수</span>
+            </div>
+          </div>
+
+          <!-- 재활센터 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-yellow-300">
+            <div class="flex items-center mb-2">
+              <span class="text-2xl mr-3">🏃</span>
+              <h4 class="text-lg font-bold text-yellow-700">재활센터 (통원)</h4>
+              <span class="ml-auto bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-semibold">주 1-5회</span>
+            </div>
+            <p class="text-gray-700 mb-2">집에서 생활하며 정기적으로 치료받는 곳이에요</p>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="bg-yellow-50 text-yellow-700 px-2 py-1 rounded">🏠 재가</span>
+              <span class="bg-yellow-50 text-yellow-700 px-2 py-1 rounded">🚶 통원 치료</span>
+              <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded">건강보험 적용</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 상황별 추천 -->
+      <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-6 border-2 border-green-200">
+        <h3 class="text-xl font-bold text-green-800 mb-4 flex items-center">
+          <span class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">2</span>
+          우리 환자분은 어디로 가면 좋을까요?
+        </h3>
+        
+        <div class="space-y-3">
+          <div class="bg-white rounded-lg p-4 border-l-4 border-red-500">
+            <p class="font-bold text-gray-800 mb-1">🔴 혼자서 거의 못 하심 (중증)</p>
+            <p class="text-gray-700 text-sm">→ <strong>재활병원</strong>에서 집중 치료가 필요해요</p>
+          </div>
+          
+          <div class="bg-white rounded-lg p-4 border-l-4 border-orange-500">
+            <p class="font-bold text-gray-800 mb-1">🟠 부분적으로 도움 필요 (중등도)</p>
+            <p class="text-gray-700 text-sm">→ <strong>재활병원 → 요양병원</strong> 순서로 가시면 좋아요</p>
+          </div>
+          
+          <div class="bg-white rounded-lg p-4 border-l-4 border-yellow-500">
+            <p class="font-bold text-gray-800 mb-1">🟡 일부 도움 필요 (경증)</p>
+            <p class="text-gray-700 text-sm">→ <strong>요양병원</strong>이나 <strong>요양원</strong>을 선택하시면 돼요</p>
+          </div>
+          
+          <div class="bg-white rounded-lg p-4 border-l-4 border-green-500">
+            <p class="font-bold text-gray-800 mb-1">🟢 대부분 혼자 가능</p>
+            <p class="text-gray-700 text-sm">→ <strong>재활센터</strong>에 통원하거나 집에서 요양하세요</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 핵심 차이점 -->
+      <div class="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-5">
+        <h3 class="text-lg font-bold text-yellow-800 mb-3 flex items-center">
+          <i class="fas fa-lightbulb text-yellow-600 mr-2 text-xl"></i>
+          꼭 기억하세요!
+        </h3>
+        <div class="space-y-2 text-sm">
+          <p class="flex items-start">
+            <span class="text-green-600 mr-2">✓</span>
+            <span><strong>재활병원·재활센터</strong>는 <strong class="text-blue-600">건강보험</strong>으로 이용해요</span>
+          </p>
+          <p class="flex items-start">
+            <span class="text-green-600 mr-2">✓</span>
+            <span><strong>요양병원·요양원</strong>은 <strong class="text-orange-600">장기요양보험</strong>으로 이용해요</span>
+          </p>
+          <p class="flex items-start">
+            <span class="text-green-600 mr-2">✓</span>
+            <span><strong>요양원</strong>은 꼭 <strong class="text-red-600">장기요양등급</strong>이 있어야 해요!</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- 다음 단계 안내 -->
+      <div class="bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg p-6 text-center">
+        <p class="text-lg text-gray-800 mb-4">
+          <i class="fas fa-heart text-red-500 mr-2"></i>
+          이해가 되셨나요? 이제 환자분 정보를 입력하시면<br>
+          <strong class="text-blue-700">똑순이가 딱 맞는 경로를 찾아드릴게요!</strong>
+        </p>
+        <button onclick="closeModalAndShowForm()" 
+                class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-8 rounded-lg hover:from-blue-700 hover:to-purple-700 transition font-bold text-lg shadow-lg">
+          <i class="fas fa-arrow-right mr-2"></i>
+          환자 정보 입력하러 가기
+        </button>
+      </div>
+    </div>
+  `, 'max-w-4xl');
+  
+  document.getElementById('modalContainer').appendChild(modal);
+}
+
+// 모달 닫고 폼 보이기
+function closeModalAndShowForm() {
+  // 모달 닫기
+  const modal = document.querySelector('.fixed.inset-0');
+  if (modal) modal.remove();
+  
+  // 웰컴 메시지 숨기고 폼 보이기
+  const welcomeMessage = document.getElementById('welcomeMessage');
+  const registerForm = document.getElementById('registerForm');
+  const progressSteps = document.getElementById('progressSteps');
+  
+  if (welcomeMessage && registerForm) {
+    welcomeMessage.style.display = 'none';
+    registerForm.classList.remove('hidden');
+    progressSteps.classList.remove('hidden');
+    
+    // 페이지 상단으로 부드럽게 스크롤
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }
 
 // 퀘스트 카드 상태 업데이트
@@ -83,7 +268,14 @@ function updateQuestCards(currentStep) {
     const questNumber = index + 1;
     const statusBadge = card.querySelector('.quest-status');
     
-    if (questNumber < currentStep) {
+    // 1번, 2번 카드는 항상 클릭 가능하게 (가이드 용도)
+    if (questNumber === 1 || questNumber === 2) {
+      card.classList.remove('opacity-60');
+      statusBadge.className = 'quest-status status-available';
+      statusBadge.textContent = '시작';
+      card.style.pointerEvents = 'auto';
+    }
+    else if (questNumber < currentStep) {
       // 완료된 퀘스트
       card.classList.remove('opacity-60');
       statusBadge.className = 'quest-status status-completed';
