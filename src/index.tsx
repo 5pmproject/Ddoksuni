@@ -106,6 +106,30 @@ app.get('/', (c) => {
             background-color: #F2F3F0;
             border-color: #E3E6DF;
           }
+          .section-card-hover {
+            position: relative;
+            overflow: hidden;
+          }
+          .section-card-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+          }
+          .section-card-hover:hover::before {
+            left: 100%;
+          }
+          @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+          }
+          .section-card-hover:hover i {
+            animation: pulse 1.5s infinite;
+          }
         </style>
     </head>
     <body class="bg-wood-50">
@@ -130,8 +154,132 @@ app.get('/', (c) => {
 
         <!-- 메인 컨텐츠 -->
         <main class="max-w-7xl mx-auto px-4 py-8">
-            <!-- 진행 단계 표시 -->
-            <div id="progressSteps" class="mb-8">
+            <!-- 랜딩 페이지 (최초 진입 시) -->
+            <div id="landingPage">
+                <!-- 메인 헤더 -->
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-5xl font-bold text-wood-700 mb-4">
+                        네 걸음으로, 함께 준비해요
+                    </h1>
+                    <p class="text-lg text-gray-600 mb-2">
+                        혼자 고민하지 마세요. 지금 시작해볼까요?
+                    </p>
+                </div>
+
+                <!-- 4개 섹션 카드 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <!-- 섹션 1: 환자분 이야기 듣기 -->
+                    <div onclick="navigateToSection(1)" 
+                         class="section-card-hover cursor-pointer bg-gradient-to-br from-primary-100 to-primary-50 rounded-2xl p-6 shadow-lg border-2 border-primary-200 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                        <div class="flex items-center justify-center mb-4">
+                            <div class="bg-wood-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold shadow-md">
+                                1
+                            </div>
+                        </div>
+                        <div class="text-center mb-4">
+                            <i class="fas fa-user-heart text-5xl text-wood-500 mb-3"></i>
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">
+                                환자분<br>이야기 듣기
+                            </h3>
+                            <p class="text-sm text-gray-600">
+                                약 5분 • 천천히 작성하셔도 괜찮아요
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-center">
+                            <i class="fas fa-volume-up text-3xl text-wood-400"></i>
+                        </div>
+                    </div>
+
+                    <!-- 섹션 2: 맞춤 경로 함께 보기 -->
+                    <div onclick="navigateToSection(2)" 
+                         class="section-card-hover cursor-pointer bg-gradient-to-br from-wood-100 to-wood-50 rounded-2xl p-6 shadow-lg border-2 border-wood-200 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                        <div class="flex items-center justify-center mb-4">
+                            <div class="bg-primary-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold shadow-md">
+                                2
+                            </div>
+                        </div>
+                        <div class="text-center mb-4">
+                            <i class="fas fa-route text-5xl text-primary-500 mb-3"></i>
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">
+                                맞춤 경로<br>함께 보기
+                            </h3>
+                            <p class="text-sm text-gray-600">
+                                전문가의 추천을 쉽게 설명해드려요
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-center">
+                            <i class="fas fa-map-marked-alt text-3xl text-primary-400"></i>
+                        </div>
+                    </div>
+
+                    <!-- 섹션 3: 비용 미리 살펴보기 -->
+                    <div onclick="navigateToSection(3)" 
+                         class="section-card-hover cursor-pointer bg-gradient-to-br from-primary-50 to-wood-50 rounded-2xl p-6 shadow-lg border-2 border-primary-200 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                        <div class="flex items-center justify-center mb-4">
+                            <div class="bg-wood-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold shadow-md">
+                                3
+                            </div>
+                        </div>
+                        <div class="text-center mb-4">
+                            <i class="fas fa-calculator text-5xl text-wood-600 mb-3"></i>
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">
+                                비용 미리<br>살펴보기
+                            </h3>
+                            <p class="text-sm text-gray-600">
+                                걱정되는 비용, 투명하게 안내해요
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-center">
+                            <i class="fas fa-dollar-sign text-3xl text-wood-400"></i>
+                        </div>
+                    </div>
+
+                    <!-- 섹션 4: 좋은 곳 함께 고르기 -->
+                    <div onclick="navigateToSection(4)" 
+                         class="section-card-hover cursor-pointer bg-gradient-to-br from-wood-100 to-primary-50 rounded-2xl p-6 shadow-lg border-2 border-wood-200 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                        <div class="flex items-center justify-center mb-4">
+                            <div class="bg-primary-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold shadow-md">
+                                4
+                            </div>
+                        </div>
+                        <div class="text-center mb-4">
+                            <i class="fas fa-hospital-alt text-5xl text-primary-600 mb-3"></i>
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">
+                                좋은 곳<br>함께 고르기
+                            </h3>
+                            <p class="text-sm text-gray-600">
+                                환자분께 맞는 기관을 찾아드려요
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-center">
+                            <i class="fas fa-check-circle text-3xl text-primary-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 하단 안내 문구 -->
+                <div class="text-center bg-wood-50 rounded-lg p-6 border border-wood-200">
+                    <p class="text-gray-700 mb-3">
+                        <i class="fas fa-arrow-up mr-2 text-wood-500"></i>
+                        <strong class="text-wood-700">혼자 고민하지 마세요.</strong>
+                        각 섹션을 클릭해서 시작해볼까요?
+                    </p>
+                    <p class="text-sm text-gray-500">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        원하는 단계부터 시작하셔도 괜찮아요
+                    </p>
+                </div>
+            </div>
+
+            <!-- 진행 단계 표시 (섹션 진입 후) -->
+            <div id="progressSteps" class="mb-8 hidden">
+                <div class="flex items-center justify-between mb-4">
+                    <button onclick="backToLanding()" 
+                            class="text-wood-600 hover:text-wood-800 font-medium flex items-center">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        처음으로
+                    </button>
+                </div>
                 <div class="flex items-center justify-center space-x-4">
                     <div id="step1" class="flex items-center">
                         <div class="w-10 h-10 rounded-full bg-primary-500 text-white flex items-center justify-center font-bold">
@@ -163,69 +311,8 @@ app.get('/', (c) => {
                 </div>
             </div>
 
-            <!-- 웰컴 메시지 (최초 진입 시만) -->
-            <div id="welcomeMessage" class="mb-8 bg-gradient-to-r from-wood-50 via-primary-50 to-wood-100 rounded-lg p-8 border-2 border-wood-300 shadow-lg">
-                <div class="flex items-start">
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-hands-helping text-5xl text-wood-500"></i>
-                    </div>
-                    <div class="ml-6 flex-1">
-                        <h2 class="text-3xl font-bold text-gray-900 mb-2 leading-tight">
-                            <span class="text-wood-600">간병하는 당신도</span><br>
-                            <span class="text-primary-600">돌봄이 필요해요</span>
-                        </h2>
-                        <p class="text-wood-900 mb-4 text-base leading-relaxed">
-                            혼자 감당하기 어려운 전원 준비,<br>
-                            똑순이가 <strong class="text-primary-700">환자분께 맞춤 경로</strong>를 알려드릴게요.
-                        </p>
-                        <div class="bg-white rounded-lg p-5 text-sm text-wood-900 shadow-md">
-                            <p class="font-bold text-primary-700 mb-3 text-lg flex items-center">
-                                <i class="fas fa-heart mr-2 text-2xl text-wood-500"></i>
-                                네 걸음으로, 함께 준비해요
-                            </p>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                <div class="flex items-start bg-wood-50 rounded p-3 border border-wood-200">
-                                    <span class="bg-wood-500 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm mr-3 flex-shrink-0">1</span>
-                                    <div>
-                                        <strong class="text-wood-700">환자분 이야기 듣기</strong>
-                                        <p class="text-xs text-gray-500 mt-1">약 5분 • 천천히 작성하셔도 괜찮아요</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start bg-primary-50 rounded p-3 border border-primary-200">
-                                    <span class="bg-primary-500 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm mr-3 flex-shrink-0">2</span>
-                                    <div>
-                                        <strong class="text-primary-700">맞춤 경로 함께 보기</strong>
-                                        <p class="text-xs text-gray-500 mt-1">전문가의 추천을 쉽게 설명해드려요</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start bg-wood-100 rounded p-3 border border-wood-300">
-                                    <span class="bg-wood-600 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm mr-3 flex-shrink-0">3</span>
-                                    <div>
-                                        <strong class="text-wood-700">비용 미리 살펴보기</strong>
-                                        <p class="text-xs text-gray-500 mt-1">걱정되는 비용, 투명하게 안내해요</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start bg-primary-100 rounded p-3 border border-primary-300">
-                                    <span class="bg-primary-600 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm mr-3 flex-shrink-0">4</span>
-                                    <div>
-                                        <strong class="text-primary-700">좋은 곳 함께 고르기</strong>
-                                        <p class="text-xs text-gray-500 mt-1">환자분께 맞는 기관을 찾아드려요</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-4 bg-wood-100 border border-wood-300 rounded-lg p-3 text-center">
-                            <p class="text-wood-800 font-medium">
-                                <i class="fas fa-arrow-down mr-2 animate-bounce inline-block text-wood-500"></i>
-                                혼자 고민하지 마세요. 지금 시작해볼까요?
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- 1단계: 환자 등록 폼 -->
-            <section id="registerForm" class="mb-12">
+            <section id="registerForm" class="mb-12 hidden">
                 <div class="section-card rounded-lg shadow-lg p-8 border">
                     <div class="flex items-center justify-between mb-6">
                         <div>
