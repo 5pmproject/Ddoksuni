@@ -2549,9 +2549,9 @@ function createModal(content, widthClass = 'max-w-2xl') {
       <div class="sticky top-0 bg-gradient-to-r from-primary-500 to-primary-600 backdrop-blur-lg border-b-4 border-white/30 px-6 py-4 flex justify-between items-center shadow-lg">
         <h2 class="text-2xl font-bold text-white flex items-center">
           <span class="bg-white/20 rounded-full w-10 h-10 flex items-center justify-center mr-3">
-            <i class="fas fa-clipboard-list"></i>
+            <i class="fas fa-book"></i>
           </span>
-          퀘스트 진행
+          설명서
         </h2>
         <button onclick="this.closest('.modal-backdrop').remove()" 
                 class="bg-white/20 hover:bg-white/30 text-white rounded-full w-10 h-10 flex items-center justify-center transition-all hover:rotate-90 hover:scale-110">
