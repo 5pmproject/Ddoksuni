@@ -60,9 +60,9 @@ function initializeQuestCards() {
         showPatientFormModal();
       }
       
-      // 두 번째 퀘스트 - 환자 정보 입력 모달
+      // 두 번째 퀘스트 - 전원 가이드
       else if (questNumber === 2) {
-        showPatientFormModal();
+        showTransferGuide();
       }
       
       // 세 번째 퀘스트 - 비용 가이드
