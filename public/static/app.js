@@ -438,19 +438,7 @@ function showTransferGuide() {
         </div>
       </div>
 
-      <!-- 다음 단계 안내 -->
-      <div class="bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg p-6 text-center">
-        <p class="text-lg text-gray-800 mb-4">
-          <i class="fas fa-heart text-red-500 mr-2"></i>
-          이해가 되셨나요? 이제 환자분 정보를 입력하시면<br>
-          <strong class="text-blue-700">똑순이가 딱 맞는 경로를 찾아드릴게요!</strong>
-        </p>
-        <button onclick="closeModalAndShowForm()" 
-                class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-8 rounded-lg hover:from-blue-700 hover:to-purple-700 transition font-bold text-lg shadow-lg">
-          <i class="fas fa-arrow-right mr-2"></i>
-          환자 정보 입력하러 가기
-        </button>
-      </div>
+
     </div>
   `, 'max-w-4xl');
   
@@ -1454,19 +1442,7 @@ function showCaregiverConfusionGuide() {
         </div>
       </div>
 
-      <!-- 시작하기 버튼 -->
-      <div class="bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg p-6 text-center">
-        <p class="text-lg text-gray-800 mb-4">
-          <i class="fas fa-heart text-red-500 mr-2"></i>
-          이제 더 이상 혼란스러워하지 마세요!<br>
-          <strong class="text-purple-700">환자분 정보를 입력</strong>하시면 똑순이가 모든 걸 정리해드릴게요
-        </p>
-        <button onclick="closeModalAndShowForm()" 
-                class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-8 rounded-lg hover:from-blue-700 hover:to-purple-700 transition font-bold text-lg shadow-lg">
-          <i class="fas fa-arrow-right mr-2"></i>
-          환자 정보 입력하러 가기
-        </button>
-      </div>
+
     </div>
   `, 'max-w-5xl');
   
