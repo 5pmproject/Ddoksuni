@@ -1638,34 +1638,15 @@ function submitCommunityPost() {
   document.getElementById('communityPostContent').value = '';
 }
 
-// 모달 닫고 폼 보이기
+// 모달 닫고 환자 정보 입력 모달 표시
 function closeModalAndShowForm() {
-  // 모달 닫기
+  // 현재 모달 닫기
   const modal = document.querySelector('.fixed.inset-0');
   if (modal) modal.remove();
   
-  // 웰컴 메시지 숨기고 폼 보이기
-  const welcomeMessage = document.getElementById('welcomeMessage');
-  const registerForm = document.getElementById('registerForm');
-  const progressSteps = document.getElementById('progressSteps');
-  
-  if (welcomeMessage) {
-    welcomeMessage.style.display = 'none';
-  }
-  
-  if (registerForm) {
-    registerForm.classList.remove('hidden');
-    registerForm.style.display = 'block';
-  }
-  
-  if (progressSteps) {
-    progressSteps.classList.remove('hidden');
-    progressSteps.style.display = 'block';
-  }
-  
-  // 페이지 상단으로 부드럽게 스크롤
+  // 짧은 지연 후 환자 정보 입력 모달 표시
   setTimeout(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    showPatientFormModal();
   }, 100);
 }
 
