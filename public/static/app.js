@@ -69,6 +69,11 @@ function initializeQuestCards() {
       else if (questNumber === 3) {
         showCostGuide();
       }
+      
+      // 네 번째 퀘스트 - 장소 선택 가이드
+      else if (questNumber === 4) {
+        showFacilityGuide();
+      }
     });
   });
 }
@@ -816,6 +821,478 @@ function showCostGuide() {
                 class="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 px-8 rounded-lg hover:from-purple-700 hover:to-pink-700 transition font-bold text-lg shadow-lg">
           <i class="fas fa-calculator mr-2"></i>
           정확한 비용 계산하러 가기
+        </button>
+      </div>
+    </div>
+  `, 'max-w-4xl');
+  
+  document.getElementById('modalContainer').appendChild(modal);
+}
+
+// 장소 선택 가이드 표시
+function showFacilityGuide() {
+  const modal = createModal(`
+    <div class="space-y-6">
+      <div class="text-center">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">
+          <i class="fas fa-hospital-alt text-green-600 mr-2"></i>
+          어디가 가장 좋을까요?
+        </h2>
+        <p class="text-lg text-gray-700">
+          똑순이가 장소 선택의 모든 것을 알려드릴게요! 😊
+        </p>
+      </div>
+
+      <!-- 5가지 체크리스트 -->
+      <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 border-2 border-blue-200">
+        <h3 class="text-xl font-bold text-blue-800 mb-4 flex items-center">
+          <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">1</span>
+          전원 결정, 5가지만 체크하세요!
+        </h3>
+        
+        <div class="space-y-3">
+          <!-- 임상 전문성 -->
+          <div class="bg-white rounded-lg p-4 border-l-4 border-green-500">
+            <div class="flex items-center mb-2">
+              <span class="text-2xl mr-3">👨‍⚕️</span>
+              <h4 class="text-lg font-bold text-green-700">① 임상·전문성</h4>
+            </div>
+            <p class="text-sm text-gray-700 mb-2">
+              <strong>질문:</strong> "재활의학과·신경외과·언어치료사가 상주하나요?"
+            </p>
+            <p class="text-xs text-gray-600">
+              <i class="fas fa-check-circle text-green-600 mr-1"></i>
+              전문의·치료사가 많을수록 치료 질이 높아요!
+            </p>
+          </div>
+
+          <!-- 검사 진단 -->
+          <div class="bg-white rounded-lg p-4 border-l-4 border-blue-500">
+            <div class="flex items-center mb-2">
+              <span class="text-2xl mr-3">🔬</span>
+              <h4 class="text-lg font-bold text-blue-700">② 검사·진단 가능 여부</h4>
+            </div>
+            <p class="text-sm text-gray-700 mb-2">
+              <strong>질문:</strong> "연하검사, X-ray, CT, MRI 장비가 있나요?"
+            </p>
+            <p class="text-xs text-gray-600">
+              <i class="fas fa-check-circle text-blue-600 mr-1"></i>
+              필수 검사가 가능한지 확인하세요!
+            </p>
+          </div>
+
+          <!-- 환경 간호 -->
+          <div class="bg-white rounded-lg p-4 border-l-4 border-purple-500">
+            <div class="flex items-center mb-2">
+              <span class="text-2xl mr-3">🏥</span>
+              <h4 class="text-lg font-bold text-purple-700">③ 환경·간호·보호</h4>
+            </div>
+            <p class="text-sm text-gray-700 mb-2">
+              <strong>질문:</strong> "간호통합병동이 있나요? 1인실 가능한가요? 섬망 관리 프로토콜이 있나요?"
+            </p>
+            <p class="text-xs text-gray-600">
+              <i class="fas fa-check-circle text-purple-600 mr-1"></i>
+              1인실 여부와 섬망(혼돈) 예방 능력을 확인하세요!
+            </p>
+          </div>
+
+          <!-- 접근성 -->
+          <div class="bg-white rounded-lg p-4 border-l-4 border-orange-500">
+            <div class="flex items-center mb-2">
+              <span class="text-2xl mr-3">🚗</span>
+              <h4 class="text-lg font-bold text-orange-700">④ 접근성·거리</h4>
+            </div>
+            <p class="text-sm text-gray-700 mb-2">
+              <strong>질문:</strong> "큰 병원과 얼마나 가까운가요? 우리 집에서 몇 km예요?"
+            </p>
+            <p class="text-xs text-gray-600">
+              <i class="fas fa-check-circle text-orange-600 mr-1"></i>
+              응급 상황·재진료·가족 방문 시 거리가 중요해요!
+            </p>
+          </div>
+
+          <!-- 사회 심리 비용 -->
+          <div class="bg-white rounded-lg p-4 border-l-4 border-pink-500">
+            <div class="flex items-center mb-2">
+              <span class="text-2xl mr-3">💰</span>
+              <h4 class="text-lg font-bold text-pink-700">⑤ 사회·심리·비용</h4>
+            </div>
+            <p class="text-sm text-gray-700 mb-2">
+              <strong>질문:</strong> "면회·외출 시간은? 비용은 얼마예요? 장기요양등급 필요한가요?"
+            </p>
+            <p class="text-xs text-gray-600">
+              <i class="fas fa-check-circle text-pink-600 mr-1"></i>
+              면회·외출 가능성과 비용 부담을 확인하세요!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 시설 유형별 비교 -->
+      <div class="bg-gradient-to-r from-green-50 to-teal-50 rounded-lg p-6 border-2 border-green-200">
+        <h3 class="text-xl font-bold text-green-800 mb-4 flex items-center">
+          <span class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">2</span>
+          시설별 특징 한눈에 보기
+        </h3>
+
+        <div class="space-y-4">
+          <!-- 회복기 재활병원 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-green-400 shadow-md">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center">
+                <span class="text-2xl mr-3">🏥</span>
+                <h4 class="text-lg font-bold text-green-700">회복기 재활병원</h4>
+              </div>
+              <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">급성·중증</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm mb-2">
+              <div>
+                <p class="text-gray-600 mb-1"><strong>전문 인력:</strong></p>
+                <p class="text-xs text-gray-700">재활의학과·신경외과·작업·물리·언어치료사 상주</p>
+              </div>
+              <div>
+                <p class="text-gray-600 mb-1"><strong>검사 장비:</strong></p>
+                <p class="text-xs text-gray-700">연하검사·X-ray·CT·MRI·로봇·VR 전부 가능</p>
+              </div>
+              <div>
+                <p class="text-gray-600 mb-1"><strong>환경:</strong></p>
+                <p class="text-xs text-gray-700">통합병동·24시간 간호·1인실 가능 (+20%)</p>
+              </div>
+              <div>
+                <p class="text-gray-600 mb-1"><strong>면회·외출:</strong></p>
+                <p class="text-xs text-gray-700">면회 주 2회·외출 주 1회·섬망 전담팀</p>
+              </div>
+            </div>
+            
+            <div class="bg-green-50 rounded p-2 text-xs mb-2">
+              <p class="text-green-700"><strong>대표 환자:</strong> 뇌졸중, 척수손상, 외상, 심근경색 (ADL ≤30)</p>
+            </div>
+            
+            <p class="text-sm font-semibold text-green-700">
+              💰 하루 15~20만원 (2인실) / 월 30~50만원 본인부담
+            </p>
+          </div>
+
+          <!-- 일반 재활병원 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-teal-300">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center">
+                <span class="text-2xl mr-3">🏥</span>
+                <h4 class="text-lg font-bold text-teal-700">일반 재활병원</h4>
+              </div>
+              <span class="bg-teal-100 text-teal-700 px-3 py-1 rounded-full text-sm font-semibold">중·경증</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm mb-2">
+              <div>
+                <p class="text-gray-600 mb-1"><strong>전문 인력:</strong></p>
+                <p class="text-xs text-gray-700">재활전문의·작업·물리·언어치료사 상주</p>
+              </div>
+              <div>
+                <p class="text-gray-600 mb-1"><strong>검사 장비:</strong></p>
+                <p class="text-xs text-gray-700">기본 연하검사·X-ray·CT (로봇·VR 보통 없음)</p>
+              </div>
+              <div>
+                <p class="text-gray-600 mb-1"><strong>환경:</strong></p>
+                <p class="text-xs text-gray-700">통합병동·24시간 간호·1인실 제한적</p>
+              </div>
+              <div>
+                <p class="text-gray-600 mb-1"><strong>면회·외출:</strong></p>
+                <p class="text-xs text-gray-700">면회 주 1-2회·외출 주 1회·일반 수준</p>
+              </div>
+            </div>
+            
+            <div class="bg-teal-50 rounded p-2 text-xs mb-2">
+              <p class="text-teal-700"><strong>대표 환자:</strong> 골절, 관절 수술, 스포츠 손상 (ADL 30-50)</p>
+            </div>
+            
+            <p class="text-sm font-semibold text-teal-700">
+              💰 하루 12~15만원 (2인실) / 월 25~35만원 본인부담
+            </p>
+          </div>
+
+          <!-- 요양병원 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-blue-400 shadow-md">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center">
+                <span class="text-2xl mr-3">🏨</span>
+                <h4 class="text-lg font-bold text-blue-700">요양병원 (의료기관)</h4>
+              </div>
+              <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">장기·만성</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm mb-2">
+              <div>
+                <p class="text-gray-600 mb-1"><strong>전문 인력:</strong></p>
+                <p class="text-xs text-gray-700">내과·재활·신경외과·치료사 상주</p>
+              </div>
+              <div>
+                <p class="text-gray-600 mb-1"><strong>검사 장비:</strong></p>
+                <p class="text-xs text-gray-700">연하검사·X-ray·CT·MRI 보유 (로봇·VR 대부분 없음)</p>
+              </div>
+              <div>
+                <p class="text-gray-600 mb-1"><strong>환경:</strong></p>
+                <p class="text-xs text-gray-700">통합병동·24시간 간호·1인실 가능 (+20%)</p>
+              </div>
+              <div>
+                <p class="text-gray-600 mb-1"><strong>면회·외출:</strong></p>
+                <p class="text-xs text-gray-700">면회 주 2회·외출 주 1회·섬망 전담팀</p>
+              </div>
+            </div>
+            
+            <div class="bg-blue-50 rounded p-2 text-xs mb-2">
+              <p class="text-blue-700"><strong>대표 환자:</strong> 뇌졸중, 척수손상, 심부전, COPD, 치매 (ADL 30-60)</p>
+            </div>
+            
+            <p class="text-sm font-semibold text-blue-700">
+              💰 하루 10~15만원 (2인실) / 월 20~40만원 본인부담
+            </p>
+            <p class="text-xs text-green-600 mt-1">
+              <i class="fas fa-check-circle mr-1"></i>
+              의사 상주 - 의료·재활·간호 모두 제공
+            </p>
+          </div>
+
+          <!-- 요양원 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-purple-300">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center">
+                <span class="text-2xl mr-3">🏡</span>
+                <h4 class="text-lg font-bold text-purple-700">요양원 (거주시설)</h4>
+              </div>
+              <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-semibold">일상 보조</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm mb-2">
+              <div>
+                <p class="text-gray-600 mb-1"><strong>전문 인력:</strong></p>
+                <p class="text-xs text-gray-700">간호사·보조인력 (의사 거의 없음)</p>
+              </div>
+              <div>
+                <p class="text-gray-600 mb-1"><strong>검사 장비:</strong></p>
+                <p class="text-xs text-gray-700">연하검사·X-ray·CT 외부 연계 (자체 장비 없음)</p>
+              </div>
+              <div>
+                <p class="text-gray-600 mb-1"><strong>환경:</strong></p>
+                <p class="text-xs text-gray-700">거주형 방(다인실·1인실) 가능 (+15%)</p>
+              </div>
+              <div>
+                <p class="text-gray-600 mb-1"><strong>면회·외출:</strong></p>
+                <p class="text-xs text-gray-700">면회 주 2-3회·외출 주 1회·섬망 팀 없음</p>
+              </div>
+            </div>
+            
+            <div class="bg-purple-50 rounded p-2 text-xs mb-2">
+              <p class="text-purple-700"><strong>대표 환자:</strong> 치매, 노인성 질환, 만성 관절염 (ADL 40-70)</p>
+            </div>
+            
+            <p class="text-sm font-semibold text-purple-700">
+              💰 하루 8~12만원 (2인실) / 월 20~40만원 본인부담
+            </p>
+            <p class="text-xs text-orange-600 mt-1">
+              <i class="fas fa-exclamation-triangle mr-1"></i>
+              의사 상주 안 함 - 외부 병원 연계
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 보호자 거주지 근접성 -->
+      <div class="bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg p-6 border-2 border-orange-200">
+        <h3 class="text-xl font-bold text-orange-800 mb-4 flex items-center">
+          <span class="bg-orange-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">3</span>
+          거리, 얼마나 중요할까요?
+        </h3>
+
+        <div class="bg-white rounded-lg p-4 border-l-4 border-orange-500 mb-3">
+          <p class="text-sm text-gray-700 mb-3">
+            <strong class="text-orange-700">거리를 가장 먼저 확인하세요!</strong>
+            응급 상황·재진료·가족 방문 시 거리가 매우 중요해요.
+          </p>
+          
+          <div class="space-y-2 text-xs">
+            <div class="flex items-start">
+              <span class="text-green-600 mr-2 mt-0.5">✓</span>
+              <div>
+                <strong>30km 이내:</strong> 우선 고려! 자주 방문 가능
+              </div>
+            </div>
+            <div class="flex items-start">
+              <span class="text-yellow-600 mr-2 mt-0.5">⚠️</span>
+              <div>
+                <strong>30km 이상:</strong> 교통·통근 비용 추가 고려
+              </div>
+            </div>
+            <div class="flex items-start">
+              <span class="text-blue-600 mr-2 mt-0.5">🚗</span>
+              <div>
+                <strong>버스·지하철·셔틀:</strong> 대중교통 편의성 확인
+              </div>
+            </div>
+            <div class="flex items-start">
+              <span class="text-red-600 mr-2 mt-0.5">🏥</span>
+              <div>
+                <strong>큰 병원 15km 이내:</strong> 응급·재진료 시 유리
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-yellow-50 rounded-lg p-3 border-l-4 border-yellow-500">
+          <p class="text-sm text-yellow-800">
+            <i class="fas fa-lightbulb mr-1"></i>
+            <strong>꿀팁:</strong> 보호자·간병인 출퇴근 시간이 2시간 이상이면 보조 인력이나 외주를 고려하세요!
+          </p>
+        </div>
+      </div>
+
+      <!-- 전원 결정 순서 -->
+      <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg p-6 border-2 border-indigo-200">
+        <h3 class="text-xl font-bold text-indigo-800 mb-4 flex items-center">
+          <span class="bg-indigo-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">4</span>
+          전원 결정 순서 (단계별 가이드)
+        </h3>
+
+        <div class="space-y-3">
+          <div class="bg-white rounded-lg p-4 border-l-4 border-indigo-500">
+            <p class="font-bold text-indigo-700 mb-2">STEP 1: 거리 확인</p>
+            <p class="text-sm text-gray-700">
+              보호자 집에서 30km 이내인가요?<br>
+              → <strong class="text-green-600">예:</strong> 다음 단계로<br>
+              → <strong class="text-orange-600">아니오:</strong> 교통·통근 비용 고려
+            </p>
+          </div>
+
+          <div class="bg-white rounded-lg p-4 border-l-4 border-purple-500">
+            <p class="font-bold text-purple-700 mb-2">STEP 2: 환자 상태 확인</p>
+            <p class="text-sm text-gray-700">
+              ADL 점수가 30점 이하인가요?<br>
+              → <strong class="text-green-600">예:</strong> <strong>회복기 재활병원</strong> 우선<br>
+              → <strong class="text-blue-600">아니오:</strong> 다음 단계로
+            </p>
+          </div>
+
+          <div class="bg-white rounded-lg p-4 border-l-4 border-blue-500">
+            <p class="font-bold text-blue-700 mb-2">STEP 3: 특수 검사 필요성</p>
+            <p class="text-sm text-gray-700">
+              연하검사·영상검사가 필요한가요?<br>
+              → <strong class="text-green-600">예:</strong> <strong>회복기 재활병원</strong> 또는 <strong>일반 재활병원</strong><br>
+              → <strong class="text-blue-600">아니오:</strong> 다음 단계로
+            </p>
+          </div>
+
+          <div class="bg-white rounded-lg p-4 border-l-4 border-green-500">
+            <p class="font-bold text-green-700 mb-2">STEP 4: 재활·요양·섬망 관리 필요성</p>
+            <p class="text-sm text-gray-700">
+              의료·재활·섬망 전담팀이 필요한가요?<br>
+              → <strong class="text-green-600">예:</strong> <strong>요양병원</strong><br>
+              → <strong class="text-purple-600">아니오:</strong> <strong>요양원</strong> (일상 보조 위주)
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 체크리스트 -->
+      <div class="bg-gradient-to-r from-pink-50 to-red-50 rounded-lg p-6 border-2 border-pink-200">
+        <h3 class="text-xl font-bold text-pink-800 mb-4 flex items-center">
+          <span class="bg-pink-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">5</span>
+          전원 전 반드시 체크하세요! ✅
+        </h3>
+
+        <div class="space-y-2 text-sm">
+          <div class="bg-white rounded p-3 border-l-4 border-pink-400">
+            <label class="flex items-start cursor-pointer">
+              <input type="checkbox" class="mt-1 mr-3">
+              <span><strong>거리:</strong> 보호자 집 → 시설까지 30km 이내인가요?</span>
+            </label>
+          </div>
+          <div class="bg-white rounded p-3 border-l-4 border-purple-400">
+            <label class="flex items-start cursor-pointer">
+              <input type="checkbox" class="mt-1 mr-3">
+              <span><strong>ADL 점수:</strong> 현재 환자의 ADL 점수를 확인했나요?</span>
+            </label>
+          </div>
+          <div class="bg-white rounded p-3 border-l-4 border-blue-400">
+            <label class="flex items-start cursor-pointer">
+              <input type="checkbox" class="mt-1 mr-3">
+              <span><strong>검사 필요:</strong> 연하검사·영상검사가 필요한가요?</span>
+            </label>
+          </div>
+          <div class="bg-white rounded p-3 border-l-4 border-green-400">
+            <label class="flex items-start cursor-pointer">
+              <input type="checkbox" class="mt-1 mr-3">
+              <span><strong>전문 인력:</strong> 전공의·전문의·치료사가 상주하나요?</span>
+            </label>
+          </div>
+          <div class="bg-white rounded p-3 border-l-4 border-orange-400">
+            <label class="flex items-start cursor-pointer">
+              <input type="checkbox" class="mt-1 mr-3">
+              <span><strong>1인실:</strong> 1인실이 필요한가요? (비용 +20-30%)</span>
+            </label>
+          </div>
+          <div class="bg-white rounded p-3 border-l-4 border-yellow-400">
+            <label class="flex items-start cursor-pointer">
+              <input type="checkbox" class="mt-1 mr-3">
+              <span><strong>섬망 관리:</strong> 섬망 예방·관리 프로토콜이 있나요?</span>
+            </label>
+          </div>
+          <div class="bg-white rounded p-3 border-l-4 border-red-400">
+            <label class="flex items-start cursor-pointer">
+              <input type="checkbox" class="mt-1 mr-3">
+              <span><strong>면회·외출:</strong> 면회·외출 시간과 정책을 확인했나요?</span>
+            </label>
+          </div>
+          <div class="bg-white rounded p-3 border-l-4 border-indigo-400">
+            <label class="flex items-start cursor-pointer">
+              <input type="checkbox" class="mt-1 mr-3">
+              <span><strong>보험·등급:</strong> 장기요양등급·재활특례 적용 여부를 확인했나요?</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 똑순이 꿀팁 -->
+      <div class="bg-green-50 border-2 border-green-400 rounded-lg p-5">
+        <h3 class="text-lg font-bold text-green-800 mb-3 flex items-center">
+          <i class="fas fa-lightbulb text-green-600 mr-2 text-xl"></i>
+          똑순이 꿀팁! 💡
+        </h3>
+        <div class="space-y-2 text-sm">
+          <p class="flex items-start">
+            <span class="text-green-600 mr-2">✓</span>
+            <span><strong>거리가 우선!</strong> 가까운 곳이 응급 시 가장 안전해요</span>
+          </p>
+          <p class="flex items-start">
+            <span class="text-green-600 mr-2">✓</span>
+            <span><strong>ADL 30 이하</strong>면 회복기 재활병원이 최우선이에요</span>
+          </p>
+          <p class="flex items-start">
+            <span class="text-green-600 mr-2">✓</span>
+            <span><strong>섬망 위험</strong>이 있다면 전담팀이 있는 곳을 선택하세요</span>
+          </p>
+          <p class="flex items-start">
+            <span class="text-green-600 mr-2">✓</span>
+            <span><strong>면회·외출</strong> 시간이 넉넉한 곳이 심리적 안정에 좋아요</span>
+          </p>
+          <p class="flex items-start">
+            <span class="text-green-600 mr-2">✓</span>
+            <span>여러 병원을 <strong class="text-orange-600">꼭 비교</strong>하고 직접 방문해보세요!</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- 다음 단계 안내 -->
+      <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg p-6 text-center">
+        <p class="text-lg text-gray-800 mb-4">
+          <i class="fas fa-heart text-red-500 mr-2"></i>
+          어떤 곳이 좋을지 감이 오셨나요?<br>
+          <strong class="text-purple-700">환자분 정보를 입력하시면 딱 맞는 장소</strong>를 추천해드릴게요!
+        </p>
+        <button onclick="closeModalAndShowForm()" 
+                class="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 px-8 rounded-lg hover:from-purple-700 hover:to-pink-700 transition font-bold text-lg shadow-lg">
+          <i class="fas fa-search mr-2"></i>
+          맞춤 장소 찾으러 가기
         </button>
       </div>
     </div>
