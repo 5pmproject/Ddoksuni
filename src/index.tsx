@@ -314,10 +314,7 @@ app.get('/', (c) => {
             <!-- 웰컴 메시지 (최초 진입 시만) -->
             <div id="welcomeMessage" class="mb-8 bg-gradient-to-r from-wood-50 via-primary-50 to-wood-100 rounded-lg p-8 border-2 border-wood-300 shadow-lg">
                 <div class="flex items-start">
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-hands-helping text-5xl text-wood-500"></i>
-                    </div>
-                    <div class="ml-6 flex-1">
+                    <div class="flex-1">
                         <h2 class="text-3xl font-bold text-gray-900 mb-2 leading-tight">
                             <span class="text-wood-600">간병하는 당신도</span><br>
                             <span class="text-primary-600">돌봄이 필요해요</span>
