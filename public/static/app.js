@@ -55,21 +55,9 @@ function initializeQuestCards() {
     card.addEventListener('click', function() {
       const questNumber = parseInt(this.dataset.quest);
       
-      // 첫 번째 퀘스트 - 환자 정보 입력
+      // 첫 번째 퀘스트 - 환자 정보 입력 (팝업)
       if (questNumber === 1) {
-        // 웰컴 메시지 숨기고 폼 보이기 (페이지 전환 효과)
-        const welcomeMessage = document.getElementById('welcomeMessage');
-        const registerForm = document.getElementById('registerForm');
-        const progressSteps = document.getElementById('progressSteps');
-        
-        if (welcomeMessage && registerForm) {
-          welcomeMessage.style.display = 'none';
-          registerForm.classList.remove('hidden');
-          progressSteps.classList.remove('hidden');
-          
-          // 페이지 상단으로 부드럽게 스크롤
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        showPatientFormModal();
       }
       
       // 두 번째 퀘스트 - 전원 가이드
@@ -78,6 +66,169 @@ function initializeQuestCards() {
       }
     });
   });
+}
+
+// 환자 정보 입력 팝업 표시
+function showPatientFormModal() {
+  // registerForm의 내용을 가져옴
+  const registerForm = document.getElementById('registerForm');
+  const formContent = registerForm.querySelector('.section-card').innerHTML;
+  
+  const modal = createModal(`
+    <div class="section-card rounded-lg shadow-lg p-8 border max-h-[80vh] overflow-y-auto">
+      ${formContent}
+    </div>
+  `, 'max-w-5xl');
+  
+  document.getElementById('modalContainer').appendChild(modal);
+  
+  // 모달 내부의 폼에 이벤트 리스너 다시 등록
+  const modalForm = modal.querySelector('#patientForm');
+  if (modalForm) {
+    modalForm.addEventListener('submit', handlePatientSubmitInModal);
+  }
+  
+  // ADL 값 업데이트 함수 다시 바인딩
+  const adlSlider = modal.querySelector('input[name="adl_score"]');
+  if (adlSlider) {
+    adlSlider.addEventListener('input', function() {
+      const valueSpan = modal.querySelector('#adlValue');
+      if (valueSpan) {
+        valueSpan.textContent = this.value + '점';
+      }
+    });
+  }
+  
+  // GCS 셀렉트 다시 바인딩
+  const gcsSelects = modal.querySelectorAll('select[name^="gcs_"]');
+  gcsSelects.forEach(select => {
+    select.addEventListener('change', function() {
+      updateGCSTotalInModal(modal);
+    });
+  });
+}
+
+// 모달 내부 GCS 총점 업데이트
+function updateGCSTotalInModal(modal) {
+  const eye = parseInt(modal.querySelector('select[name="gcs_eye"]')?.value || 4);
+  const verbal = parseInt(modal.querySelector('select[name="gcs_verbal"]')?.value || 5);
+  const motor = parseInt(modal.querySelector('select[name="gcs_motor"]')?.value || 6);
+  
+  const total = eye + verbal + motor;
+  const totalElement = modal.querySelector('#gcsTotal');
+  const levelElement = modal.querySelector('#gcsLevel');
+  
+  if (totalElement) {
+    totalElement.textContent = total + '점';
+  }
+  
+  if (levelElement) {
+    let level, color;
+    if (total === 15) {
+      level = '정상';
+      color = 'bg-green-500 text-white';
+    } else if (total >= 13) {
+      level = '경미한 장애';
+      color = 'bg-blue-100 text-blue-800';
+    } else if (total >= 9) {
+      level = '중등도 장애';
+      color = 'bg-yellow-100 text-yellow-800';
+    } else {
+      level = '중증 장애';
+      color = 'bg-red-100 text-red-800';
+    }
+    
+    levelElement.textContent = level;
+    levelElement.className = `text-sm px-3 py-1 rounded-full ${color} font-semibold`;
+  }
+}
+
+// 모달 내부 폼 제출 처리
+async function handlePatientSubmitInModal(e) {
+  e.preventDefault();
+  
+  const formData = new FormData(e.target);
+  
+  // GCS 점수 계산
+  const gcsEye = parseInt(formData.get('gcs_eye') || 4);
+  const gcsVerbal = parseInt(formData.get('gcs_verbal') || 5);
+  const gcsMotor = parseInt(formData.get('gcs_motor') || 6);
+  const gcsTotal = gcsEye + gcsVerbal + gcsMotor;
+  
+  // GCS 점수를 의식수준 텍스트로 변환
+  let consciousnessLevel;
+  if (gcsTotal === 15) {
+    consciousnessLevel = '명료 (GCS 15)';
+  } else if (gcsTotal >= 13) {
+    consciousnessLevel = `경미한 의식 장애 (GCS ${gcsTotal})`;
+  } else if (gcsTotal >= 9) {
+    consciousnessLevel = `중등도 의식 장애 (GCS ${gcsTotal})`;
+  } else {
+    consciousnessLevel = `중증 의식 장애 (GCS ${gcsTotal})`;
+  }
+  
+  const data = {
+    name: formData.get('name'),
+    age: parseInt(formData.get('age')),
+    diagnosis: formData.get('diagnosis'),
+    diagnosis_date: formData.get('diagnosis_date'),
+    adl_score: parseInt(formData.get('adl_score')),
+    consciousness_level: consciousnessLevel,
+    insurance_type: formData.get('insurance_type'),
+    ltc_grade: formData.get('ltc_grade') ? parseInt(formData.get('ltc_grade')) : null,
+    current_hospital: formData.get('current_hospital'),
+    comorbidities: JSON.stringify({
+      gcs_eye: gcsEye,
+      gcs_verbal: gcsVerbal,
+      gcs_motor: gcsMotor,
+      gcs_total: gcsTotal
+    })
+  };
+  
+  try {
+    // 로딩 표시
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>분석 중...';
+    
+    const response = await axios.post(`${API_BASE}/patients`, data);
+    
+    if (response.data.success) {
+      // 환자 정보 저장
+      currentPatient = {
+        id: response.data.data.id,
+        ...data
+      };
+      
+      // 체크리스트 자동 생성
+      await axios.post(`${API_BASE}/checklists/generate`, {
+        patientId: currentPatient.id,
+        transferType: 'acute_to_rehab'
+      });
+      
+      showSuccess('환자 정보가 등록되었습니다! 맞춤형 전원 경로를 분석 중입니다...');
+      
+      // 모달 닫기
+      const modal = document.querySelector('.fixed.inset-0');
+      if (modal) modal.remove();
+      
+      // 폼 표시 및 2단계로 자동 이동
+      setTimeout(() => {
+        document.getElementById('welcomeMessage').style.display = 'none';
+        document.getElementById('progressSteps').classList.remove('hidden');
+        goToStep(2);
+      }, 1500);
+    }
+    
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalText;
+  } catch (error) {
+    console.error('Failed to register patient:', error);
+    showError('환자 등록에 실패했습니다. 다시 시도해주세요.');
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalText;
+  }
 }
 
 // 전원 가이드 표시
