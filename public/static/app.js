@@ -404,6 +404,171 @@ function showTransferGuide() {
         </div>
       </div>
 
+      <!-- GCS 의식 상태 평가 -->
+      <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-6 border-2 border-purple-200">
+        <h3 class="text-xl font-bold text-purple-800 mb-4 flex items-center">
+          <span class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">3</span>
+          Glasgow Coma Scale (GCS) 의식 상태 평가
+        </h3>
+        
+        <div class="bg-purple-100 rounded-lg p-4 mb-4 border-l-4 border-purple-500">
+          <p class="text-sm text-purple-900">
+            <i class="fas fa-info-circle mr-2"></i>
+            GCS는 의식 수준을 평가하는 가장 표준화되고 객관적인 방법입니다. 
+            세 가지 영역(눈 뜨기, 언어 반응, 운동 반응)을 각각 평가하여 총점으로 의식 수준을 판단합니다.
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <!-- 1. 눈 뜨기 반응 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-blue-300">
+            <h4 class="font-bold text-blue-800 mb-3 flex items-center">
+              <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">1</span>
+              👁️ 눈 뜨기 반응 (Eye Opening) - 1~4점
+            </h4>
+            <div class="space-y-2 text-sm">
+              <div class="bg-green-50 rounded p-2 border-l-4 border-green-500">
+                <strong class="text-green-700">4점:</strong> 자발적으로 눈을 뜸 (정상)
+              </div>
+              <div class="bg-blue-50 rounded p-2 border-l-4 border-blue-500">
+                <strong class="text-blue-700">3점:</strong> 말을 걸면 눈을 뜸 (이름을 부르거나 "눈을 떠보세요"라고 하면 반응)
+              </div>
+              <div class="bg-yellow-50 rounded p-2 border-l-4 border-yellow-500">
+                <strong class="text-yellow-700">2점:</strong> 통증 자극에만 눈을 뜸 (손톱을 꼬집는 등의 자극 필요)
+              </div>
+              <div class="bg-red-50 rounded p-2 border-l-4 border-red-500">
+                <strong class="text-red-700">1점:</strong> 어떤 자극에도 눈을 뜨지 않음
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. 언어 반응 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-green-300">
+            <h4 class="font-bold text-green-800 mb-3 flex items-center">
+              <span class="bg-green-600 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">2</span>
+              💬 언어 반응 (Verbal Response) - 1~5점
+            </h4>
+            <div class="space-y-2 text-sm">
+              <div class="bg-green-50 rounded p-3 border-l-4 border-green-500">
+                <strong class="text-green-700">5점:</strong> 정상적인 대화 가능하고 지남력 정상
+                <ul class="mt-1 ml-4 text-xs text-gray-700 space-y-1">
+                  <li>• 오늘이 몇 월 며칠인지 알고 있음</li>
+                  <li>• 여기가 어디인지 알고 있음</li>
+                  <li>• 자신과 가족의 이름을 정확히 말함</li>
+                </ul>
+              </div>
+              <div class="bg-blue-50 rounded p-3 border-l-4 border-blue-500">
+                <strong class="text-blue-700">4점:</strong> 대화는 되지만 혼란스러움 (지남력 저하)
+                <ul class="mt-1 ml-4 text-xs text-gray-700 space-y-1">
+                  <li>• 날짜나 장소를 헷갈려 함</li>
+                  <li>• 질문에 부적절한 답변을 함</li>
+                  <li>• 섬망 증상이 있을 수 있음</li>
+                </ul>
+              </div>
+              <div class="bg-yellow-50 rounded p-2 border-l-4 border-yellow-500">
+                <strong class="text-yellow-700">3점:</strong> 단어만 말함 (문장 구성 불가, 단답형 반응만)
+              </div>
+              <div class="bg-orange-50 rounded p-2 border-l-4 border-orange-500">
+                <strong class="text-orange-700">2점:</strong> 이해할 수 없는 소리만 냄 (신음, 끙끙거림)
+              </div>
+              <div class="bg-red-50 rounded p-2 border-l-4 border-red-500">
+                <strong class="text-red-700">1점:</strong> 전혀 소리를 내지 않음 (기관삽관 환자 포함)
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. 운동 반응 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-purple-300">
+            <h4 class="font-bold text-purple-800 mb-3 flex items-center">
+              <span class="bg-purple-600 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">3</span>
+              🤚 운동 반응 (Motor Response) - 1~6점
+            </h4>
+            <div class="space-y-2 text-sm">
+              <div class="bg-green-50 rounded p-2 border-l-4 border-green-500">
+                <strong class="text-green-700">6점:</strong> 명령에 따라 움직임 ("손을 들어보세요" 등의 지시에 정확히 반응)
+              </div>
+              <div class="bg-lime-50 rounded p-2 border-l-4 border-lime-500">
+                <strong class="text-lime-700">5점:</strong> 통증 위치를 정확히 찾아 손으로 제거 (통증 자극한 곳을 손으로 밀어냄)
+              </div>
+              <div class="bg-yellow-50 rounded p-2 border-l-4 border-yellow-500">
+                <strong class="text-yellow-700">4점:</strong> 통증에 손을 뻗으나 부정확 (대충 통증 쪽으로 손을 가져감)
+              </div>
+              <div class="bg-orange-50 rounded p-2 border-l-4 border-orange-500">
+                <strong class="text-orange-700">3점:</strong> 통증에 팔을 구부리는 비정상 반응 (굴곡 반응)
+              </div>
+              <div class="bg-red-50 rounded p-2 border-l-4 border-red-500">
+                <strong class="text-red-700">2점:</strong> 통증에 팔을 펴는 비정상 반응 (신전 반응, 더 심각)
+              </div>
+              <div class="bg-gray-50 rounded p-2 border-l-4 border-gray-500">
+                <strong class="text-gray-700">1점:</strong> 전혀 움직이지 않음 (마비 또는 무반응)
+              </div>
+            </div>
+          </div>
+
+          <!-- GCS 총점 해석 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-indigo-400">
+            <h4 class="font-bold text-indigo-800 mb-3 flex items-center">
+              <i class="fas fa-calculator text-indigo-600 mr-2"></i>
+              GCS 총점 해석 (3~15점)
+            </h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+              <div class="bg-green-50 rounded-lg p-3 border-2 border-green-400">
+                <div class="font-bold text-green-800 mb-1">15점 - 정상</div>
+                <p class="text-xs text-gray-700">완전히 깨어있고 지남력 정상</p>
+              </div>
+              <div class="bg-blue-50 rounded-lg p-3 border-2 border-blue-400">
+                <div class="font-bold text-blue-800 mb-1">13-14점 - 경미한 장애</div>
+                <p class="text-xs text-gray-700">약간의 혼란, 경미한 의식 저하</p>
+              </div>
+              <div class="bg-yellow-50 rounded-lg p-3 border-2 border-yellow-400">
+                <div class="font-bold text-yellow-800 mb-1">9-12점 - 중등도 장애</div>
+                <p class="text-xs text-gray-700">명확한 의식 장애, 집중 치료 필요</p>
+              </div>
+              <div class="bg-red-50 rounded-lg p-3 border-2 border-red-400">
+                <div class="font-bold text-red-800 mb-1">≤8점 - 중증 장애</div>
+                <p class="text-xs text-gray-700">혼수 상태, 즉각 치료 필요</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 평가 팁 -->
+          <div class="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-500">
+            <h5 class="font-bold text-blue-800 mb-2 flex items-center">
+              <i class="fas fa-lightbulb text-blue-600 mr-2"></i>
+              평가 팁
+            </h5>
+            <ul class="text-sm text-gray-700 space-y-1">
+              <li>✓ 환자를 직접 보면서 평가하거나 의료진에게 물어보세요</li>
+              <li>✓ 각 항목별로 가장 좋은 반응을 선택하세요</li>
+              <li>✓ 최근 24시간 이내의 상태를 기준으로 평가하세요</li>
+              <li>✓ 잘 모르겠다면 간호사나 의사에게 GCS 점수를 문의하세요</li>
+            </ul>
+          </div>
+
+          <!-- 주의사항 -->
+          <div class="bg-red-50 rounded-lg p-4 border-l-4 border-red-500">
+            <h5 class="font-bold text-red-800 mb-2 flex items-center">
+              <i class="fas fa-exclamation-triangle text-red-600 mr-2"></i>
+              주의사항
+            </h5>
+            <ul class="text-sm text-gray-700 space-y-1">
+              <li>⚠️ GCS 점수가 갑자기 낮아진다면 즉시 의료진에게 알리세요</li>
+              <li>⚠️ 8점 이하는 기도 관리가 필요한 중증 상태입니다</li>
+              <li>⚠️ 이 평가는 전원 계획 수립을 위한 참고 자료입니다</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 참고 사항 -->
+        <div class="bg-purple-50 rounded-lg p-3 mt-4 border-l-4 border-purple-400">
+          <p class="text-xs text-purple-900">
+            <i class="fas fa-info-circle mr-1"></i>
+            <strong>참고:</strong> GCS는 의료진이 가장 널리 사용하는 의식 평가 도구입니다. 
+            정확한 평가를 위해서는 의료진의 평가를 참고하시거나, 진료기록지에 기록된 GCS 점수를 확인하세요.
+          </p>
+        </div>
+      </div>
+
       <!-- 핵심 차이점 -->
       <div class="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-5">
         <h3 class="text-lg font-bold text-yellow-800 mb-3 flex items-center">
