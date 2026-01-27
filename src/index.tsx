@@ -767,44 +767,6 @@ app.get('/', (c) => {
                             </div>
                         </div>
                         
-                        <!-- 요양병원 vs 요양시설 차이 안내 -->
-                        <div class="bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-400 rounded-lg p-5">
-                            <div class="flex items-start">
-                                <div class="flex-shrink-0">
-                                    <i class="fas fa-exclamation-triangle text-4xl text-yellow-600"></i>
-                                </div>
-                                <div class="ml-4 flex-1">
-                                    <h4 class="font-bold text-yellow-900 mb-2 text-lg">
-                                        잠깐! 요양병원 vs 요양시설의 차이를 아시나요?
-                                    </h4>
-                                    <p class="text-sm text-gray-800 mb-3">
-                                        많은 분들이 헷갈려하시는데, <strong class="text-red-700">완전히 다른 곳</strong>입니다!
-                                    </p>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm mb-3">
-                                        <div class="bg-white rounded-lg p-3 border-2 border-blue-300">
-                                            <p class="font-bold text-blue-700 mb-1 flex items-center">
-                                                <i class="fas fa-hospital mr-2"></i>요양병원
-                                            </p>
-                                            <p class="text-gray-700">✅ 장기요양등급 필요없음</p>
-                                            <p class="text-gray-700">💊 건강보험 적용</p>
-                                        </div>
-                                        <div class="bg-white rounded-lg p-3 border-2 border-orange-300">
-                                            <p class="font-bold text-orange-700 mb-1 flex items-center">
-                                                <i class="fas fa-home mr-2"></i>요양시설 (요양원)
-                                            </p>
-                                            <p class="text-gray-700">⚠️ 장기요양등급 필수</p>
-                                            <p class="text-gray-700">🏥 요양보험 적용</p>
-                                        </div>
-                                    </div>
-                                    <button type="button" onclick="showHelp('facility_types')" 
-                                            class="w-full bg-yellow-600 text-white py-3 px-4 rounded-lg hover:bg-yellow-700 transition font-bold text-base">
-                                        <i class="fas fa-search mr-2"></i>
-                                        자세한 차이점 보기 (꼭 읽어보세요!)
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
                         <!-- 제출 버튼 -->
                         <button type="submit" 
                                 class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-5 px-8 rounded-xl hover:from-blue-700 hover:to-purple-700 transition font-bold text-xl shadow-2xl transform hover:scale-105">
