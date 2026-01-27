@@ -21,6 +21,234 @@ function updateADLValue(value) {
   document.getElementById('adlValue').textContent = value + '점';
 }
 
+// GCS 총점 업데이트
+function updateGCSTotal() {
+  const eye = parseInt(document.querySelector('select[name="gcs_eye"]')?.value || 4);
+  const verbal = parseInt(document.querySelector('select[name="gcs_verbal"]')?.value || 5);
+  const motor = parseInt(document.querySelector('select[name="gcs_motor"]')?.value || 6);
+  
+  const total = eye + verbal + motor;
+  const totalElement = document.getElementById('gcsTotal');
+  const levelElement = document.getElementById('gcsLevel');
+  
+  if (totalElement) {
+    totalElement.textContent = total + '점';
+  }
+  
+  if (levelElement) {
+    let level, color;
+    if (total === 15) {
+      level = '정상';
+      color = 'bg-green-100 text-green-800';
+    } else if (total >= 13) {
+      level = '경미한 장애';
+      color = 'bg-blue-100 text-blue-800';
+    } else if (total >= 9) {
+      level = '중등도 장애';
+      color = 'bg-yellow-100 text-yellow-800';
+    } else {
+      level = '중증 장애';
+      color = 'bg-red-100 text-red-800';
+    }
+    
+    levelElement.textContent = level;
+    levelElement.className = `text-xs px-2 py-1 rounded ${color}`;
+  }
+  
+  return total;
+}
+
+// GCS 가이드 표시
+function showGCSGuide() {
+  const modal = createModal(`
+    <div class="space-y-6">
+      <div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">
+          <i class="fas fa-brain text-blue-600 mr-2"></i>
+          Glasgow Coma Scale (GCS) 의식 상태 평가
+        </h2>
+        <p class="text-gray-600 mb-4">
+          GCS는 의식 수준을 평가하는 가장 표준화되고 객관적인 방법입니다.
+          세 가지 영역(눈 뜨기, 언어 반응, 운동 반응)을 각각 평가하여 총점으로 의식 수준을 판단합니다.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <!-- 눈 뜨기 반응 -->
+        <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-4">
+          <h3 class="font-bold text-blue-800 mb-3 flex items-center">
+            <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center mr-2 text-sm">1</span>
+            눈 뜨기 반응 (Eye Opening) - 1~4점
+          </h3>
+          <div class="space-y-2 text-sm">
+            <div class="flex items-start bg-white rounded p-2">
+              <span class="font-bold text-green-600 w-12">4점:</span>
+              <span class="text-gray-700">자발적으로 눈을 뜸 (정상)</span>
+            </div>
+            <div class="flex items-start bg-white rounded p-2">
+              <span class="font-bold text-blue-600 w-12">3점:</span>
+              <span class="text-gray-700">말을 걸면 눈을 뜸 (이름을 부르거나 "눈을 떠보세요"라고 하면 반응)</span>
+            </div>
+            <div class="flex items-start bg-white rounded p-2">
+              <span class="font-bold text-orange-600 w-12">2점:</span>
+              <span class="text-gray-700">통증 자극에만 눈을 뜸 (손톱을 꼬집는 등의 자극 필요)</span>
+            </div>
+            <div class="flex items-start bg-white rounded p-2">
+              <span class="font-bold text-red-600 w-12">1점:</span>
+              <span class="text-gray-700">어떤 자극에도 눈을 뜨지 않음</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 언어 반응 -->
+        <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-4">
+          <h3 class="font-bold text-green-800 mb-3 flex items-center">
+            <span class="bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center mr-2 text-sm">2</span>
+            언어 반응 (Verbal Response) - 1~5점
+          </h3>
+          <div class="space-y-2 text-sm">
+            <div class="flex items-start bg-white rounded p-2">
+              <span class="font-bold text-green-600 w-12">5점:</span>
+              <div class="flex-1">
+                <p class="text-gray-700 font-semibold">정상적인 대화 가능하고 지남력 정상</p>
+                <p class="text-gray-500 text-xs mt-1">
+                  • 오늘이 몇 월 며칠인지 알고 있음<br>
+                  • 여기가 어디인지 알고 있음<br>
+                  • 자신과 가족의 이름을 정확히 말함
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start bg-white rounded p-2">
+              <span class="font-bold text-blue-600 w-12">4점:</span>
+              <div class="flex-1">
+                <p class="text-gray-700 font-semibold">대화는 되지만 혼란스러움 (지남력 저하)</p>
+                <p class="text-gray-500 text-xs mt-1">
+                  • 날짜나 장소를 헷갈려 함<br>
+                  • 질문에 부적절한 답변을 함<br>
+                  • 섬망 증상이 있을 수 있음
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start bg-white rounded p-2">
+              <span class="font-bold text-yellow-600 w-12">3점:</span>
+              <span class="text-gray-700">단어만 말함 (문장 구성 불가, 단답형 반응만)</span>
+            </div>
+            <div class="flex items-start bg-white rounded p-2">
+              <span class="font-bold text-orange-600 w-12">2점:</span>
+              <span class="text-gray-700">이해할 수 없는 소리만 냄 (신음, 끙끙거림)</span>
+            </div>
+            <div class="flex items-start bg-white rounded p-2">
+              <span class="font-bold text-red-600 w-12">1점:</span>
+              <span class="text-gray-700">전혀 소리를 내지 않음 (기관삽관 환자 포함)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 운동 반응 -->
+        <div class="bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg p-4">
+          <h3 class="font-bold text-purple-800 mb-3 flex items-center">
+            <span class="bg-purple-600 text-white w-8 h-8 rounded-full flex items-center justify-center mr-2 text-sm">3</span>
+            운동 반응 (Motor Response) - 1~6점
+          </h3>
+          <div class="space-y-2 text-sm">
+            <div class="flex items-start bg-white rounded p-2">
+              <span class="font-bold text-green-600 w-12">6점:</span>
+              <span class="text-gray-700">명령에 따라 움직임 ("손을 들어보세요" 등의 지시에 정확히 반응)</span>
+            </div>
+            <div class="flex items-start bg-white rounded p-2">
+              <span class="font-bold text-blue-600 w-12">5점:</span>
+              <span class="text-gray-700">통증 위치를 정확히 찾아 손으로 제거 (통증 자극한 곳을 손으로 밀어냄)</span>
+            </div>
+            <div class="flex items-start bg-white rounded p-2">
+              <span class="font-bold text-cyan-600 w-12">4점:</span>
+              <span class="text-gray-700">통증에 손을 뻗으나 부정확 (대충 통증 쪽으로 손을 가져감)</span>
+            </div>
+            <div class="flex items-start bg-white rounded p-2">
+              <span class="font-bold text-yellow-600 w-12">3점:</span>
+              <span class="text-gray-700">통증에 팔을 구부리는 비정상 반응 (굴곡 반응)</span>
+            </div>
+            <div class="flex items-start bg-white rounded p-2">
+              <span class="font-bold text-orange-600 w-12">2점:</span>
+              <span class="text-gray-700">통증에 팔을 펴는 비정상 반응 (신전 반응, 더 심각)</span>
+            </div>
+            <div class="flex items-start bg-white rounded p-2">
+              <span class="font-bold text-red-600 w-12">1점:</span>
+              <span class="text-gray-700">전혀 움직이지 않음 (마비 또는 무반응)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 총점 해석 -->
+      <div class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg p-5">
+        <h3 class="font-bold text-gray-800 mb-4 text-center text-lg">
+          <i class="fas fa-chart-bar text-gray-600 mr-2"></i>
+          GCS 총점 해석 (3~15점)
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+          <div class="bg-green-100 border-2 border-green-500 rounded-lg p-3 text-center">
+            <div class="text-2xl font-bold text-green-700">15점</div>
+            <div class="text-sm font-semibold text-green-800 mt-1">정상</div>
+            <div class="text-xs text-green-600 mt-2">완전히 깨어있고<br>지남력 정상</div>
+          </div>
+          <div class="bg-blue-100 border-2 border-blue-500 rounded-lg p-3 text-center">
+            <div class="text-2xl font-bold text-blue-700">13-14점</div>
+            <div class="text-sm font-semibold text-blue-800 mt-1">경미한 장애</div>
+            <div class="text-xs text-blue-600 mt-2">약간의 혼란<br>경미한 의식 저하</div>
+          </div>
+          <div class="bg-yellow-100 border-2 border-yellow-500 rounded-lg p-3 text-center">
+            <div class="text-2xl font-bold text-yellow-700">9-12점</div>
+            <div class="text-sm font-semibold text-yellow-800 mt-1">중등도 장애</div>
+            <div class="text-xs text-yellow-600 mt-2">명확한 의식 장애<br>집중 치료 필요</div>
+          </div>
+          <div class="bg-red-100 border-2 border-red-500 rounded-lg p-3 text-center">
+            <div class="text-2xl font-bold text-red-700">≤8점</div>
+            <div class="text-sm font-semibold text-red-800 mt-1">중증 장애</div>
+            <div class="text-xs text-red-600 mt-2">혼수 상태<br>즉각 치료 필요</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 추가 정보 -->
+      <div class="space-y-3">
+        <div class="bg-blue-50 border border-blue-200 rounded p-4">
+          <h4 class="font-semibold text-blue-800 mb-2">
+            <i class="fas fa-lightbulb mr-2"></i>평가 팁
+          </h4>
+          <ul class="text-sm text-blue-700 space-y-1 ml-4 list-disc">
+            <li>환자를 직접 보면서 평가하거나 의료진에게 물어보세요</li>
+            <li>각 항목별로 가장 좋은 반응을 선택하세요</li>
+            <li>최근 24시간 이내의 상태를 기준으로 평가하세요</li>
+            <li>잘 모르겠다면 간호사나 의사에게 GCS 점수를 문의하세요</li>
+          </ul>
+        </div>
+
+        <div class="bg-yellow-50 border border-yellow-200 rounded p-4">
+          <h4 class="font-semibold text-yellow-800 mb-2">
+            <i class="fas fa-exclamation-triangle mr-2"></i>주의사항
+          </h4>
+          <ul class="text-sm text-yellow-700 space-y-1 ml-4 list-disc">
+            <li>GCS 점수가 갑자기 낮아진다면 즉시 의료진에게 알리세요</li>
+            <li>8점 이하는 기도 관리가 필요한 중증 상태입니다</li>
+            <li>이 평가는 전원 계획 수립을 위한 참고 자료입니다</li>
+          </ul>
+        </div>
+
+        <div class="bg-gray-50 border border-gray-200 rounded p-4">
+          <p class="text-sm text-gray-600">
+            <i class="fas fa-info-circle text-gray-500 mr-2"></i>
+            <strong>참고:</strong> GCS는 의료진이 가장 널리 사용하는 의식 평가 도구입니다.
+            정확한 평가를 위해서는 의료진의 평가를 참고하시거나, 
+            진료기록지에 기록된 GCS 점수를 확인하세요.
+          </p>
+        </div>
+      </div>
+    </div>
+  `, 'max-w-5xl');
+  
+  document.getElementById('modalContainer').appendChild(modal);
+}
+
 // ADL 가이드 표시
 function showADLGuide() {
   const modal = createModal(`
@@ -408,17 +636,41 @@ async function handlePatientSubmit(e) {
   e.preventDefault();
   
   const formData = new FormData(e.target);
+  
+  // GCS 점수 계산
+  const gcsEye = parseInt(formData.get('gcs_eye') || 4);
+  const gcsVerbal = parseInt(formData.get('gcs_verbal') || 5);
+  const gcsMotor = parseInt(formData.get('gcs_motor') || 6);
+  const gcsTotal = gcsEye + gcsVerbal + gcsMotor;
+  
+  // GCS 점수를 의식수준 텍스트로 변환
+  let consciousnessLevel;
+  if (gcsTotal === 15) {
+    consciousnessLevel = '명료 (GCS 15)';
+  } else if (gcsTotal >= 13) {
+    consciousnessLevel = `경미한 의식 장애 (GCS ${gcsTotal})`;
+  } else if (gcsTotal >= 9) {
+    consciousnessLevel = `중등도 의식 장애 (GCS ${gcsTotal})`;
+  } else {
+    consciousnessLevel = `중증 의식 장애 (GCS ${gcsTotal})`;
+  }
+  
   const data = {
     name: formData.get('name'),
     age: parseInt(formData.get('age')),
     diagnosis: formData.get('diagnosis'),
     diagnosis_date: formData.get('diagnosis_date'),
     adl_score: parseInt(formData.get('adl_score')),
-    consciousness_level: formData.get('consciousness_level'),
+    consciousness_level: consciousnessLevel,
     insurance_type: formData.get('insurance_type'),
     ltc_grade: formData.get('ltc_grade') ? parseInt(formData.get('ltc_grade')) : null,
     current_hospital: formData.get('current_hospital'),
-    comorbidities: '{}'
+    comorbidities: JSON.stringify({
+      gcs_eye: gcsEye,
+      gcs_verbal: gcsVerbal,
+      gcs_motor: gcsMotor,
+      gcs_total: gcsTotal
+    })
   };
   
   try {
@@ -427,6 +679,8 @@ async function handlePatientSubmit(e) {
     if (response.data.success) {
       showSuccess('환자가 성공적으로 등록되었습니다!');
       e.target.reset();
+      updateADLValue(50);
+      updateGCSTotal();
       loadPatients();
       
       // 체크리스트 자동 생성

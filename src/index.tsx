@@ -214,15 +214,66 @@ app.get('/', (c) => {
                                     <i class="fas fa-lightbulb"></i> 잘 모르시면 간단한 평가를 해보세요
                                 </p>
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">의식수준</label>
-                                <select name="consciousness_level" 
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                                    <option value="명료">명료</option>
-                                    <option value="기면">기면</option>
-                                    <option value="혼미">혼미</option>
-                                    <option value="혼수">혼수</option>
-                                </select>
+                            <div class="md:col-span-2">
+                                <label class="flex items-center text-sm font-medium text-gray-700 mb-2">
+                                    의식 상태 평가 (Glasgow Coma Scale)
+                                    <button type="button" onclick="showGCSGuide()" 
+                                            class="ml-2 text-blue-500 hover:text-blue-700">
+                                        <i class="fas fa-question-circle"></i>
+                                    </button>
+                                </label>
+                                <div class="bg-gray-50 rounded-lg p-4 space-y-3">
+                                    <!-- 눈 뜨기 반응 -->
+                                    <div>
+                                        <label class="text-xs font-medium text-gray-600 mb-1 block">1. 눈 뜨기 반응 (Eye Opening)</label>
+                                        <select name="gcs_eye" onchange="updateGCSTotal()" 
+                                                class="w-full px-3 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
+                                            <option value="4">자발적으로 눈을 뜸 (4점)</option>
+                                            <option value="3">말에 반응하여 눈을 뜸 (3점)</option>
+                                            <option value="2">통증에 반응하여 눈을 뜸 (2점)</option>
+                                            <option value="1">전혀 눈을 뜨지 않음 (1점)</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <!-- 언어 반응 -->
+                                    <div>
+                                        <label class="text-xs font-medium text-gray-600 mb-1 block">2. 언어 반응 (Verbal Response)</label>
+                                        <select name="gcs_verbal" onchange="updateGCSTotal()" 
+                                                class="w-full px-3 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
+                                            <option value="5">대화 가능하고 지남력 정상 (5점)</option>
+                                            <option value="4">대화는 되나 지남력 저하/혼란스러움 (4점)</option>
+                                            <option value="3">단어만 말함, 문장 구성 불가 (3점)</option>
+                                            <option value="2">이해할 수 없는 소리만 냄 (2점)</option>
+                                            <option value="1">전혀 소리를 내지 않음 (1점)</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <!-- 운동 반응 -->
+                                    <div>
+                                        <label class="text-xs font-medium text-gray-600 mb-1 block">3. 운동 반응 (Motor Response)</label>
+                                        <select name="gcs_motor" onchange="updateGCSTotal()" 
+                                                class="w-full px-3 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
+                                            <option value="6">명령에 따라 움직임 (6점)</option>
+                                            <option value="5">통증 위치를 정확히 찾아 손으로 제거 (5점)</option>
+                                            <option value="4">통증에 손을 뻗으나 부정확 (4점)</option>
+                                            <option value="3">통증에 팔을 구부림 (3점)</option>
+                                            <option value="2">통증에 팔을 펴는 반응 (2점)</option>
+                                            <option value="1">전혀 움직이지 않음 (1점)</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <!-- 총점 표시 -->
+                                    <div class="bg-white rounded border-2 border-blue-500 p-3 flex items-center justify-between">
+                                        <span class="text-sm font-semibold text-gray-700">GCS 총점:</span>
+                                        <div class="flex items-center space-x-2">
+                                            <span id="gcsTotal" class="text-2xl font-bold text-blue-600">15점</span>
+                                            <span id="gcsLevel" class="text-xs px-2 py-1 rounded bg-green-100 text-green-800">정상</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-2">
+                                    <i class="fas fa-info-circle"></i> 15점: 정상 | 13-14점: 경미한 장애 | 9-12점: 중등도 | 8점 이하: 중증
+                                </p>
                             </div>
                             <div>
                                 <label class="flex items-center text-sm font-medium text-gray-700 mb-2">

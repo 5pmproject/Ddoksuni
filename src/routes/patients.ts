@@ -69,22 +69,41 @@ patients.post('/', async (c) => {
     if (data.adl_score >= 70) severity = 'mild';
     else if (data.adl_score < 40) severity = 'severe';
     
+    // GCS 점수 추출 (comorbidities에서)
+    let gcsTotal = 15, gcsEye = 4, gcsVerbal = 5, gcsMotor = 6;
+    try {
+      const comorbidities = JSON.parse(data.comorbidities || '{}');
+      if (comorbidities.gcs_total) {
+        gcsTotal = comorbidities.gcs_total;
+        gcsEye = comorbidities.gcs_eye || 4;
+        gcsVerbal = comorbidities.gcs_verbal || 5;
+        gcsMotor = comorbidities.gcs_motor || 6;
+      }
+    } catch (e) {
+      // JSON 파싱 실패 시 기본값 사용
+    }
+    
     const result = await c.env.DB.prepare(
       `INSERT INTO patients (name, diagnosis, diagnosis_date, age, adl_score, consciousness_level, 
-       severity, insurance_type, ltc_grade, current_hospital, comorbidities)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+       severity, insurance_type, ltc_grade, current_hospital, comorbidities,
+       gcs_total, gcs_eye, gcs_verbal, gcs_motor)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     ).bind(
       data.name,
       data.diagnosis,
       data.diagnosis_date,
       data.age,
       data.adl_score || 50,
-      data.consciousness_level || '명료',
+      data.consciousness_level || '명료 (GCS 15)',
       severity,
       data.insurance_type || 'employee',
       data.ltc_grade || null,
       data.current_hospital,
-      data.comorbidities || '{}'
+      data.comorbidities || '{}',
+      gcsTotal,
+      gcsEye,
+      gcsVerbal,
+      gcsMotor
     ).run();
     
     if (!result.success) {
