@@ -171,18 +171,48 @@ app.get('/', (c) => {
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">진단명</label>
-                                <input type="text" name="diagnosis" required placeholder="예: 뇌경색 (I63.9)"
+                                <input type="text" name="diagnosis" required placeholder="예: 뇌경색, 뇌출혈, 대장암"
                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                <p class="text-xs text-gray-500 mt-1">
+                                    <i class="fas fa-info-circle"></i> 진료기록지나 진단서에 적힌 질병명을 입력하세요
+                                </p>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">발병/수술일</label>
+                                <label class="flex items-center text-sm font-medium text-gray-700 mb-2">
+                                    발병/수술일
+                                    <button type="button" onclick="showHelp('diagnosis_date')" 
+                                            class="ml-2 text-blue-500 hover:text-blue-700">
+                                        <i class="fas fa-question-circle"></i>
+                                    </button>
+                                </label>
                                 <input type="date" name="diagnosis_date" required 
                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                <p class="text-xs text-gray-500 mt-1">
+                                    <i class="fas fa-info-circle"></i> 뇌졸중 발생일, 암 수술일 등 주요 치료가 시작된 날짜
+                                </p>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">ADL 점수 (0-100)</label>
-                                <input type="number" name="adl_score" min="0" max="100" value="50"
-                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                <label class="flex items-center text-sm font-medium text-gray-700 mb-2">
+                                    일상생활 수행능력 (ADL)
+                                    <button type="button" onclick="showADLGuide()" 
+                                            class="ml-2 text-blue-500 hover:text-blue-700">
+                                        <i class="fas fa-question-circle"></i>
+                                    </button>
+                                </label>
+                                <div class="flex items-center space-x-2">
+                                    <input type="range" name="adl_score" min="0" max="100" value="50" 
+                                           oninput="updateADLValue(this.value)"
+                                           class="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                                    <span id="adlValue" class="text-lg font-semibold text-blue-600 w-12">50점</span>
+                                </div>
+                                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                    <span>전혀 못함</span>
+                                    <span>부분 도움</span>
+                                    <span>혼자 가능</span>
+                                </div>
+                                <p class="text-xs text-blue-600 mt-2">
+                                    <i class="fas fa-lightbulb"></i> 잘 모르시면 간단한 평가를 해보세요
+                                </p>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">의식수준</label>
@@ -195,25 +225,43 @@ app.get('/', (c) => {
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">건강보험 유형</label>
+                                <label class="flex items-center text-sm font-medium text-gray-700 mb-2">
+                                    건강보험 유형
+                                    <button type="button" onclick="showHelp('insurance')" 
+                                            class="ml-2 text-blue-500 hover:text-blue-700">
+                                        <i class="fas fa-question-circle"></i>
+                                    </button>
+                                </label>
                                 <select name="insurance_type" 
                                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                                    <option value="employee">직장가입자</option>
-                                    <option value="local">지역가입자</option>
-                                    <option value="medical_aid">의료급여</option>
+                                    <option value="employee">직장가입자 (회사에서 보험료 납부)</option>
+                                    <option value="local">지역가입자 (개인이 보험료 납부)</option>
+                                    <option value="medical_aid">의료급여 (기초생활수급자)</option>
                                 </select>
+                                <p class="text-xs text-gray-500 mt-1">
+                                    <i class="fas fa-info-circle"></i> 건강보험증에서 확인 가능합니다
+                                </p>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">장기요양등급 (선택)</label>
+                                <label class="flex items-center text-sm font-medium text-gray-700 mb-2">
+                                    장기요양등급
+                                    <button type="button" onclick="showHelp('ltc')" 
+                                            class="ml-2 text-blue-500 hover:text-blue-700">
+                                        <i class="fas fa-question-circle"></i>
+                                    </button>
+                                </label>
                                 <select name="ltc_grade" 
                                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                                    <option value="">미신청</option>
-                                    <option value="1">1급</option>
-                                    <option value="2">2급</option>
-                                    <option value="3">3급</option>
-                                    <option value="4">4급</option>
-                                    <option value="5">5급</option>
+                                    <option value="">아직 신청 안함 (모르겠음)</option>
+                                    <option value="1">1급 (최중증 - 완전 와상)</option>
+                                    <option value="2">2급 (중증 - 거의 와상)</option>
+                                    <option value="3">3급 (중등증 - 부분 도움 필요)</option>
+                                    <option value="4">4급 (경증 - 약간의 도움 필요)</option>
+                                    <option value="5">5급 (경증 - 일부 도움 필요)</option>
                                 </select>
+                                <p class="text-xs text-blue-600 mt-1">
+                                    <i class="fas fa-lightbulb"></i> 신청하지 않았다면 '아직 신청 안함'을 선택하세요
+                                </p>
                             </div>
                         </div>
                         <div>

@@ -16,6 +16,337 @@ function setupEventListeners() {
   }
 }
 
+// ADL 값 업데이트
+function updateADLValue(value) {
+  document.getElementById('adlValue').textContent = value + '점';
+}
+
+// ADL 가이드 표시
+function showADLGuide() {
+  const modal = createModal(`
+    <div class="space-y-6">
+      <div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">
+          <i class="fas fa-walking text-blue-600 mr-2"></i>
+          일상생활 수행능력 (ADL) 평가 가이드
+        </h2>
+        <p class="text-gray-600 mb-4">
+          환자가 혼자서 할 수 있는 일상생활 동작을 평가합니다. 
+          아래 항목들을 참고하여 대략적인 점수를 입력하세요.
+        </p>
+      </div>
+
+      <div class="bg-gradient-to-r from-red-50 to-green-50 p-6 rounded-lg">
+        <div class="space-y-4">
+          <div class="flex items-start">
+            <div class="w-24 text-center">
+              <div class="text-2xl font-bold text-red-600">0-30점</div>
+              <div class="text-xs text-red-600">중증</div>
+            </div>
+            <div class="flex-1 pl-4 border-l-2 border-red-300">
+              <h4 class="font-semibold text-gray-800 mb-2">거의 모든 일상생활에 전적인 도움 필요</h4>
+              <ul class="text-sm text-gray-600 space-y-1">
+                <li>• 침대에서 스스로 일어나지 못함</li>
+                <li>• 식사를 혼자 할 수 없음 (식사 도움 필요)</li>
+                <li>• 옷 입고 벗기를 전혀 못함</li>
+                <li>• 대소변을 가리지 못하거나 기저귀 사용</li>
+                <li>• 목욕을 전혀 혼자 못함</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="flex items-start">
+            <div class="w-24 text-center">
+              <div class="text-2xl font-bold text-orange-600">40-60점</div>
+              <div class="text-xs text-orange-600">중등도</div>
+            </div>
+            <div class="flex-1 pl-4 border-l-2 border-orange-300">
+              <h4 class="font-semibold text-gray-800 mb-2">일부 일상생활에 도움 필요</h4>
+              <ul class="text-sm text-gray-600 space-y-1">
+                <li>• 침대에서 일어나는데 도움이 필요함</li>
+                <li>• 식사를 혼자 하지만 준비는 도움 필요</li>
+                <li>• 간단한 옷은 혼자 입지만 복잡한 옷은 도움 필요</li>
+                <li>• 화장실 사용 가능하지만 이동에 도움 필요</li>
+                <li>• 샤워는 도움 받아 가능</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="flex items-start">
+            <div class="w-24 text-center">
+              <div class="text-2xl font-bold text-green-600">70-100점</div>
+              <div class="text-xs text-green-600">경증</div>
+            </div>
+            <div class="flex-1 pl-4 border-l-2 border-green-300">
+              <h4 class="font-semibold text-gray-800 mb-2">대부분의 일상생활을 혼자 가능</h4>
+              <ul class="text-sm text-gray-600 space-y-1">
+                <li>• 침대에서 혼자 일어날 수 있음</li>
+                <li>• 식사를 혼자 할 수 있음</li>
+                <li>• 옷을 혼자 입고 벗을 수 있음</li>
+                <li>• 화장실을 혼자 사용할 수 있음</li>
+                <li>• 씻기와 목욕을 혼자 할 수 있음</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <h4 class="font-semibold text-blue-800 mb-2">
+          <i class="fas fa-lightbulb mr-2"></i>간단 평가 방법
+        </h4>
+        <p class="text-sm text-blue-700 mb-3">
+          다음 5가지 항목에서 혼자 할 수 있는 것의 개수로 대략 판단하세요:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+          <div class="flex items-center">
+            <span class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-2">1</span>
+            <span>식사하기</span>
+          </div>
+          <div class="flex items-center">
+            <span class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-2">2</span>
+            <span>옷 입고 벗기</span>
+          </div>
+          <div class="flex items-center">
+            <span class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-2">3</span>
+            <span>화장실 사용</span>
+          </div>
+          <div class="flex items-center">
+            <span class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-2">4</span>
+            <span>목욕/씻기</span>
+          </div>
+          <div class="flex items-center col-span-full">
+            <span class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-2">5</span>
+            <span>걷기 또는 이동하기</span>
+          </div>
+        </div>
+        <div class="mt-4 grid grid-cols-3 gap-2 text-xs text-center">
+          <div class="bg-white p-2 rounded">
+            <div class="font-semibold text-red-600">0-1개 가능</div>
+            <div class="text-gray-600">→ 약 20점</div>
+          </div>
+          <div class="bg-white p-2 rounded">
+            <div class="font-semibold text-orange-600">2-3개 가능</div>
+            <div class="text-gray-600">→ 약 50점</div>
+          </div>
+          <div class="bg-white p-2 rounded">
+            <div class="font-semibold text-green-600">4-5개 가능</div>
+            <div class="text-gray-600">→ 약 80점</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+        <p class="text-sm text-gray-600">
+          <i class="fas fa-info-circle text-gray-500 mr-2"></i>
+          <strong>참고:</strong> 이 점수는 대략적인 평가입니다. 
+          정확한 평가는 의료진이 수행하며, 전원 경로 추천에만 참고용으로 사용됩니다.
+        </p>
+      </div>
+    </div>
+  `, 'max-w-4xl');
+  
+  document.getElementById('modalContainer').appendChild(modal);
+}
+
+// 도움말 표시
+function showHelp(type) {
+  let content = '';
+  
+  switch(type) {
+    case 'diagnosis_date':
+      content = `
+        <div class="space-y-4">
+          <h3 class="text-xl font-bold text-gray-800">
+            <i class="fas fa-calendar-check text-blue-600 mr-2"></i>
+            발병/수술일이란?
+          </h3>
+          <div class="space-y-3 text-gray-700">
+            <p class="font-semibold text-gray-800">주요 치료가 시작된 날짜를 의미합니다:</p>
+            <ul class="space-y-2 ml-4">
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                <div>
+                  <strong>뇌졸중 (뇌경색, 뇌출혈):</strong> 
+                  <span class="text-gray-600">쓰러지거나 증상이 발생한 날짜</span>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                <div>
+                  <strong>암 환자:</strong> 
+                  <span class="text-gray-600">수술을 받은 날짜 (또는 항암치료 시작일)</span>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                <div>
+                  <strong>골절/사고:</strong> 
+                  <span class="text-gray-600">사고가 발생한 날짜 또는 수술일</span>
+                </div>
+              </li>
+            </ul>
+            <div class="bg-yellow-50 border border-yellow-200 rounded p-3 mt-4">
+              <p class="text-sm text-yellow-800">
+                <i class="fas fa-lightbulb mr-2"></i>
+                <strong>왜 중요한가요?</strong><br>
+                발병일로부터 경과 기간에 따라 적절한 재활 시기와 전원 계획이 달라집니다.
+                예를 들어, 뇌졸중은 발병 후 3개월이 재활의 골든타임입니다.
+              </p>
+            </div>
+          </div>
+        </div>
+      `;
+      break;
+      
+    case 'insurance':
+      content = `
+        <div class="space-y-4">
+          <h3 class="text-xl font-bold text-gray-800">
+            <i class="fas fa-id-card text-blue-600 mr-2"></i>
+            건강보험 유형이란?
+          </h3>
+          <div class="space-y-4">
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-4">
+              <h4 class="font-semibold text-blue-800 mb-2">
+                <i class="fas fa-building mr-2"></i>직장가입자
+              </h4>
+              <p class="text-sm text-gray-700">
+                회사나 직장에 다니면서 건강보험료를 회사와 본인이 반반씩 부담하는 경우입니다.
+                건강보험증에 "직장"이라고 표시되어 있습니다.
+              </p>
+            </div>
+            
+            <div class="bg-green-50 border-l-4 border-green-500 p-4">
+              <h4 class="font-semibold text-green-800 mb-2">
+                <i class="fas fa-home mr-2"></i>지역가입자
+              </h4>
+              <p class="text-sm text-gray-700">
+                자영업자, 무직자 등 직장에 다니지 않아 개인이 건강보험료를 전액 부담하는 경우입니다.
+                건강보험증에 "지역"이라고 표시되어 있습니다.
+              </p>
+            </div>
+            
+            <div class="bg-purple-50 border-l-4 border-purple-500 p-4">
+              <h4 class="font-semibold text-purple-800 mb-2">
+                <i class="fas fa-hand-holding-heart mr-2"></i>의료급여
+              </h4>
+              <p class="text-sm text-gray-700">
+                기초생활수급자나 차상위계층으로 국가에서 의료비를 지원받는 경우입니다.
+                의료급여증을 가지고 있으면 이에 해당합니다.
+              </p>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 rounded p-4 mt-4">
+              <h4 class="font-semibold text-gray-800 mb-2">
+                <i class="fas fa-search mr-2"></i>확인 방법
+              </h4>
+              <p class="text-sm text-gray-700">
+                건강보험증 또는 의료급여증을 확인하시면 유형을 알 수 있습니다.
+                잘 모르겠다면 가족에게 물어보거나 병원 원무과에 문의하세요.
+              </p>
+            </div>
+
+            <div class="bg-yellow-50 border border-yellow-200 rounded p-3 mt-4">
+              <p class="text-sm text-yellow-800">
+                <i class="fas fa-info-circle mr-2"></i>
+                건강보험 유형에 따라 본인부담률이 다르므로 비용 계산에 중요합니다.
+              </p>
+            </div>
+          </div>
+        </div>
+      `;
+      break;
+      
+    case 'ltc':
+      content = `
+        <div class="space-y-4">
+          <h3 class="text-xl font-bold text-gray-800">
+            <i class="fas fa-clipboard-check text-blue-600 mr-2"></i>
+            장기요양등급이란?
+          </h3>
+          
+          <p class="text-gray-700">
+            고령이나 노인성 질병으로 인해 혼자 일상생활이 어려운 분들을 위한 
+            <strong class="text-blue-600">국가 지원 제도</strong>입니다.
+          </p>
+
+          <div class="space-y-3">
+            <div class="bg-red-50 border-l-4 border-red-500 p-3">
+              <div class="flex items-center justify-between mb-1">
+                <h4 class="font-semibold text-red-800">1급 (최중증)</h4>
+                <span class="text-xs bg-red-200 text-red-800 px-2 py-1 rounded">점수 95점 이상</span>
+              </div>
+              <p class="text-sm text-gray-700">완전 와상 상태, 거의 모든 일상생활에 전적인 도움 필요</p>
+            </div>
+
+            <div class="bg-orange-50 border-l-4 border-orange-500 p-3">
+              <div class="flex items-center justify-between mb-1">
+                <h4 class="font-semibold text-orange-800">2급 (중증)</h4>
+                <span class="text-xs bg-orange-200 text-orange-800 px-2 py-1 rounded">점수 75-95점</span>
+              </div>
+              <p class="text-sm text-gray-700">거의 와상 상태, 대부분의 일상생활에 상당한 도움 필요</p>
+            </div>
+
+            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-3">
+              <div class="flex items-center justify-between mb-1">
+                <h4 class="font-semibold text-yellow-800">3급 (중등증)</h4>
+                <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded">점수 60-75점</span>
+              </div>
+              <p class="text-sm text-gray-700">부분적 도움 필요, 일부 일상생활 가능하지만 지원 필요</p>
+            </div>
+
+            <div class="bg-green-50 border-l-4 border-green-500 p-3">
+              <div class="flex items-center justify-between mb-1">
+                <h4 class="font-semibold text-green-800">4급 (경증)</h4>
+                <span class="text-xs bg-green-200 text-green-800 px-2 py-1 rounded">점수 51-60점</span>
+              </div>
+              <p class="text-sm text-gray-700">약간의 도움 필요, 기본적인 일상생활은 가능</p>
+            </div>
+
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-3">
+              <div class="flex items-center justify-between mb-1">
+                <h4 class="font-semibold text-blue-800">5급 (경증)</h4>
+                <span class="text-xs bg-blue-200 text-blue-800 px-2 py-1 rounded">점수 45-51점</span>
+              </div>
+              <p class="text-sm text-gray-700">치매 환자 중심, 신체 기능은 양호하나 인지 문제로 일부 지원 필요</p>
+            </div>
+          </div>
+
+          <div class="bg-purple-50 border border-purple-200 rounded p-4 mt-4">
+            <h4 class="font-semibold text-purple-800 mb-2">
+              <i class="fas fa-file-alt mr-2"></i>신청 방법
+            </h4>
+            <ol class="text-sm text-gray-700 space-y-1 ml-4 list-decimal">
+              <li>국민건강보험공단에 신청 (전화 1577-1000 또는 방문)</li>
+              <li>공단 직원이 방문하여 조사 (약 2주 소요)</li>
+              <li>등급 판정 결과 통보 (조사 후 약 1개월)</li>
+            </ol>
+          </div>
+
+          <div class="bg-blue-50 border border-blue-200 rounded p-3">
+            <p class="text-sm text-blue-800">
+              <i class="fas fa-lightbulb mr-2"></i>
+              <strong>혜택:</strong> 요양병원, 요양원 이용 시 비용의 80-85%를 국가에서 지원받습니다.
+            </p>
+          </div>
+
+          <div class="bg-gray-50 border border-gray-200 rounded p-3">
+            <p class="text-sm text-gray-700">
+              <i class="fas fa-info-circle mr-2"></i>
+              아직 신청하지 않았다면 <strong>'아직 신청 안함'</strong>을 선택하세요.
+              전원 경로 추천 시 적절한 신청 시기를 안내해드립니다.
+            </p>
+          </div>
+        </div>
+      `;
+      break;
+  }
+  
+  const modal = createModal(content, 'max-w-3xl');
+  document.getElementById('modalContainer').appendChild(modal);
+}
+
 // 환자 목록 로드
 async function loadPatients() {
   try {
