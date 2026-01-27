@@ -55,9 +55,9 @@ function initializeQuestCards() {
     card.addEventListener('click', function() {
       const questNumber = parseInt(this.dataset.quest);
       
-      // 첫 번째 퀘스트 - 환자 정보 입력 (팝업)
+      // 첫 번째 퀘스트 - 보호자 5대 혼란 가이드
       if (questNumber === 1) {
-        showPatientFormModal();
+        showCaregiverConfusionGuide();
       }
       
       // 두 번째 퀘스트 - 전원 가이드
