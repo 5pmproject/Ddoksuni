@@ -847,7 +847,7 @@ function showFacilityGuide() {
       <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 border-2 border-blue-200">
         <h3 class="text-xl font-bold text-blue-800 mb-4 flex items-center">
           <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">1</span>
-          전원 결정, 5가지만 체크하세요!
+          병원 결정, 5가지만 체크하세요!
         </h3>
         
         <div class="space-y-3">
@@ -862,7 +862,7 @@ function showFacilityGuide() {
             </p>
             <p class="text-xs text-gray-600">
               <i class="fas fa-check-circle text-green-600 mr-1"></i>
-              전문의·치료사가 많을수록 치료 질이 높아요!
+              환자의 상태에 맞는 진료과가 상주하는지, 전문치료사가 많을수록 치료 질이 높아요!
             </p>
           </div>
 
@@ -877,7 +877,7 @@ function showFacilityGuide() {
             </p>
             <p class="text-xs text-gray-600">
               <i class="fas fa-check-circle text-blue-600 mr-1"></i>
-              필수 검사가 가능한지 확인하세요!
+              환자에게 필요한 검사 기기가 있는지 확인하세요!
             </p>
           </div>
 
@@ -892,7 +892,7 @@ function showFacilityGuide() {
             </p>
             <p class="text-xs text-gray-600">
               <i class="fas fa-check-circle text-purple-600 mr-1"></i>
-              1인실 여부와 섬망(혼돈) 예방 능력을 확인하세요!
+              1인실/1인간병 여부와 섬망(혼동) 대처가 가능한지 확인하세요!
             </p>
           </div>
 
@@ -922,7 +922,7 @@ function showFacilityGuide() {
             </p>
             <p class="text-xs text-gray-600">
               <i class="fas fa-check-circle text-pink-600 mr-1"></i>
-              면회·외출 가능성과 비용 부담을 확인하세요!
+              외래 진료가 필요한 경우, 외출 가능성 여부 확인이 필요하고 가족 면회가 가능한 시간대도 확인하세요!
             </p>
           </div>
         </div>
@@ -932,7 +932,7 @@ function showFacilityGuide() {
       <div class="bg-gradient-to-r from-green-50 to-teal-50 rounded-lg p-6 border-2 border-green-200">
         <h3 class="text-xl font-bold text-green-800 mb-4 flex items-center">
           <span class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">2</span>
-          시설별 특징 한눈에 보기
+          일반적인 특징 한눈에 보기
         </h3>
 
         <div class="space-y-4">
