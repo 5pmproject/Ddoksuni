@@ -635,6 +635,210 @@ function showHelp(type) {
         </div>
       `;
       break;
+      
+    case 'facility_types':
+      content = `
+        <div class="space-y-6">
+          <div class="bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-300 rounded-lg p-5">
+            <h3 class="text-2xl font-bold text-red-800 mb-2 flex items-center">
+              <i class="fas fa-exclamation-triangle mr-2"></i>
+              많은 분들이 혼동하시는 부분!
+            </h3>
+            <p class="text-lg text-gray-700">
+              <strong>요양병원</strong>과 <strong>요양시설</strong>은 <span class="text-red-600 font-bold">완전히 다른 기관</span>입니다!
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- 요양병원 -->
+            <div class="bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-400 rounded-lg p-5">
+              <div class="flex items-center mb-3">
+                <div class="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center mr-3">
+                  <i class="fas fa-hospital text-2xl"></i>
+                </div>
+                <h4 class="text-xl font-bold text-blue-800">요양병원</h4>
+              </div>
+              <p class="text-sm text-gray-600 mb-3 font-semibold">(의료기관 = 병원)</p>
+              
+              <div class="space-y-2 text-sm">
+                <div class="bg-white rounded p-2">
+                  <p class="font-semibold text-green-700 mb-1">
+                    <i class="fas fa-check-circle mr-1"></i>장기요양등급 필요 없음
+                  </p>
+                  <p class="text-gray-600 text-xs">건강보험만 있으면 입원 가능</p>
+                </div>
+                
+                <div class="bg-white rounded p-2">
+                  <p class="font-semibold text-blue-700 mb-1">
+                    <i class="fas fa-user-md mr-1"></i>의사 진료 제공
+                  </p>
+                  <p class="text-gray-600 text-xs">의료행위 가능 (주사, 처치, 수술 등)</p>
+                </div>
+                
+                <div class="bg-white rounded p-2">
+                  <p class="font-semibold text-purple-700 mb-1">
+                    <i class="fas fa-percentage mr-1"></i>산정특례 적용 가능
+                  </p>
+                  <p class="text-gray-600 text-xs">암, 중증질환 → 본인부담 5% or 10%</p>
+                </div>
+                
+                <div class="bg-green-50 border border-green-300 rounded p-2 mt-2">
+                  <p class="text-xs font-semibold text-green-800 mb-1">
+                    <i class="fas fa-clipboard-check mr-1"></i>입원 조건:
+                  </p>
+                  <ul class="text-xs text-gray-700 ml-3 space-y-1">
+                    <li>• 의사가 입원 필요성 판단</li>
+                    <li>• 급성기 이후 지속적 치료 필요</li>
+                  </ul>
+                </div>
+                
+                <div class="bg-blue-50 border border-blue-300 rounded p-2 mt-2">
+                  <p class="text-xs font-semibold text-blue-800 mb-1">
+                    <i class="fas fa-won-sign mr-1"></i>비용 예시 (폐암 산정특례):
+                  </p>
+                  <ul class="text-xs text-gray-700 ml-3 space-y-1">
+                    <li>• 6인실 입원료: <strong>5% 부담</strong></li>
+                    <li>• 치료비, 검사비: <strong>5% 부담</strong></li>
+                    <li>• 상급병실 차액: <strong>100% 부담</strong></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- 요양시설 -->
+            <div class="bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-400 rounded-lg p-5">
+              <div class="flex items-center mb-3">
+                <div class="bg-orange-600 text-white rounded-full w-12 h-12 flex items-center justify-center mr-3">
+                  <i class="fas fa-home text-2xl"></i>
+                </div>
+                <h4 class="text-xl font-bold text-orange-800">요양시설/요양원</h4>
+              </div>
+              <p class="text-sm text-gray-600 mb-3 font-semibold">(장기요양기관 = 복지시설)</p>
+              
+              <div class="space-y-2 text-sm">
+                <div class="bg-white rounded p-2">
+                  <p class="font-semibold text-red-700 mb-1">
+                    <i class="fas fa-exclamation-circle mr-1"></i>장기요양등급 필수
+                  </p>
+                  <p class="text-gray-600 text-xs">1~5등급 중 하나 필요</p>
+                </div>
+                
+                <div class="bg-white rounded p-2">
+                  <p class="font-semibold text-orange-700 mb-1">
+                    <i class="fas fa-hands-helping mr-1"></i>요양보호사 중심 돌봄
+                  </p>
+                  <p class="text-gray-600 text-xs">의료행위 제한적 (간단한 투약 정도)</p>
+                </div>
+                
+                <div class="bg-white rounded p-2">
+                  <p class="font-semibold text-purple-700 mb-1">
+                    <i class="fas fa-shield-alt mr-1"></i>장기요양보험 적용
+                  </p>
+                  <p class="text-gray-600 text-xs">국가 지원 80-85% (1~5등급)</p>
+                </div>
+                
+                <div class="bg-orange-50 border border-orange-300 rounded p-2 mt-2">
+                  <p class="text-xs font-semibold text-orange-800 mb-1">
+                    <i class="fas fa-clipboard-check mr-1"></i>이용 조건:
+                  </p>
+                  <ul class="text-xs text-gray-700 ml-3 space-y-1">
+                    <li>• 65세 이상 or 노인성 질병</li>
+                    <li>• 장기요양등급 인정 필수</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 실제 경로 비교 -->
+          <div class="bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-300 rounded-lg p-5">
+            <h4 class="text-lg font-bold text-purple-800 mb-3 flex items-center">
+              <i class="fas fa-route mr-2"></i>
+              실제 경로 비교: 폐암 환자의 경우
+            </h4>
+            <div class="relative">
+              <div class="flex flex-col space-y-3">
+                <div class="flex items-center">
+                  <div class="bg-purple-600 text-white rounded px-3 py-2 font-semibold text-sm">
+                    급성기 병원 (수술, 항암)
+                  </div>
+                </div>
+                <div class="flex items-center ml-8">
+                  <i class="fas fa-arrow-down text-purple-600 text-2xl mr-2"></i>
+                  <span class="text-gray-600 text-sm">회복 후 퇴원 or 전원</span>
+                </div>
+                <div class="flex items-center">
+                  <div class="bg-blue-600 text-white rounded px-3 py-2 font-semibold text-sm">
+                    요양병원
+                  </div>
+                  <span class="ml-3 text-xs text-green-700 font-semibold">
+                    <i class="fas fa-check-circle mr-1"></i>산정특례만 있으면 됨
+                  </span>
+                </div>
+                <div class="flex items-center ml-8">
+                  <i class="fas fa-arrow-down text-purple-600 text-2xl mr-2"></i>
+                  <span class="text-gray-600 text-sm">(상태 안정 후)</span>
+                </div>
+                <div class="flex items-center">
+                  <div class="bg-orange-600 text-white rounded px-3 py-2 font-semibold text-sm">
+                    재가 or 요양시설
+                  </div>
+                  <span class="ml-3 text-xs text-red-700 font-semibold">
+                    <i class="fas fa-exclamation-circle mr-1"></i>장기요양등급 필요
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 헷갈리는 이유 -->
+          <div class="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-4">
+            <h4 class="font-bold text-yellow-800 mb-2 flex items-center">
+              <i class="fas fa-question-circle mr-2"></i>
+              왜 헷갈리나요?
+            </h4>
+            <p class="text-sm text-gray-700 mb-2">
+              <strong>이름이 비슷해서!</strong> 하지만 완전히 다릅니다:
+            </p>
+            <ul class="text-sm text-gray-700 ml-4 space-y-1">
+              <li>• <strong>요양병원</strong>: 의료기관 (병원)</li>
+              <li>• <strong>요양시설</strong>: 복지시설 (요양원)</li>
+            </ul>
+          </div>
+
+          <!-- 실무 팁 -->
+          <div class="bg-gradient-to-r from-green-50 to-teal-50 border-2 border-green-400 rounded-lg p-4">
+            <h4 class="font-bold text-green-800 mb-3 flex items-center">
+              <i class="fas fa-lightbulb mr-2 text-yellow-500"></i>
+              실무 팁
+            </h4>
+            <div class="space-y-2 text-sm">
+              <div class="bg-white rounded p-3">
+                <p class="font-semibold text-blue-700 mb-1">
+                  <i class="fas fa-arrow-right text-blue-600 mr-2"></i>
+                  의사의 지속적 치료가 필요한 경우
+                </p>
+                <p class="text-gray-600 ml-6">→ <strong>요양병원</strong> (산정특례 적용)</p>
+              </div>
+              <div class="bg-white rounded p-3">
+                <p class="font-semibold text-orange-700 mb-1">
+                  <i class="fas fa-arrow-right text-orange-600 mr-2"></i>
+                  일상생활 돌봄만 필요한 경우
+                </p>
+                <p class="text-gray-600 ml-6">→ <strong>요양시설</strong> (장기요양등급 필요)</p>
+              </div>
+              <div class="bg-white rounded p-3">
+                <p class="font-semibold text-purple-700 mb-1">
+                  <i class="fas fa-sync-alt text-purple-600 mr-2"></i>
+                  둘 다 필요한 시기도 있음
+                </p>
+                <p class="text-gray-600 ml-6">→ 순차적으로 이용 (요양병원 → 요양시설)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      break;
   }
   
   const modal = createModal(content, 'max-w-3xl');

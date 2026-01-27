@@ -329,6 +329,45 @@ app.get('/', (c) => {
                                     <i class="fas fa-info-circle"></i> 건강보험증에서 확인 가능합니다
                                 </p>
                             </div>
+                        </div>
+                        
+                        <!-- 요양병원 vs 요양시설 차이 안내 -->
+                        <div class="bg-gradient-to-r from-orange-50 to-red-50 border-2 border-orange-300 rounded-lg p-4 mt-6 mb-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-exclamation-triangle text-3xl text-orange-600"></i>
+                                </div>
+                                <div class="ml-4 flex-1">
+                                    <h4 class="font-bold text-orange-800 mb-2 text-base">
+                                        잠깐! 요양병원 vs 요양시설의 차이를 아시나요?
+                                    </h4>
+                                    <p class="text-sm text-gray-700 mb-3">
+                                        많은 분들이 혼동하시는데, <strong class="text-red-600">완전히 다른 기관</strong>입니다!
+                                    </p>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs mb-3">
+                                        <div class="bg-white rounded p-2 border border-blue-200">
+                                            <p class="font-semibold text-blue-700 mb-1">
+                                                <i class="fas fa-hospital mr-1"></i>요양병원 (의료기관)
+                                            </p>
+                                            <p class="text-gray-600">장기요양등급 불필요 • 건강보험</p>
+                                        </div>
+                                        <div class="bg-white rounded p-2 border border-orange-200">
+                                            <p class="font-semibold text-orange-700 mb-1">
+                                                <i class="fas fa-home mr-1"></i>요양시설 (복지시설)
+                                            </p>
+                                            <p class="text-gray-600">장기요양등급 필수 • 요양보험</p>
+                                        </div>
+                                    </div>
+                                    <button type="button" onclick="showHelp('facility_types')" 
+                                            class="w-full bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-orange-700 transition text-sm font-semibold">
+                                        <i class="fas fa-search mr-2"></i>
+                                        상세 차이점 보기 (필독!)
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label class="flex items-center text-sm font-medium text-gray-700 mb-2">
                                     장기요양등급
