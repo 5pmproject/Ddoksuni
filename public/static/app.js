@@ -64,6 +64,11 @@ function initializeQuestCards() {
       else if (questNumber === 2) {
         showTransferGuide();
       }
+      
+      // 세 번째 퀘스트 - 비용 가이드
+      else if (questNumber === 3) {
+        showCostGuide();
+      }
     });
   });
 }
@@ -389,6 +394,229 @@ function showTransferGuide() {
   document.getElementById('modalContainer').appendChild(modal);
 }
 
+// 비용 가이드 표시
+function showCostGuide() {
+  const modal = createModal(`
+    <div class="space-y-6">
+      <div class="text-center">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">
+          <i class="fas fa-coins text-purple-600 mr-2"></i>
+          비용, 얼마나 들까요?
+        </h2>
+        <p class="text-lg text-gray-700">
+          똑순이가 급여·비급여를 쉽게 알려드릴게요! 😊
+        </p>
+      </div>
+
+      <!-- 급여 비급여 개념 -->
+      <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 border-2 border-blue-200">
+        <h3 class="text-xl font-bold text-blue-800 mb-4 flex items-center">
+          <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">1</span>
+          급여와 비급여, 뭐가 다를까요?
+        </h3>
+        
+        <div class="space-y-3">
+          <div class="bg-white rounded-lg p-4 border-2 border-green-300">
+            <div class="flex items-center mb-2">
+              <span class="text-2xl mr-3">✅</span>
+              <h4 class="text-lg font-bold text-green-700">급여 항목</h4>
+            </div>
+            <p class="text-gray-700 mb-2">보험에서 대부분 내주는 비용이에요</p>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="bg-green-50 text-green-700 px-2 py-1 rounded">🏥 기본 병실료</span>
+              <span class="bg-green-50 text-green-700 px-2 py-1 rounded">💊 기본 치료</span>
+              <span class="bg-green-50 text-green-700 px-2 py-1 rounded">🍚 식사</span>
+              <span class="bg-green-50 text-green-700 px-2 py-1 rounded">👩‍⚕️ 간호</span>
+            </div>
+            <p class="text-sm text-green-700 mt-2 font-semibold">💰 본인 부담: 약 20-30%</p>
+          </div>
+
+          <div class="bg-white rounded-lg p-4 border-2 border-orange-300">
+            <div class="flex items-center mb-2">
+              <span class="text-2xl mr-3">💳</span>
+              <h4 class="text-lg font-bold text-orange-700">비급여 항목</h4>
+            </div>
+            <p class="text-gray-700 mb-2">본인이 전부 내야 하는 추가 비용이에요</p>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="bg-orange-50 text-orange-700 px-2 py-1 rounded">🛏️ 1인실</span>
+              <span class="bg-orange-50 text-orange-700 px-2 py-1 rounded">🤖 특수 재활</span>
+              <span class="bg-orange-50 text-orange-700 px-2 py-1 rounded">🦽 전동 휠체어</span>
+              <span class="bg-orange-50 text-orange-700 px-2 py-1 rounded">🥗 특수 식단</span>
+            </div>
+            <p class="text-sm text-orange-700 mt-2 font-semibold">💰 본인 부담: 전액 (100%)</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 재활병원 비용 -->
+      <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-6 border-2 border-green-200">
+        <h3 class="text-xl font-bold text-green-800 mb-4 flex items-center">
+          <span class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">2</span>
+          재활병원 비용 (하루 기준)
+        </h3>
+        
+        <div class="space-y-3">
+          <div class="bg-white rounded-lg p-4 border-l-4 border-green-500">
+            <div class="flex justify-between items-center mb-2">
+              <h4 class="font-bold text-gray-800">🛏️ 2인실 (일반)</h4>
+              <span class="text-green-600 font-bold text-lg">4만원/일</span>
+            </div>
+            <p class="text-sm text-gray-600">건강보험 70% 적용 → 본인 부담 30%</p>
+            <p class="text-xs text-green-700 mt-1">💰 한 달: 약 120만원</p>
+          </div>
+
+          <div class="bg-white rounded-lg p-4 border-l-4 border-purple-500">
+            <div class="flex justify-between items-center mb-2">
+              <h4 class="font-bold text-gray-800">🏨 1인실 (프라이빗)</h4>
+              <span class="text-purple-600 font-bold text-lg">10만원/일</span>
+            </div>
+            <p class="text-sm text-gray-600">기본 4만원 + 1인실 추가 6만원 (비급여)</p>
+            <p class="text-xs text-purple-700 mt-1">💰 한 달: 약 300만원</p>
+          </div>
+
+          <div class="bg-blue-50 rounded-lg p-3 text-sm">
+            <p class="text-blue-800 font-semibold mb-1">➕ 추가 비용 예시</p>
+            <div class="space-y-1 text-xs text-gray-700">
+              <p>• 🤖 로봇 재활: 3만원/회 (주 2회 → 월 6만원)</p>
+              <p>• 🦽 전동 휠체어: 15-20만원/월</p>
+              <p>• 🥗 특수 식단: 1-2만원/일 (월 30-60만원)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 요양병원 비용 -->
+      <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border-2 border-blue-200">
+        <h3 class="text-xl font-bold text-blue-800 mb-4 flex items-center">
+          <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">3</span>
+          요양병원 비용 (하루 기준)
+        </h3>
+        
+        <div class="space-y-3">
+          <div class="bg-white rounded-lg p-4 border-l-4 border-blue-500">
+            <div class="flex justify-between items-center mb-2">
+              <h4 class="font-bold text-gray-800">🛏️ 2인실 (일반)</h4>
+              <span class="text-blue-600 font-bold text-lg">3만원/일</span>
+            </div>
+            <p class="text-sm text-gray-600">장기요양보험 60-80% 적용</p>
+            <p class="text-xs text-blue-700 mt-1">💰 한 달: 약 90만원</p>
+          </div>
+
+          <div class="bg-white rounded-lg p-4 border-l-4 border-indigo-500">
+            <div class="flex justify-between items-center mb-2">
+              <h4 class="font-bold text-gray-800">🏨 1인실 (프라이빗)</h4>
+              <span class="text-indigo-600 font-bold text-lg">8만원/일</span>
+            </div>
+            <p class="text-sm text-gray-600">기본 3만원 + 1인실 추가 5만원 (비급여)</p>
+            <p class="text-xs text-indigo-700 mt-1">💰 한 달: 약 240만원</p>
+          </div>
+
+          <div class="bg-orange-50 rounded-lg p-3 text-sm">
+            <p class="text-orange-800 font-semibold mb-1">⚠️ 요양등급에 따라 달라요</p>
+            <div class="space-y-1 text-xs text-gray-700">
+              <p>• 1등급: 보험 80% → 본인 부담 20%</p>
+              <p>• 2등급: 보험 70% → 본인 부담 30%</p>
+              <p>• 3등급: 보험 60% → 본인 부담 40%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 비급여 체크리스트 -->
+      <div class="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-lg p-6 border-2 border-yellow-300">
+        <h3 class="text-xl font-bold text-yellow-800 mb-4 flex items-center">
+          <span class="bg-yellow-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">4</span>
+          비용이 더 나올 수 있는 경우
+        </h3>
+        
+        <div class="space-y-2">
+          <div class="bg-white rounded-lg p-3 flex items-start">
+            <span class="text-xl mr-3">🛏️</span>
+            <div class="flex-1">
+              <p class="font-semibold text-gray-800">1인실을 원하시나요?</p>
+              <p class="text-sm text-gray-600">→ 하루 5-10만원 추가</p>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg p-3 flex items-start">
+            <span class="text-xl mr-3">🤖</span>
+            <div class="flex-1">
+              <p class="font-semibold text-gray-800">로봇·특수 재활을 하실 건가요?</p>
+              <p class="text-sm text-gray-600">→ 회당 2-3만원 추가</p>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg p-3 flex items-start">
+            <span class="text-xl mr-3">🦽</span>
+            <div class="flex-1">
+              <p class="font-semibold text-gray-800">전동 휠체어가 필요하신가요?</p>
+              <p class="text-sm text-gray-600">→ 한 달 15-20만원 추가</p>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg p-3 flex items-start">
+            <span class="text-xl mr-3">🥗</span>
+            <div class="flex-1">
+              <p class="font-semibold text-gray-800">특수 식단이 필요하신가요?</p>
+              <p class="text-sm text-gray-600">→ 하루 1-2만원 추가</p>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg p-3 flex items-start">
+            <span class="text-xl mr-3">👤</span>
+            <div class="flex-1">
+              <p class="font-semibold text-gray-800">추가 간병인이 필요하신가요?</p>
+              <p class="text-sm text-gray-600">→ 한 달 30-60만원 추가</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 꿀팁 -->
+      <div class="bg-green-50 border-2 border-green-400 rounded-lg p-5">
+        <h3 class="text-lg font-bold text-green-800 mb-3 flex items-center">
+          <i class="fas fa-lightbulb text-green-600 mr-2 text-xl"></i>
+          똑순이 꿀팁! 💡
+        </h3>
+        <div class="space-y-2 text-sm">
+          <p class="flex items-start">
+            <span class="text-green-600 mr-2">✓</span>
+            <span><strong>산재(산업재해)</strong> 적용되면 <strong class="text-red-600">본인 부담 0원!</strong></span>
+          </p>
+          <p class="flex items-start">
+            <span class="text-green-600 mr-2">✓</span>
+            <span><strong>재활특례</strong> 받으면 본인 부담이 <strong class="text-blue-600">15%</strong>로 줄어요</span>
+          </p>
+          <p class="flex items-start">
+            <span class="text-green-600 mr-2">✓</span>
+            <span><strong>저소득층·장애인</strong>은 <strong class="text-purple-600">30-50% 감면</strong> 받을 수 있어요</span>
+          </p>
+          <p class="flex items-start">
+            <span class="text-green-600 mr-2">✓</span>
+            <span>병원마다 비용이 다르니 <strong class="text-orange-600">꼭 여러 곳을 비교</strong>하세요!</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- 다음 단계 안내 -->
+      <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg p-6 text-center">
+        <p class="text-lg text-gray-800 mb-4">
+          <i class="fas fa-heart text-red-500 mr-2"></i>
+          대략적인 비용 감이 오셨나요?<br>
+          <strong class="text-purple-700">환자분 정보를 입력하시면 정확한 예상 비용</strong>을 알려드릴게요!
+        </p>
+        <button onclick="closeModalAndShowForm()" 
+                class="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 px-8 rounded-lg hover:from-purple-700 hover:to-pink-700 transition font-bold text-lg shadow-lg">
+          <i class="fas fa-calculator mr-2"></i>
+          정확한 비용 계산하러 가기
+        </button>
+      </div>
+    </div>
+  `, 'max-w-4xl');
+  
+  document.getElementById('modalContainer').appendChild(modal);
+}
+
 // 모달 닫고 폼 보이기
 function closeModalAndShowForm() {
   // 모달 닫기
@@ -419,8 +647,8 @@ function updateQuestCards(currentStep) {
     const questNumber = index + 1;
     const statusBadge = card.querySelector('.quest-status');
     
-    // 1번, 2번 카드는 항상 클릭 가능하게 (가이드 용도)
-    if (questNumber === 1 || questNumber === 2) {
+    // 1번, 2번, 3번 카드는 항상 클릭 가능하게 (가이드 용도)
+    if (questNumber === 1 || questNumber === 2 || questNumber === 3) {
       card.classList.remove('opacity-60');
       statusBadge.className = 'quest-status status-available';
       statusBadge.textContent = '시작';
