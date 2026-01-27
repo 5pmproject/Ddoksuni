@@ -155,11 +155,6 @@ app.get('/', (c) => {
             height: 300px;
           }
           
-          .quest-card-inner {
-            position: relative;
-            z-index: 1;
-          }
-          
           .quest-badge {
             position: absolute;
             top: -15px;
@@ -427,10 +422,8 @@ app.get('/', (c) => {
                                     <div class="quest-badge" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
                                         1
                                     </div>
-                                    <div class="quest-card-inner p-4">
-                                        <img src="/static/quest-card-1.png" alt="환자분 이야기 듣기" class="quest-card-image">
-                                        <div class="quest-shine"></div>
-                                    </div>
+                                    <img src="/static/quest-card-1.png" alt="환자분 이야기 듣기" class="quest-card-image">
+                                    <div class="quest-shine"></div>
                                     <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-3 shadow-2xl border-2 border-white/50">
                                         <div class="flex items-center justify-between">
                                             <div class="flex-1">
@@ -447,10 +440,8 @@ app.get('/', (c) => {
                                     <div class="quest-badge" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
                                         2
                                     </div>
-                                    <div class="quest-card-inner p-4">
-                                        <img src="/static/quest-card-2.png" alt="맞춤 경로 함께 보기" class="quest-card-image">
-                                        <div class="quest-shine"></div>
-                                    </div>
+                                    <img src="/static/quest-card-2.png" alt="맞춤 경로 함께 보기" class="quest-card-image">
+                                    <div class="quest-shine"></div>
                                     <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-3 shadow-2xl border-2 border-white/50">
                                         <div class="flex items-center justify-between">
                                             <div class="flex-1">
@@ -467,10 +458,8 @@ app.get('/', (c) => {
                                     <div class="quest-badge" style="background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);">
                                         3
                                     </div>
-                                    <div class="quest-card-inner p-4">
-                                        <img src="/static/quest-card-3.png" alt="비용 미리 살펴보기" class="quest-card-image">
-                                        <div class="quest-shine"></div>
-                                    </div>
+                                    <img src="/static/quest-card-3.png" alt="비용 미리 살펴보기" class="quest-card-image">
+                                    <div class="quest-shine"></div>
                                     <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-3 shadow-2xl border-2 border-white/50">
                                         <div class="flex items-center justify-between">
                                             <div class="flex-1">
@@ -487,10 +476,8 @@ app.get('/', (c) => {
                                     <div class="quest-badge" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
                                         4
                                     </div>
-                                    <div class="quest-card-inner p-4">
-                                        <img src="/static/quest-card-4.png" alt="좋은 곳 함께 고르기" class="quest-card-image">
-                                        <div class="quest-shine"></div>
-                                    </div>
+                                    <img src="/static/quest-card-4.png" alt="좋은 곳 함께 고르기" class="quest-card-image">
+                                    <div class="quest-shine"></div>
                                     <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-3 shadow-2xl border-2 border-white/50">
                                         <div class="flex items-center justify-between">
                                             <div class="flex-1">
