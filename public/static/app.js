@@ -59,25 +59,6 @@ function initializeQuestCards() {
         document.getElementById('registerForm').scrollIntoView({ behavior: 'smooth' });
       }
     });
-    
-    // 마우스 이동에 따른 3D 효과
-    card.addEventListener('mousemove', function(e) {
-      const rect = this.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      
-      const rotateX = (y - centerY) / 10;
-      const rotateY = (centerX - x) / 10;
-      
-      this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px) scale(1.05)`;
-    });
-    
-    card.addEventListener('mouseleave', function() {
-      this.style.transform = '';
-    });
   });
 }
 
