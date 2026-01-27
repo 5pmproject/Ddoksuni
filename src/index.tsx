@@ -767,7 +767,7 @@ app.get('/', (c) => {
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <label class="flex items-center text-sm font-bold text-gray-800 mb-2">
-                                        <span class="text-red-500">*</span> 현재 병원 타입
+                                        <span class="text-red-500">*</span> 희망 병원 타입
                                     </label>
                                     <select name="current_hospital_type" required
                                             class="input-3d w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 text-base">
@@ -779,7 +779,7 @@ app.get('/', (c) => {
                                         <option value="nursing_home">🏠 요양원</option>
                                     </select>
                                     <p class="text-xs text-gray-600 mt-1 bg-white rounded px-2 py-1">
-                                        🏥 현재 계신 병원의 종류를 선택해주세요
+                                        🏥 전원 받고 싶은 병원의 종류를 선택해주세요
                                     </p>
                                 </div>
                                 <div>
@@ -902,26 +902,140 @@ app.get('/', (c) => {
                                 
                                 <!-- 재활 필요 사항 -->
                                 <div class="bg-white rounded-lg p-4 border-2 border-rose-200">
-                                    <label class="block text-sm font-bold text-gray-800 mb-3">
-                                        ♿ 필요한 재활 치료 (중복 선택 가능)
+                                    <label class="block text-sm font-bold text-gray-800 mb-3 flex items-center">
+                                        ♿ 필요한 재활 치료 선택
+                                        <button type="button" onclick="showHelp('rehab_types')" 
+                                                class="ml-2 text-rose-600 hover:text-rose-800 text-lg">
+                                            <i class="fas fa-question-circle"></i>
+                                        </button>
                                     </label>
-                                    <div class="space-y-2">
-                                        <label class="flex items-center p-3 border-2 border-gray-300 rounded-lg hover:bg-rose-50 cursor-pointer transition">
-                                            <input type="checkbox" name="needs_robot_vr_rehab" value="true" class="mr-3 w-5 h-5">
-                                            <span class="text-sm">🤖 로봇·VR 재활 (최신 재활 장비)</span>
-                                        </label>
-                                        <label class="flex items-center p-3 border-2 border-gray-300 rounded-lg hover:bg-rose-50 cursor-pointer transition">
-                                            <input type="checkbox" name="needs_language_cognitive_rehab" value="true" class="mr-3 w-5 h-5">
-                                            <span class="text-sm">🗣️ 언어·인지 재활 (말하기, 기억력)</span>
-                                        </label>
-                                        <label class="flex items-center p-3 border-2 border-gray-300 rounded-lg hover:bg-rose-50 cursor-pointer transition">
-                                            <input type="checkbox" name="needs_physical_rehab" value="true" class="mr-3 w-5 h-5">
-                                            <span class="text-sm">💪 물리·작업 재활 (기본 재활)</span>
-                                        </label>
-                                    </div>
-                                    <p class="text-xs text-gray-600 mt-2 bg-rose-50 rounded px-3 py-2">
-                                        💡 필요한 재활 치료를 모두 선택해주세요
+                                    <p class="text-xs text-gray-600 mb-3 bg-blue-50 rounded px-3 py-2">
+                                        💡 환자분에게 필요한 재활 치료를 모두 선택해주세요 (중복 선택 가능)
                                     </p>
+                                    
+                                    <!-- 기본 재활 치료 -->
+                                    <div class="mb-4">
+                                        <h4 class="text-sm font-bold text-gray-700 mb-2 flex items-center">
+                                            <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-xs">1</span>
+                                            기본 재활 치료
+                                        </h4>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                            <label class="flex items-start p-3 border-2 border-gray-300 rounded-lg hover:bg-blue-50 cursor-pointer transition">
+                                                <input type="checkbox" name="rehab_physical" value="true" class="mt-1 mr-3 w-5 h-5">
+                                                <div class="flex-1">
+                                                    <div class="text-sm font-semibold">💪 물리치료 (PT)</div>
+                                                    <div class="text-xs text-gray-600">관절운동, 근력강화, 보행훈련</div>
+                                                </div>
+                                            </label>
+                                            <label class="flex items-start p-3 border-2 border-gray-300 rounded-lg hover:bg-blue-50 cursor-pointer transition">
+                                                <input type="checkbox" name="rehab_occupational" value="true" class="mt-1 mr-3 w-5 h-5">
+                                                <div class="flex-1">
+                                                    <div class="text-sm font-semibold">🖐️ 작업치료 (OT)</div>
+                                                    <div class="text-xs text-gray-600">식사, 옷입기 등 일상생활 훈련</div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- 언어·인지 재활 -->
+                                    <div class="mb-4">
+                                        <h4 class="text-sm font-bold text-gray-700 mb-2 flex items-center">
+                                            <span class="bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-xs">2</span>
+                                            언어·인지 재활
+                                        </h4>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                            <label class="flex items-start p-3 border-2 border-gray-300 rounded-lg hover:bg-green-50 cursor-pointer transition">
+                                                <input type="checkbox" name="rehab_speech" value="true" class="mt-1 mr-3 w-5 h-5">
+                                                <div class="flex-1">
+                                                    <div class="text-sm font-semibold">🗣️ 언어치료 (ST)</div>
+                                                    <div class="text-xs text-gray-600">말하기, 발음, 실어증 치료</div>
+                                                </div>
+                                            </label>
+                                            <label class="flex items-start p-3 border-2 border-gray-300 rounded-lg hover:bg-green-50 cursor-pointer transition">
+                                                <input type="checkbox" name="rehab_swallowing" value="true" class="mt-1 mr-3 w-5 h-5">
+                                                <div class="flex-1">
+                                                    <div class="text-sm font-semibold">🍽️ 연하치료</div>
+                                                    <div class="text-xs text-gray-600">삼킴장애 전문 치료</div>
+                                                </div>
+                                            </label>
+                                            <label class="flex items-start p-3 border-2 border-gray-300 rounded-lg hover:bg-green-50 cursor-pointer transition">
+                                                <input type="checkbox" name="rehab_cognitive" value="true" class="mt-1 mr-3 w-5 h-5">
+                                                <div class="flex-1">
+                                                    <div class="text-sm font-semibold">🧠 인지재활</div>
+                                                    <div class="text-xs text-gray-600">기억력, 주의력, 문제해결</div>
+                                                </div>
+                                            </label>
+                                            <label class="flex items-start p-3 border-2 border-gray-300 rounded-lg hover:bg-green-50 cursor-pointer transition">
+                                                <input type="checkbox" name="rehab_psychological" value="true" class="mt-1 mr-3 w-5 h-5">
+                                                <div class="flex-1">
+                                                    <div class="text-sm font-semibold">💭 심리상담</div>
+                                                    <div class="text-xs text-gray-600">우울증, 불안 상담</div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- 특수 재활 치료 -->
+                                    <div class="mb-4">
+                                        <h4 class="text-sm font-bold text-gray-700 mb-2 flex items-center">
+                                            <span class="bg-purple-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-xs">3</span>
+                                            특수 재활 치료
+                                        </h4>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                            <label class="flex items-start p-3 border-2 border-gray-300 rounded-lg hover:bg-purple-50 cursor-pointer transition">
+                                                <input type="checkbox" name="rehab_robot" value="true" class="mt-1 mr-3 w-5 h-5">
+                                                <div class="flex-1">
+                                                    <div class="text-sm font-semibold">🤖 로봇재활</div>
+                                                    <div class="text-xs text-gray-600">보행로봇, 상지로봇 훈련</div>
+                                                </div>
+                                            </label>
+                                            <label class="flex items-start p-3 border-2 border-gray-300 rounded-lg hover:bg-purple-50 cursor-pointer transition">
+                                                <input type="checkbox" name="rehab_vr" value="true" class="mt-1 mr-3 w-5 h-5">
+                                                <div class="flex-1">
+                                                    <div class="text-sm font-semibold">🥽 VR재활</div>
+                                                    <div class="text-xs text-gray-600">가상현실 재활 치료</div>
+                                                </div>
+                                            </label>
+                                            <label class="flex items-start p-3 border-2 border-gray-300 rounded-lg hover:bg-purple-50 cursor-pointer transition">
+                                                <input type="checkbox" name="rehab_vestibular" value="true" class="mt-1 mr-3 w-5 h-5">
+                                                <div class="flex-1">
+                                                    <div class="text-sm font-semibold">🌀 전정재활</div>
+                                                    <div class="text-xs text-gray-600">어지럼증, 균형장애 치료</div>
+                                                </div>
+                                            </label>
+                                            <label class="flex items-start p-3 border-2 border-gray-300 rounded-lg hover:bg-purple-50 cursor-pointer transition">
+                                                <input type="checkbox" name="rehab_lymphedema" value="true" class="mt-1 mr-3 w-5 h-5">
+                                                <div class="flex-1">
+                                                    <div class="text-sm font-semibold">💧 림프부종관리</div>
+                                                    <div class="text-xs text-gray-600">암 수술 후 부종 치료</div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- 보조기구 -->
+                                    <div>
+                                        <h4 class="text-sm font-bold text-gray-700 mb-2 flex items-center">
+                                            <span class="bg-orange-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-xs">4</span>
+                                            보조기구 필요 여부
+                                        </h4>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                            <label class="flex items-start p-3 border-2 border-gray-300 rounded-lg hover:bg-orange-50 cursor-pointer transition">
+                                                <input type="checkbox" name="needs_prosthesis" value="true" class="mt-1 mr-3 w-5 h-5">
+                                                <div class="flex-1">
+                                                    <div class="text-sm font-semibold">🦿 의지·보조기</div>
+                                                    <div class="text-xs text-gray-600">의족, 의수, AFO, KAFO 등</div>
+                                                </div>
+                                            </label>
+                                            <label class="flex items-start p-3 border-2 border-gray-300 rounded-lg hover:bg-orange-50 cursor-pointer transition">
+                                                <input type="checkbox" name="needs_wheelchair" value="true" class="mt-1 mr-3 w-5 h-5">
+                                                <div class="flex-1">
+                                                    <div class="text-sm font-semibold">♿ 휠체어·보행보조기</div>
+                                                    <div class="text-xs text-gray-600">휠체어, 워커, 지팡이 등</div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
