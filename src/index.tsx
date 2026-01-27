@@ -275,8 +275,8 @@ app.get('/', (c) => {
     <body class="bg-wood-50">
         <!-- 메인 컨텐츠 -->
         <main class="max-w-7xl mx-auto px-4 py-8">
-            <!-- 진행 단계 표시 -->
-            <div id="progressSteps" class="mb-8">
+            <!-- 진행 단계 표시 (초기에는 숨김) -->
+            <div id="progressSteps" class="mb-8 hidden">
                 <div class="flex items-center justify-center space-x-4">
                     <div id="step1" class="flex items-center">
                         <div class="w-10 h-10 rounded-full bg-primary-500 text-white flex items-center justify-center font-bold">
@@ -416,8 +416,8 @@ app.get('/', (c) => {
                 </div>
             </div>
 
-            <!-- 1단계: 환자 등록 폼 -->
-            <section id="registerForm" class="mb-12">
+            <!-- 1단계: 환자 등록 폼 (초기에는 숨김) -->
+            <section id="registerForm" class="mb-12 hidden">
                 <div class="section-card rounded-lg shadow-lg p-8 border">
                     <div class="flex items-center justify-between mb-6">
                         <div>

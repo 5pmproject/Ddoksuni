@@ -56,7 +56,19 @@ function initializeQuestCards() {
       const questNumber = parseInt(this.dataset.quest);
       // 첫 번째 퀘스트만 클릭 가능
       if (questNumber === 1) {
-        document.getElementById('registerForm').scrollIntoView({ behavior: 'smooth' });
+        // 웰컴 메시지 숨기고 폼 보이기 (페이지 전환 효과)
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        const registerForm = document.getElementById('registerForm');
+        const progressSteps = document.getElementById('progressSteps');
+        
+        if (welcomeMessage && registerForm) {
+          welcomeMessage.style.display = 'none';
+          registerForm.classList.remove('hidden');
+          progressSteps.classList.remove('hidden');
+          
+          // 페이지 상단으로 부드럽게 스크롤
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
       }
     });
   });
