@@ -591,104 +591,130 @@ app.get('/', (c) => {
                         <div class="form-section-3d bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all">
                             <h3 class="text-lg font-bold text-purple-800 mb-4 flex items-center">
                                 <span class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">3</span>
-                                건강 상태 평가
+                                Glasgow Coma Scale (GCS) 의식 상태 평가
                             </h3>
+                            
+                            <!-- GCS 설명 -->
+                            <div class="bg-purple-100 rounded-lg p-4 mb-4 border-l-4 border-purple-500">
+                                <p class="text-sm text-purple-900">
+                                    <i class="fas fa-info-circle mr-2"></i>
+                                    <strong>GCS는 의식 수준을 평가하는 가장 표준화되고 객관적인 방법입니다.</strong><br>
+                                    세 가지 영역(눈 뜨기, 언어 반응, 운동 반응)을 각각 평가하여 총점으로 의식 수준을 판단합니다.
+                                </p>
+                            </div>
+                            
                             <div class="space-y-4">
-                                <!-- ADL 점수 -->
-                                <div>
-                                    <label class="flex items-center text-sm font-bold text-gray-800 mb-2">
-                                        혼자서 할 수 있는 일 (일상생활 능력)
-                                        <button type="button" onclick="showADLGuide()" 
-                                                class="ml-2 text-purple-600 hover:text-purple-800 text-lg">
-                                            <i class="fas fa-question-circle"></i>
-                                        </button>
-                                    </label>
-                                    <div class="bg-white rounded-lg p-4 border-2 border-purple-200">
-                                        <div class="flex items-center space-x-3 mb-2">
-                                            <input type="range" name="adl_score" min="0" max="100" value="50" 
-                                                   oninput="updateADLValue(this.value)"
-                                                   class="flex-1 h-3 bg-gradient-to-r from-red-200 via-yellow-200 to-green-200 rounded-lg appearance-none cursor-pointer">
-                                            <span id="adlValue" class="text-2xl font-bold text-purple-600 w-16 text-center">50점</span>
-                                        </div>
-                                        <div class="flex justify-between text-xs font-semibold text-gray-600 mt-1">
-                                            <span>❌ 전혀 못함</span>
-                                            <span>⚠️ 부분 도움</span>
-                                            <span>✅ 혼자 가능</span>
-                                        </div>
-                                        <p class="text-xs text-purple-600 mt-3 bg-purple-50 rounded px-3 py-2">
-                                            💡 식사, 옷 입기, 화장실, 목욕, 걷기를 얼마나 혼자 하시나요?
+                                <!-- GCS 평가 -->
+                                <div class="bg-white rounded-lg p-4 border-2 border-purple-200 space-y-4">
+                                    <!-- 눈 뜨기 반응 -->
+                                    <div>
+                                        <label class="text-sm font-bold text-gray-700 mb-2 block flex items-center">
+                                            <span class="bg-blue-600 text-white rounded-full w-7 h-7 flex items-center justify-center mr-2 text-sm">1</span>
+                                            👁️ 눈 뜨기 반응 (Eye Opening) - 1~4점
+                                        </label>
+                                        <select name="gcs_eye" onchange="updateGCSTotal()" 
+                                                class="w-full px-4 py-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 mb-2">
+                                            <option value="4">4점: 자발적으로 눈을 뜸 (정상)</option>
+                                            <option value="3">3점: 말을 걸면 눈을 뜸</option>
+                                            <option value="2">2점: 통증 자극에만 눈을 뜸</option>
+                                            <option value="1">1점: 어떤 자극에도 눈을 뜨지 않음</option>
+                                        </select>
+                                        <p class="text-xs text-gray-600 bg-blue-50 rounded px-3 py-2">
+                                            💡 이름을 부르거나 "눈을 떠보세요"라고 하면 반응하는지 확인
                                         </p>
                                     </div>
-                                </div>
-                                
-                                <!-- GCS -->
-                                <div>
-                                    <label class="flex items-center text-sm font-bold text-gray-800 mb-2">
-                                        의식 상태 (얼마나 깨어 계신가요?)
-                                        <button type="button" onclick="showGCSGuide()" 
-                                                class="ml-2 text-purple-600 hover:text-purple-800 text-lg">
-                                            <i class="fas fa-question-circle"></i>
-                                        </button>
-                                    </label>
-                                    <div class="bg-white rounded-lg p-4 border-2 border-purple-200 space-y-3">
-                                        <!-- 눈 뜨기 반응 -->
-                                        <div>
-                                            <label class="text-sm font-bold text-gray-700 mb-2 block flex items-center">
-                                                <span class="bg-purple-100 text-purple-700 rounded-full w-6 h-6 flex items-center justify-center mr-2 text-xs">1</span>
-                                                👁️ 눈을 뜨시나요?
-                                            </label>
-                                            <select name="gcs_eye" onchange="updateGCSTotal()" 
-                                                    class="w-full px-4 py-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
-                                                <option value="4">✅ 자발적으로 눈을 뜸 (4점)</option>
-                                                <option value="3">🔊 말하면 눈을 뜸 (3점)</option>
-                                                <option value="2">⚠️ 통증에만 눈을 뜸 (2점)</option>
-                                                <option value="1">❌ 전혀 눈을 뜨지 않음 (1점)</option>
-                                            </select>
-                                        </div>
-                                        
-                                        <!-- 언어 반응 -->
-                                        <div>
-                                            <label class="text-sm font-bold text-gray-700 mb-2 block flex items-center">
-                                                <span class="bg-purple-100 text-purple-700 rounded-full w-6 h-6 flex items-center justify-center mr-2 text-xs">2</span>
-                                                💬 말씀하시나요?
-                                            </label>
-                                            <select name="gcs_verbal" onchange="updateGCSTotal()" 
-                                                    class="w-full px-4 py-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
-                                                <option value="5">✅ 정상적으로 대화 가능 (5점)</option>
-                                                <option value="4">😵 대화는 되나 헷갈려함 (4점)</option>
-                                                <option value="3">🗣️ 단어만 말함 (3점)</option>
-                                                <option value="2">😣 알아들을 수 없는 소리 (2점)</option>
-                                                <option value="1">❌ 전혀 소리를 내지 않음 (1점)</option>
-                                            </select>
-                                        </div>
-                                        
-                                        <!-- 운동 반응 -->
-                                        <div>
-                                            <label class="text-sm font-bold text-gray-700 mb-2 block flex items-center">
-                                                <span class="bg-purple-100 text-purple-700 rounded-full w-6 h-6 flex items-center justify-center mr-2 text-xs">3</span>
-                                                🤚 움직이시나요?
-                                            </label>
-                                            <select name="gcs_motor" onchange="updateGCSTotal()" 
-                                                    class="w-full px-4 py-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
-                                                <option value="6">✅ 시키는 대로 움직임 (6점)</option>
-                                                <option value="5">👌 통증 부위를 정확히 짚음 (5점)</option>
-                                                <option value="4">👈 통증 쪽으로 손을 뻗음 (4점)</option>
-                                                <option value="3">😖 팔을 구부림 (3점)</option>
-                                                <option value="2">😣 팔을 펴는 반응 (2점)</option>
-                                                <option value="1">❌ 전혀 움직이지 않음 (1점)</option>
-                                            </select>
-                                        </div>
-                                        
-                                        <!-- 총점 표시 -->
-                                        <div class="bg-gradient-to-r from-purple-100 to-blue-100 rounded-lg border-2 border-purple-400 p-4 mt-4">
-                                            <div class="flex items-center justify-between">
-                                                <span class="text-base font-bold text-gray-800">의식 상태 총점:</span>
-                                                <div class="flex items-center space-x-3">
-                                                    <span id="gcsTotal" class="text-3xl font-bold text-purple-700">15점</span>
-                                                    <span id="gcsLevel" class="text-sm px-3 py-1 rounded-full bg-green-500 text-white font-semibold">정상</span>
-                                                </div>
+                                    
+                                    <!-- 언어 반응 -->
+                                    <div>
+                                        <label class="text-sm font-bold text-gray-700 mb-2 block flex items-center">
+                                            <span class="bg-green-600 text-white rounded-full w-7 h-7 flex items-center justify-center mr-2 text-sm">2</span>
+                                            💬 언어 반응 (Verbal Response) - 1~5점
+                                        </label>
+                                        <select name="gcs_verbal" onchange="updateGCSTotal()" 
+                                                class="w-full px-4 py-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 mb-2">
+                                            <option value="5">5점: 정상 대화 + 지남력 정상 (날짜/장소/이름 정확)</option>
+                                            <option value="4">4점: 대화는 되나 혼란스러움 (섬망 가능)</option>
+                                            <option value="3">3점: 단어만 말함 (문장 구성 불가)</option>
+                                            <option value="2">2점: 이해할 수 없는 소리 (신음)</option>
+                                            <option value="1">1점: 전혀 소리를 내지 않음</option>
+                                        </select>
+                                        <p class="text-xs text-gray-600 bg-green-50 rounded px-3 py-2">
+                                            💡 오늘 날짜, 여기가 어디인지, 자신과 가족 이름을 아는지 확인
+                                        </p>
+                                    </div>
+                                    
+                                    <!-- 운동 반응 -->
+                                    <div>
+                                        <label class="text-sm font-bold text-gray-700 mb-2 block flex items-center">
+                                            <span class="bg-purple-600 text-white rounded-full w-7 h-7 flex items-center justify-center mr-2 text-sm">3</span>
+                                            🤚 운동 반응 (Motor Response) - 1~6점
+                                        </label>
+                                        <select name="gcs_motor" onchange="updateGCSTotal()" 
+                                                class="w-full px-4 py-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 mb-2">
+                                            <option value="6">6점: 명령에 따라 움직임 ("손을 들어보세요" 등)</option>
+                                            <option value="5">5점: 통증 위치를 정확히 찾아 제거</option>
+                                            <option value="4">4점: 통증에 손을 뻗으나 부정확</option>
+                                            <option value="3">3점: 팔을 구부리는 비정상 반응</option>
+                                            <option value="2">2점: 팔을 펴는 비정상 반응 (더 심각)</option>
+                                            <option value="1">1점: 전혀 움직이지 않음</option>
+                                        </select>
+                                        <p class="text-xs text-gray-600 bg-purple-50 rounded px-3 py-2">
+                                            💡 지시에 따라 움직이는지, 통증에 어떻게 반응하는지 확인
+                                        </p>
+                                    </div>
+                                    
+                                    <!-- 총점 표시 -->
+                                    <div class="bg-gradient-to-r from-purple-100 to-blue-100 rounded-lg border-2 border-purple-400 p-4 mt-4">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="text-base font-bold text-gray-800">GCS 총점 (3~15점):</span>
+                                            <div class="flex items-center space-x-3">
+                                                <span id="gcsTotal" class="text-3xl font-bold text-purple-700">15점</span>
+                                                <span id="gcsLevel" class="text-sm px-3 py-1 rounded-full bg-green-500 text-white font-semibold">정상</span>
                                             </div>
                                         </div>
+                                        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                                            <div class="bg-green-50 rounded p-2 text-center border border-green-300">
+                                                <div class="font-bold text-green-800">15점</div>
+                                                <div class="text-gray-600">정상</div>
+                                            </div>
+                                            <div class="bg-blue-50 rounded p-2 text-center border border-blue-300">
+                                                <div class="font-bold text-blue-800">13-14점</div>
+                                                <div class="text-gray-600">경미한 장애</div>
+                                            </div>
+                                            <div class="bg-yellow-50 rounded p-2 text-center border border-yellow-300">
+                                                <div class="font-bold text-yellow-800">9-12점</div>
+                                                <div class="text-gray-600">중등도 장애</div>
+                                            </div>
+                                            <div class="bg-red-50 rounded p-2 text-center border border-red-300">
+                                                <div class="font-bold text-red-800">≤8점</div>
+                                                <div class="text-gray-600">중증 장애</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- 평가 팁 -->
+                                    <div class="bg-blue-50 rounded-lg p-3 border-l-4 border-blue-500">
+                                        <h5 class="font-bold text-blue-800 mb-2 text-sm flex items-center">
+                                            <i class="fas fa-lightbulb text-blue-600 mr-2"></i>
+                                            평가 팁
+                                        </h5>
+                                        <ul class="text-xs text-gray-700 space-y-1">
+                                            <li>✓ 환자를 직접 보면서 평가하거나 의료진에게 물어보세요</li>
+                                            <li>✓ 각 항목별로 가장 좋은 반응을 선택하세요</li>
+                                            <li>✓ 잘 모르겠다면 간호사나 의사에게 GCS 점수를 문의하세요</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <!-- 주의사항 -->
+                                    <div class="bg-red-50 rounded-lg p-3 border-l-4 border-red-500">
+                                        <h5 class="font-bold text-red-800 mb-2 text-sm flex items-center">
+                                            <i class="fas fa-exclamation-triangle text-red-600 mr-2"></i>
+                                            주의사항
+                                        </h5>
+                                        <ul class="text-xs text-gray-700 space-y-1">
+                                            <li>⚠️ GCS 점수가 갑자기 낮아지면 즉시 의료진에게 알리세요</li>
+                                            <li>⚠️ 8점 이하는 기도 관리가 필요한 중증 상태입니다</li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
