@@ -1301,6 +1301,178 @@ function showFacilityGuide() {
   document.getElementById('modalContainer').appendChild(modal);
 }
 
+// 보호자 5대 혼란 설명 페이지
+function showCaregiverConfusionGuide() {
+  const modal = createModal(`
+    <div class="space-y-6">
+      <!-- 헤더 -->
+      <div class="text-center">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">
+          <i class="fas fa-question-circle text-orange-600 mr-2"></i>
+          보호자가 직면하는 5대 혼란
+        </h2>
+        <p class="text-lg text-gray-700">
+          중증환자를 돌보는 보호자님, 이런 혼란을 겪고 계시지 않나요?
+        </p>
+      </div>
+
+      <!-- 설명 카드 -->
+      <div class="bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg p-6 border-2 border-orange-200">
+        <h3 class="text-xl font-bold text-orange-800 mb-4 flex items-center">
+          <i class="fas fa-lightbulb text-orange-600 mr-2"></i>
+          똑순이가 정리한 5가지 주요 문제
+        </h3>
+        
+        <!-- 표 형태 -->
+        <div class="overflow-x-auto">
+          <table class="w-full border-collapse bg-white rounded-lg overflow-hidden shadow-md">
+            <thead>
+              <tr class="bg-gradient-to-r from-orange-500 to-pink-500 text-white">
+                <th class="px-4 py-3 text-left font-bold w-8">#</th>
+                <th class="px-4 py-3 text-left font-bold">문제</th>
+                <th class="px-4 py-3 text-left font-bold">구체적 내용</th>
+                <th class="px-4 py-3 text-left font-bold">왜 어려운가?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- 1. 전원 경로 선택 -->
+              <tr class="border-b border-gray-200 hover:bg-blue-50 transition">
+                <td class="px-4 py-4 font-bold text-blue-600">1</td>
+                <td class="px-4 py-4">
+                  <span class="font-bold text-blue-700">전원 경로 선택</span>
+                </td>
+                <td class="px-4 py-4 text-sm text-gray-700">
+                  회복기 재활병원 → 요양병원 → 재택 등 여러 갈래가 존재
+                </td>
+                <td class="px-4 py-4 text-sm text-gray-700">
+                  각 갈래마다 <strong>치료 목표·비용·시설 특성</strong>이 다름 → 정보 비대칭
+                </td>
+              </tr>
+              
+              <!-- 2. 비용·보험 계산 -->
+              <tr class="border-b border-gray-200 hover:bg-green-50 transition">
+                <td class="px-4 py-4 font-bold text-green-600">2</td>
+                <td class="px-4 py-4">
+                  <span class="font-bold text-green-700">비용·보험 계산</span>
+                </td>
+                <td class="px-4 py-4 text-sm text-gray-700">
+                  입원·재활·간병·보조기구·비급여 항목이 복합적으로 적용됨
+                </td>
+                <td class="px-4 py-4 text-sm text-gray-700">
+                  급여/비급여, 본인부담률, 장기요양등급 등 <strong>계산 구조가 복잡</strong>함
+                </td>
+              </tr>
+              
+              <!-- 3. 간병·스케줄링 -->
+              <tr class="border-b border-gray-200 hover:bg-purple-50 transition">
+                <td class="px-4 py-4 font-bold text-purple-600">3</td>
+                <td class="px-4 py-4">
+                  <span class="font-bold text-purple-700">간병·스케줄링</span>
+                </td>
+                <td class="px-4 py-4 text-sm text-gray-700">
+                  24시간 간호, 가족 교대, 외부 간병인 등 다양한 옵션 존재
+                </td>
+                <td class="px-4 py-4 text-sm text-gray-700">
+                  <strong>교대 시간·비용·인력 확보</strong>를 모두 고려해야 해 부담이 큼
+                </td>
+              </tr>
+              
+              <!-- 4. 서류·신청 자동화 -->
+              <tr class="border-b border-gray-200 hover:bg-indigo-50 transition">
+                <td class="px-4 py-4 font-bold text-indigo-600">4</td>
+                <td class="px-4 py-4">
+                  <span class="font-bold text-indigo-700">서류·신청 절차</span>
+                </td>
+                <td class="px-4 py-4 text-sm text-gray-700">
+                  퇴원 요약지, 전원 요청서, 장기요양등급 신청 등 다수의 서류 필요
+                </td>
+                <td class="px-4 py-4 text-sm text-gray-700">
+                  <strong>서류 양식·마감일·제출처</strong>가 각기 달라 실수하기 쉬움
+                </td>
+              </tr>
+              
+              <!-- 5. 심리·시간 압박 -->
+              <tr class="hover:bg-pink-50 transition">
+                <td class="px-4 py-4 font-bold text-pink-600">5</td>
+                <td class="px-4 py-4">
+                  <span class="font-bold text-pink-700">심리·시간 압박</span>
+                </td>
+                <td class="px-4 py-4 text-sm text-gray-700">
+                  진단 직후 급하게 결정해야 하고, 정보를 찾을 시간이 부족함
+                </td>
+                <td class="px-4 py-4 text-sm text-gray-700">
+                  <strong>정서적 충격 + 시간 제약</strong>으로 올바른 판단이 어려움
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 똑순이의 해결책 -->
+      <div class="bg-gradient-to-r from-green-50 to-teal-50 rounded-lg p-6 border-2 border-green-200">
+        <h3 class="text-xl font-bold text-green-800 mb-4 flex items-center">
+          <i class="fas fa-check-circle text-green-600 mr-2"></i>
+          똑순이가 이 모든 혼란을 해결해드립니다
+        </h3>
+        
+        <div class="space-y-3">
+          <div class="bg-white rounded-lg p-4 border-l-4 border-blue-500">
+            <p class="font-bold text-blue-700 mb-1">✓ 전원 경로 시각화</p>
+            <p class="text-sm text-gray-700">
+              환자님의 상태(ADL, 진단)를 입력하면 <strong>최적 경로를 자동 추천</strong>해드려요
+            </p>
+          </div>
+          
+          <div class="bg-white rounded-lg p-4 border-l-4 border-green-500">
+            <p class="font-bold text-green-700 mb-1">✓ 비용 자동 계산</p>
+            <p class="text-sm text-gray-700">
+              보험 종류, 장기요양등급, 병실 선택만 하면 <strong>총 비용을 즉시 산출</strong>해드려요
+            </p>
+          </div>
+          
+          <div class="bg-white rounded-lg p-4 border-l-4 border-purple-500">
+            <p class="font-bold text-purple-700 mb-1">✓ 간병 스케줄 제안</p>
+            <p class="text-sm text-gray-700">
+              가족 교대, 외부 인력 등 <strong>최적 간병 스케줄</strong>을 추천해드려요
+            </p>
+          </div>
+          
+          <div class="bg-white rounded-lg p-4 border-l-4 border-indigo-500">
+            <p class="font-bold text-indigo-700 mb-1">✓ 서류 자동 생성</p>
+            <p class="text-sm text-gray-700">
+              필요한 서류를 <strong>자동으로 작성하고 제출처까지 안내</strong>해드려요
+            </p>
+          </div>
+          
+          <div class="bg-white rounded-lg p-4 border-l-4 border-pink-500">
+            <p class="font-bold text-pink-700 mb-1">✓ 단계별 알림</p>
+            <p class="text-sm text-gray-700">
+              중요한 일정과 마감일을 <strong>푸시·SMS로 알림</strong>해드려요
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 시작하기 버튼 -->
+      <div class="bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg p-6 text-center">
+        <p class="text-lg text-gray-800 mb-4">
+          <i class="fas fa-heart text-red-500 mr-2"></i>
+          이제 더 이상 혼란스러워하지 마세요!<br>
+          <strong class="text-purple-700">환자분 정보를 입력</strong>하시면 똑순이가 모든 걸 정리해드릴게요
+        </p>
+        <button onclick="closeModalAndShowForm()" 
+                class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-8 rounded-lg hover:from-blue-700 hover:to-purple-700 transition font-bold text-lg shadow-lg">
+          <i class="fas fa-arrow-right mr-2"></i>
+          환자 정보 입력하러 가기
+        </button>
+      </div>
+    </div>
+  `, 'max-w-5xl');
+  
+  document.getElementById('modalContainer').appendChild(modal);
+}
+
 // 커뮤니티 모달 표시
 function showCommunityModal() {
   const modal = createModal(`
