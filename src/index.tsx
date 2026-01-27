@@ -501,10 +501,10 @@ app.get('/', (c) => {
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-4 bg-wood-100 border border-wood-300 rounded-lg p-3 text-center">
+                        <div class="mt-4 bg-wood-100 border border-wood-300 rounded-lg p-3 text-center cursor-pointer hover:bg-wood-200 transition-all" onclick="showCommunityModal()">
                             <p class="text-wood-800 font-medium">
-                                <i class="fas fa-arrow-down mr-2 animate-bounce inline-block text-wood-500"></i>
-                                혼자 고민하지 마세요. 지금 시작해볼까요?
+                                <i class="fas fa-comments mr-2 animate-bounce inline-block text-wood-500"></i>
+                                혼자 고민하지 마세요. 함께 이야기해 볼까요?
                             </p>
                         </div>
                     </div>

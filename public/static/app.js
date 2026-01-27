@@ -1301,6 +1301,343 @@ function showFacilityGuide() {
   document.getElementById('modalContainer').appendChild(modal);
 }
 
+// 커뮤니티 모달 표시
+function showCommunityModal() {
+  const modal = createModal(`
+    <div class="space-y-6">
+      <div class="text-center">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">
+          <i class="fas fa-users text-green-600 mr-2"></i>
+          함께 나눠요
+        </h2>
+        <p class="text-lg text-gray-700">
+          혼자 고민하지 마세요. 함께 이야기하고 정보를 나눠요! 😊
+        </p>
+      </div>
+
+      <!-- 탭 네비게이션 -->
+      <div class="flex border-b border-gray-300">
+        <button onclick="switchCommunityTab('community')" 
+                id="tab-community"
+                class="community-tab flex-1 py-3 px-4 font-semibold text-gray-600 hover:text-green-600 border-b-2 border-transparent hover:border-green-600 transition-all">
+          <i class="fas fa-comments mr-2"></i>
+          커뮤니티
+        </button>
+        <button onclick="switchCommunityTab('blog')" 
+                id="tab-blog"
+                class="community-tab flex-1 py-3 px-4 font-semibold text-gray-600 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition-all">
+          <i class="fas fa-book-open mr-2"></i>
+          블로그
+        </button>
+        <button onclick="switchCommunityTab('youtube')" 
+                id="tab-youtube"
+                class="community-tab flex-1 py-3 px-4 font-semibold text-gray-600 hover:text-red-600 border-b-2 border-transparent hover:border-red-600 transition-all">
+          <i class="fab fa-youtube mr-2"></i>
+          유튜브
+        </button>
+      </div>
+
+      <!-- 커뮤니티 탭 -->
+      <div id="content-community" class="community-content">
+        <div class="bg-gradient-to-r from-green-50 to-teal-50 rounded-lg p-6 border-2 border-green-200">
+          <h3 class="text-xl font-bold text-green-800 mb-4 flex items-center">
+            <i class="fas fa-comments text-green-600 mr-2"></i>
+            자유롭게 이야기 나눠요
+          </h3>
+          
+          <!-- 글쓰기 영역 -->
+          <div class="bg-white rounded-lg p-4 mb-4 border-2 border-green-300">
+            <textarea 
+              id="communityPostContent"
+              placeholder="어떤 고민이 있으신가요? 편하게 이야기해주세요..."
+              class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 resize-none"
+              rows="4"></textarea>
+            <div class="flex justify-between items-center mt-3">
+              <span class="text-sm text-gray-500">💬 참여하고 소통해요</span>
+              <button onclick="submitCommunityPost()" 
+                      class="bg-gradient-to-r from-green-500 to-teal-500 text-white py-2 px-6 rounded-lg hover:from-green-600 hover:to-teal-600 transition font-semibold shadow-md">
+                <i class="fas fa-paper-plane mr-2"></i>
+                글 올리기
+              </button>
+            </div>
+          </div>
+
+          <!-- 게시글 목록 -->
+          <div class="space-y-3" id="communityPostList">
+            <!-- 예시 게시글 -->
+            <div class="bg-white rounded-lg p-4 border-l-4 border-green-500 shadow-sm">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center space-x-2">
+                  <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">
+                    김
+                  </div>
+                  <span class="font-semibold text-gray-800">김○○님</span>
+                  <span class="text-xs text-gray-500">2시간 전</span>
+                </div>
+              </div>
+              <p class="text-gray-700 mb-3">
+                어머니가 뇌졸중으로 쓰러지셔서 요양병원을 알아보고 있는데, 어디가 좋을지 모르겠어요. 강남 쪽에 괜찮은 곳 아시는 분 계실까요?
+              </p>
+              <div class="flex items-center space-x-4 text-sm text-gray-600">
+                <button class="hover:text-green-600 transition">
+                  <i class="fas fa-comment mr-1"></i>
+                  댓글 3
+                </button>
+                <button class="hover:text-red-500 transition">
+                  <i class="fas fa-heart mr-1"></i>
+                  응원 12
+                </button>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-lg p-4 border-l-4 border-blue-500 shadow-sm">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center space-x-2">
+                  <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+                    박
+                  </div>
+                  <span class="font-semibold text-gray-800">박○○님</span>
+                  <span class="text-xs text-gray-500">5시간 전</span>
+                </div>
+              </div>
+              <p class="text-gray-700 mb-3">
+                요양병원과 요양원의 차이를 잘 몰라서 많이 헤맸는데, 똑순이 덕분에 이해가 쏙쏙 됐어요! 감사합니다 😊
+              </p>
+              <div class="flex items-center space-x-4 text-sm text-gray-600">
+                <button class="hover:text-green-600 transition">
+                  <i class="fas fa-comment mr-1"></i>
+                  댓글 1
+                </button>
+                <button class="hover:text-red-500 transition">
+                  <i class="fas fa-heart mr-1"></i>
+                  응원 8
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 블로그 탭 -->
+      <div id="content-blog" class="community-content hidden">
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border-2 border-blue-200">
+          <h3 class="text-xl font-bold text-blue-800 mb-4 flex items-center">
+            <i class="fas fa-book-open text-blue-600 mr-2"></i>
+            전문가 칼럼
+          </h3>
+          
+          <!-- 칼럼 목록 -->
+          <div class="space-y-4">
+            <div class="bg-white rounded-lg p-5 border-2 border-blue-300 shadow-md hover:shadow-lg transition-all cursor-pointer">
+              <div class="flex items-start space-x-4">
+                <div class="w-24 h-24 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <i class="fas fa-stethoscope text-white text-3xl"></i>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-lg font-bold text-blue-800 mb-2">
+                    뇌졸중 환자의 재활 치료, 어떻게 시작해야 할까요?
+                  </h4>
+                  <p class="text-sm text-gray-600 mb-2">
+                    뇌졸중 발병 후 초기 재활 치료의 중요성과 단계별 치료 방법을 소개합니다.
+                  </p>
+                  <div class="flex items-center space-x-3 text-xs text-gray-500">
+                    <span><i class="fas fa-user-md mr-1"></i>재활의학과 전문의</span>
+                    <span><i class="fas fa-calendar mr-1"></i>2025.01.20</span>
+                    <span><i class="fas fa-eye mr-1"></i>1,234회</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-lg p-5 border-2 border-purple-300 shadow-md hover:shadow-lg transition-all cursor-pointer">
+              <div class="flex items-start space-x-4">
+                <div class="w-24 h-24 bg-gradient-to-br from-purple-400 to-pink-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <i class="fas fa-hospital text-white text-3xl"></i>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-lg font-bold text-purple-800 mb-2">
+                    요양병원 선택 시 꼭 확인해야 할 체크리스트
+                  </h4>
+                  <p class="text-sm text-gray-600 mb-2">
+                    좋은 요양병원을 선택하기 위한 실전 가이드와 체크포인트를 정리했습니다.
+                  </p>
+                  <div class="flex items-center space-x-3 text-xs text-gray-500">
+                    <span><i class="fas fa-user-md mr-1"></i>병원 코디네이터</span>
+                    <span><i class="fas fa-calendar mr-1"></i>2025.01.18</span>
+                    <span><i class="fas fa-eye mr-1"></i>2,567회</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-lg p-5 border-2 border-green-300 shadow-md hover:shadow-lg transition-all cursor-pointer">
+              <div class="flex items-start space-x-4">
+                <div class="w-24 h-24 bg-gradient-to-br from-green-400 to-teal-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <i class="fas fa-hand-holding-heart text-white text-3xl"></i>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-lg font-bold text-green-800 mb-2">
+                    보호자를 위한 섬망 예방 및 대처 방법
+                  </h4>
+                  <p class="text-sm text-gray-600 mb-2">
+                    섬망의 초기 증상을 알아보고 효과적으로 대처하는 방법을 알려드립니다.
+                  </p>
+                  <div class="flex items-center space-x-3 text-xs text-gray-500">
+                    <span><i class="fas fa-user-md mr-1"></i>신경과 전문의</span>
+                    <span><i class="fas fa-calendar mr-1"></i>2025.01.15</span>
+                    <span><i class="fas fa-eye mr-1"></i>3,891회</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 유튜브 탭 -->
+      <div id="content-youtube" class="community-content hidden">
+        <div class="bg-gradient-to-r from-red-50 to-pink-50 rounded-lg p-6 border-2 border-red-200">
+          <h3 class="text-xl font-bold text-red-800 mb-4 flex items-center">
+            <i class="fab fa-youtube text-red-600 mr-2"></i>
+            유용한 영상
+          </h3>
+          
+          <!-- 유튜브 영상 목록 -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white rounded-lg overflow-hidden border-2 border-red-300 shadow-md hover:shadow-lg transition-all cursor-pointer">
+              <div class="aspect-video bg-gradient-to-br from-red-400 to-pink-500 flex items-center justify-center">
+                <i class="fab fa-youtube text-white text-6xl"></i>
+              </div>
+              <div class="p-4">
+                <h4 class="font-bold text-gray-800 mb-2">
+                  뇌졸중 환자 재활운동 따라하기
+                </h4>
+                <p class="text-sm text-gray-600 mb-2">
+                  집에서 할 수 있는 간단한 재활운동을 소개합니다.
+                </p>
+                <div class="flex items-center space-x-2 text-xs text-gray-500">
+                  <span><i class="fas fa-play-circle mr-1"></i>15분</span>
+                  <span><i class="fas fa-eye mr-1"></i>12,345회</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-lg overflow-hidden border-2 border-blue-300 shadow-md hover:shadow-lg transition-all cursor-pointer">
+              <div class="aspect-video bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center">
+                <i class="fab fa-youtube text-white text-6xl"></i>
+              </div>
+              <div class="p-4">
+                <h4 class="font-bold text-gray-800 mb-2">
+                  요양병원 vs 요양원, 완벽 비교
+                </h4>
+                <p class="text-sm text-gray-600 mb-2">
+                  두 시설의 차이점을 알기 쉽게 설명해드립니다.
+                </p>
+                <div class="flex items-center space-x-2 text-xs text-gray-500">
+                  <span><i class="fas fa-play-circle mr-1"></i>8분</span>
+                  <span><i class="fas fa-eye mr-1"></i>8,901회</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-lg overflow-hidden border-2 border-purple-300 shadow-md hover:shadow-lg transition-all cursor-pointer">
+              <div class="aspect-video bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center">
+                <i class="fab fa-youtube text-white text-6xl"></i>
+              </div>
+              <div class="p-4">
+                <h4 class="font-bold text-gray-800 mb-2">
+                  장기요양등급 신청 완벽 가이드
+                </h4>
+                <p class="text-sm text-gray-600 mb-2">
+                  장기요양등급 신청부터 인정까지 전 과정을 설명합니다.
+                </p>
+                <div class="flex items-center space-x-2 text-xs text-gray-500">
+                  <span><i class="fas fa-play-circle mr-1"></i>12분</span>
+                  <span><i class="fas fa-eye mr-1"></i>6,234회</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-lg overflow-hidden border-2 border-green-300 shadow-md hover:shadow-lg transition-all cursor-pointer">
+              <div class="aspect-video bg-gradient-to-br from-green-400 to-teal-500 flex items-center justify-center">
+                <i class="fab fa-youtube text-white text-6xl"></i>
+              </div>
+              <div class="p-4">
+                <h4 class="font-bold text-gray-800 mb-2">
+                  보호자를 위한 간병 팁
+                </h4>
+                <p class="text-sm text-gray-600 mb-2">
+                  간병 시 알아두면 좋은 실전 노하우를 공유합니다.
+                </p>
+                <div class="flex items-center space-x-2 text-xs text-gray-500">
+                  <span><i class="fas fa-play-circle mr-1"></i>20분</span>
+                  <span><i class="fas fa-eye mr-1"></i>15,678회</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 안내 메시지 -->
+      <div class="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-4">
+        <p class="text-sm text-yellow-800 text-center">
+          <i class="fas fa-info-circle mr-2"></i>
+          <strong>알림:</strong> 커뮤니티 기능은 현재 개발 중입니다. 곧 더 나은 서비스로 찾아뵙겠습니다!
+        </p>
+      </div>
+    </div>
+  `, 'max-w-5xl');
+  
+  document.getElementById('modalContainer').appendChild(modal);
+  
+  // 첫 번째 탭 활성화
+  switchCommunityTab('community');
+}
+
+// 커뮤니티 탭 전환
+function switchCommunityTab(tabName) {
+  // 모든 탭 버튼과 콘텐츠 비활성화
+  document.querySelectorAll('.community-tab').forEach(tab => {
+    tab.classList.remove('border-green-600', 'border-blue-600', 'border-red-600', 'text-green-600', 'text-blue-600', 'text-red-600');
+    tab.classList.add('text-gray-600');
+  });
+  document.querySelectorAll('.community-content').forEach(content => {
+    content.classList.add('hidden');
+  });
+  
+  // 선택된 탭 활성화
+  const selectedTab = document.getElementById(`tab-${tabName}`);
+  const selectedContent = document.getElementById(`content-${tabName}`);
+  
+  if (tabName === 'community') {
+    selectedTab.classList.remove('text-gray-600');
+    selectedTab.classList.add('text-green-600', 'border-green-600');
+  } else if (tabName === 'blog') {
+    selectedTab.classList.remove('text-gray-600');
+    selectedTab.classList.add('text-blue-600', 'border-blue-600');
+  } else if (tabName === 'youtube') {
+    selectedTab.classList.remove('text-gray-600');
+    selectedTab.classList.add('text-red-600', 'border-red-600');
+  }
+  
+  selectedContent.classList.remove('hidden');
+}
+
+// 커뮤니티 게시글 제출
+function submitCommunityPost() {
+  const content = document.getElementById('communityPostContent').value.trim();
+  
+  if (!content) {
+    alert('내용을 입력해주세요.');
+    return;
+  }
+  
+  // 임시로 알림만 표시 (실제로는 API 호출)
+  alert('게시글이 등록되었습니다!\n\n커뮤니티 기능은 현재 개발 중입니다. 곧 더 나은 서비스로 찾아뵙겠습니다.');
+  document.getElementById('communityPostContent').value = '';
+}
+
 // 모달 닫고 폼 보이기
 function closeModalAndShowForm() {
   // 모달 닫기
