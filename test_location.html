@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Location Test</title>
+    <script src="/static/app.js"></script>
+</head>
+<body>
+    <h1>Test updateDistricts()</h1>
+    <select id="locationCity" onchange="updateDistricts()">
+        <option value="">선택</option>
+        <option value="seoul">서울</option>
+        <option value="busan">부산</option>
+    </select>
+    <select id="locationDistrict">
+        <option value="">먼저 시/도 선택</option>
+    </select>
+    <script>
+        setTimeout(() => {
+            console.log('Testing updateDistricts function...');
+            console.log('window.updateDistricts:', typeof window.updateDistricts);
+            console.log('districtData:', typeof districtData);
+        }, 1000);
+    </script>
+</body>
+</html>

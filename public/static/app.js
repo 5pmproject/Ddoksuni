@@ -26,25 +26,36 @@ const districtData = {
 
 // 시/군/구 업데이트 함수
 function updateDistricts() {
+  console.log('updateDistricts() 호출됨');
   const citySelect = document.getElementById('locationCity');
   const districtSelect = document.getElementById('locationDistrict');
   
-  if (!citySelect || !districtSelect) return;
+  console.log('citySelect:', citySelect);
+  console.log('districtSelect:', districtSelect);
+  
+  if (!citySelect || !districtSelect) {
+    console.error('셀렉트 요소를 찾을 수 없습니다');
+    return;
+  }
   
   const selectedCity = citySelect.value;
+  console.log('선택된 시/도:', selectedCity);
   
   // 기존 옵션 제거
   districtSelect.innerHTML = '<option value="">선택해주세요</option>';
   
   if (selectedCity && districtData[selectedCity]) {
+    console.log('시/군/구 데이터:', districtData[selectedCity]);
     districtData[selectedCity].forEach(district => {
       const option = document.createElement('option');
       option.value = district;
       option.textContent = district;
       districtSelect.appendChild(option);
     });
+    console.log('시/군/구 옵션 추가 완료:', districtSelect.options.length + '개');
   } else {
     districtSelect.innerHTML = '<option value="">먼저 시/도를 선택해주세요</option>';
+    console.log('선택된 시/도가 없거나 데이터를 찾을 수 없습니다');
   }
 }
 
