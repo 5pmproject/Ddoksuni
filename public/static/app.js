@@ -48,6 +48,9 @@ function updateDistricts() {
   }
 }
 
+// 전역 함수로 노출
+window.updateDistricts = updateDistricts;
+
 // 페이지 로드 시 초기화
 document.addEventListener('DOMContentLoaded', () => {
   setupEventListeners();
