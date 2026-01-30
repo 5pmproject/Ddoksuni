@@ -758,89 +758,10 @@ app.get('/', (c) => {
                             </div>
                         </div>
                         
-                        <!-- 위치 및 병원 타입 섹션 -->
-                        <div class="form-section-3d bg-gradient-to-br from-teal-50 to-cyan-50 border-2 border-teal-200 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all">
-                            <h3 class="text-lg font-bold text-teal-800 mb-4 flex items-center">
-                                <span class="bg-teal-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">5</span>
-                                위치 및 병원 정보
-                            </h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="flex items-center text-sm font-bold text-gray-800 mb-2">
-                                        <span class="text-red-500">*</span> 희망 병원 타입
-                                    </label>
-                                    <select name="current_hospital_type" required
-                                            class="input-3d w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 text-base">
-                                        <option value="">선택해주세요</option>
-                                        <option value="general">🏥 종합병원 (대학병원 포함)</option>
-                                        <option value="acute">🚑 급성기병원</option>
-                                        <option value="rehabilitation">♿ 재활병원</option>
-                                        <option value="long_term_care">🏥 요양병원</option>
-                                        <option value="nursing_home">🏠 요양원</option>
-                                    </select>
-                                    <p class="text-xs text-gray-600 mt-1 bg-white rounded px-2 py-1">
-                                        🏥 전원 받고 싶은 병원의 종류를 선택해주세요
-                                    </p>
-                                </div>
-                                <div>
-                                    <label class="flex items-center text-sm font-bold text-gray-800 mb-2">
-                                        <span class="text-red-500">*</span> 거주 지역 (시/도)
-                                    </label>
-                                    <select name="location_city" required id="locationCity" onchange="updateDistricts()"
-                                            class="input-3d w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 text-base">
-                                        <option value="">선택해주세요</option>
-                                        <option value="seoul">서울특별시</option>
-                                        <option value="busan">부산광역시</option>
-                                        <option value="daegu">대구광역시</option>
-                                        <option value="incheon">인천광역시</option>
-                                        <option value="gwangju">광주광역시</option>
-                                        <option value="daejeon">대전광역시</option>
-                                        <option value="ulsan">울산광역시</option>
-                                        <option value="sejong">세종특별자치시</option>
-                                        <option value="gyeonggi">경기도</option>
-                                        <option value="gangwon">강원특별자치도</option>
-                                        <option value="chungbuk">충청북도</option>
-                                        <option value="chungnam">충청남도</option>
-                                        <option value="jeonbuk">전북특별자치도</option>
-                                        <option value="jeonnam">전라남도</option>
-                                        <option value="gyeongbuk">경상북도</option>
-                                        <option value="gyeongnam">경상남도</option>
-                                        <option value="jeju">제주특별자치도</option>
-                                    </select>
-                                    <p class="text-xs text-gray-600 mt-1 bg-white rounded px-2 py-1">
-                                        📍 전원 받을 지역을 선택해주세요
-                                    </p>
-                                </div>
-                                <div>
-                                    <label class="flex items-center text-sm font-bold text-gray-800 mb-2">
-                                        <span class="text-red-500">*</span> 시/군/구
-                                    </label>
-                                    <select name="location_district" required id="locationDistrict"
-                                            class="input-3d w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 text-base">
-                                        <option value="">먼저 시/도를 선택해주세요</option>
-                                    </select>
-                                    <p class="text-xs text-gray-600 mt-1 bg-white rounded px-2 py-1">
-                                        📍 구체적인 지역을 선택해주세요
-                                    </p>
-                                </div>
-                                <div>
-                                    <label class="flex items-center text-sm font-bold text-gray-800 mb-2">
-                                        동/읍/면
-                                    </label>
-                                    <input type="text" name="location_dong" 
-                                           placeholder="예: 역삼동, 논현동"
-                                           class="input-3d w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 text-base">
-                                    <p class="text-xs text-gray-600 mt-1 bg-white rounded px-2 py-1">
-                                        📍 선택사항입니다
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        
                         <!-- 특수 케어 필요 사항 섹션 -->
                         <div class="form-section-3d bg-gradient-to-br from-rose-50 to-pink-50 border-2 border-rose-200 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all">
                             <h3 class="text-lg font-bold text-rose-800 mb-4 flex items-center">
-                                <span class="bg-rose-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">6</span>
+                                <span class="bg-rose-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">5</span>
                                 특수 케어 필요 사항
                             </h3>
                             <div class="space-y-4">
