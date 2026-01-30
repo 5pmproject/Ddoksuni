@@ -236,16 +236,34 @@ async function handlePatientSubmitInModal(e) {
     consciousnessLevel = `중증 의식 장애 (GCS ${gcsTotal})`;
   }
   
+  // 재활 치료 항목 수집
+  const rehabNeeds = {
+    physical: formData.get('rehab_physical') === 'true',
+    occupational: formData.get('rehab_occupational') === 'true',
+    speech: formData.get('rehab_speech') === 'true',
+    swallowing: formData.get('rehab_swallowing') === 'true',
+    cognitive: formData.get('rehab_cognitive') === 'true',
+    psychological: formData.get('rehab_psychological') === 'true',
+    robot: formData.get('rehab_robot') === 'true',
+    vr: formData.get('rehab_vr') === 'true',
+    vestibular: formData.get('rehab_vestibular') === 'true',
+    lymphedema: formData.get('rehab_lymphedema') === 'true',
+    prosthesis: formData.get('needs_prosthesis') === 'true',
+    wheelchair: formData.get('needs_wheelchair') === 'true'
+  };
+  
   const data = {
     name: formData.get('name'),
     age: parseInt(formData.get('age')),
     diagnosis: formData.get('diagnosis'),
     diagnosis_date: formData.get('diagnosis_date'),
-    adl_score: parseInt(formData.get('adl_score')),
     consciousness_level: consciousnessLevel,
     insurance_type: formData.get('insurance_type'),
     ltc_grade: formData.get('ltc_grade') ? parseInt(formData.get('ltc_grade')) : null,
     current_hospital: formData.get('current_hospital'),
+    delirium_risk: formData.get('delirium_risk') || 'low',
+    dysphagia: formData.get('dysphagia') || 'none',
+    rehab_needs: rehabNeeds,
     comorbidities: JSON.stringify({
       gcs_eye: gcsEye,
       gcs_verbal: gcsVerbal,
@@ -261,43 +279,318 @@ async function handlePatientSubmitInModal(e) {
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>분석 중...';
     
-    const response = await axios.post(`${API_BASE}/patients`, data);
+    // 환자 정보를 currentPatient에 바로 저장 (API 호출 없이)
+    currentPatient = {
+      id: Date.now(), // 임시 ID
+      ...data,
+      gcs_total: gcsTotal
+    };
     
-    if (response.data.success) {
-      // 환자 정보 저장
-      currentPatient = {
-        id: response.data.data.id,
-        ...data
-      };
-      
-      // 체크리스트 자동 생성
-      await axios.post(`${API_BASE}/checklists/generate`, {
-        patientId: currentPatient.id,
-        transferType: 'acute_to_rehab'
-      });
-      
-      showSuccess('환자 정보가 등록되었습니다! 맞춤형 전원 경로를 분석 중입니다...');
-      
-      // 모달 닫기
-      const modal = document.querySelector('.fixed.inset-0');
-      if (modal) modal.remove();
-      
-      // 폼 표시 및 2단계로 자동 이동
-      setTimeout(() => {
-        document.getElementById('welcomeMessage').style.display = 'none';
-        document.getElementById('progressSteps').classList.remove('hidden');
-        goToStep(2);
-      }, 1500);
-    }
+    // 분석 결과 생성
+    const analysis = analyzePatientData(currentPatient);
+    
+    // 모달 닫기
+    const modal = document.querySelector('.fixed.inset-0');
+    if (modal) modal.remove();
+    
+    // 환영 메시지 숨기고 진행 상태 표시
+    document.getElementById('welcomeMessage').style.display = 'none';
+    document.getElementById('progressSteps').classList.remove('hidden');
+    
+    // 분석 결과 표시
+    showAnalysisResult(analysis);
     
     submitBtn.disabled = false;
     submitBtn.innerHTML = originalText;
   } catch (error) {
-    console.error('Failed to register patient:', error);
-    showError('환자 등록에 실패했습니다. 다시 시도해주세요.');
+    console.error('Failed to analyze patient:', error);
+    showError('환자 정보 분석에 실패했습니다. 다시 시도해주세요.');
+    const submitBtn = e.target.querySelector('button[type="submit"]');
     submitBtn.disabled = false;
-    submitBtn.innerHTML = originalText;
+    submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>분석 시작하기';
   }
+}
+
+// 환자 데이터 분석 함수
+function analyzePatientData(patient) {
+  const { gcs_total, diagnosis, age, delirium_risk, dysphagia, rehab_needs, ltc_grade } = patient;
+  
+  let recommendedFacility = '';
+  let reasons = [];
+  let estimatedCost = { min: 0, max: 0, monthly: { min: 0, max: 0 } };
+  let urgency = 'normal';
+  
+  // 진단명 기반 분석
+  const acuteDiagnoses = ['뇌경색', '뇌출혈', '뇌졸중', '척수손상', '외상성 뇌손상'];
+  const isAcuteDiagnosis = acuteDiagnoses.some(d => diagnosis?.includes(d));
+  
+  // 고강도 재활 필요 여부
+  const needsIntensiveRehab = rehab_needs.robot || rehab_needs.vr || 
+                               (rehab_needs.physical && rehab_needs.occupational && rehab_needs.speech);
+  
+  // 의료적 필요 수준
+  const needsMedicalCare = gcs_total < 13 || delirium_risk === 'high' || dysphagia === 'severe';
+  
+  // 추천 시설 결정 로직
+  if (isAcuteDiagnosis && gcs_total < 13 && needsIntensiveRehab) {
+    recommendedFacility = '회복기 재활병원';
+    reasons = [
+      `급성기 질환(${diagnosis})으로 집중 재활이 필요합니다`,
+      `GCS ${gcs_total}점으로 중등도 이상의 의식 장애가 있습니다`,
+      `골든타임 3개월 내 집중 재활로 기능 회복 가능성이 높습니다`
+    ];
+    if (needsIntensiveRehab) reasons.push('로봇·VR 등 고강도 재활 치료가 필요합니다');
+    estimatedCost = { min: 150000, max: 200000, monthly: { min: 300000, max: 500000 } };
+    urgency = 'high';
+  } else if (isAcuteDiagnosis || needsIntensiveRehab) {
+    recommendedFacility = '일반 재활병원';
+    reasons = [
+      `${diagnosis} 진단으로 재활 치료가 필요합니다`,
+      `GCS ${gcs_total}점으로 의식 상태가 비교적 안정적입니다`,
+      `물리·작업·언어 치료를 통해 기능 개선이 가능합니다`
+    ];
+    estimatedCost = { min: 120000, max: 150000, monthly: { min: 250000, max: 350000 } };
+    urgency = 'normal';
+  } else if (needsMedicalCare || delirium_risk === 'high' || dysphagia !== 'none') {
+    recommendedFacility = '요양병원';
+    reasons = [
+      `의료적 관리와 간호가 지속적으로 필요합니다`,
+      `섬망 관리나 연하장애 치료가 필요합니다`,
+      `의사 상주로 24시간 의료 서비스를 받을 수 있습니다`
+    ];
+    if (delirium_risk === 'high') reasons.push('섬망 위험이 높아 전문 관리가 필요합니다');
+    if (dysphagia === 'severe') reasons.push('연하장애가 심해 전문 치료가 필요합니다');
+    estimatedCost = { min: 100000, max: 150000, monthly: { min: 200000, max: 400000 } };
+    urgency = 'normal';
+  } else if (ltc_grade && parseInt(ltc_grade) <= 3) {
+    recommendedFacility = '요양원';
+    reasons = [
+      `장기요양등급 ${ltc_grade}급으로 일상생활 지원이 주로 필요합니다`,
+      `의료적 치료보다는 생활 돌봄이 중심입니다`,
+      `장기요양보험 적용으로 경제적 부담이 적습니다`
+    ];
+    estimatedCost = { min: 80000, max: 120000, monthly: { min: 200000, max: 400000 } };
+    urgency = 'low';
+  } else {
+    recommendedFacility = '요양병원';
+    reasons = [
+      `전반적인 건강 상태를 고려할 때 의료와 요양이 함께 필요합니다`,
+      `장기적인 치료와 돌봄이 가능한 환경이 적합합니다`
+    ];
+    estimatedCost = { min: 100000, max: 130000, monthly: { min: 200000, max: 400000 } };
+    urgency = 'normal';
+  }
+  
+  // 필요한 재활 치료 정리
+  const rehabList = [];
+  if (rehab_needs.physical) rehabList.push('💪 물리치료');
+  if (rehab_needs.occupational) rehabList.push('🖐️ 작업치료');
+  if (rehab_needs.speech) rehabList.push('🗣️ 언어치료');
+  if (rehab_needs.swallowing) rehabList.push('🍽️ 연하치료');
+  if (rehab_needs.cognitive) rehabList.push('🧠 인지재활');
+  if (rehab_needs.psychological) rehabList.push('💭 심리상담');
+  if (rehab_needs.robot) rehabList.push('🤖 로봇재활');
+  if (rehab_needs.vr) rehabList.push('🥽 VR재활');
+  if (rehab_needs.vestibular) rehabList.push('🌀 전정재활');
+  if (rehab_needs.lymphedema) rehabList.push('💧 림프부종관리');
+  if (rehab_needs.prosthesis) rehabList.push('🦿 의지·보조기');
+  if (rehab_needs.wheelchair) rehabList.push('♿ 휠체어·보행보조기');
+  
+  return {
+    recommendedFacility,
+    reasons,
+    estimatedCost,
+    urgency,
+    rehabList,
+    gcsLevel: gcs_total >= 13 ? '양호' : gcs_total >= 9 ? '주의' : '중증',
+    patientSummary: {
+      name: patient.name,
+      age: patient.age,
+      diagnosis: patient.diagnosis,
+      gcs: gcs_total,
+      deliriumRisk: delirium_risk,
+      dysphagia: dysphagia
+    }
+  };
+}
+
+// 분석 결과 표시 함수
+function showAnalysisResult(analysis) {
+  const { recommendedFacility, reasons, estimatedCost, urgency, rehabList, gcsLevel, patientSummary } = analysis;
+  
+  // 긴급도에 따른 색상
+  let urgencyColor = 'blue';
+  let urgencyText = '일반';
+  if (urgency === 'high') {
+    urgencyColor = 'red';
+    urgencyText = '긴급';
+  } else if (urgency === 'normal') {
+    urgencyColor = 'orange';
+    urgencyText = '보통';
+  }
+  
+  // 시설 타입에 따른 아이콘
+  let facilityIcon = '🏥';
+  if (recommendedFacility.includes('재활병원')) facilityIcon = '♿';
+  if (recommendedFacility.includes('요양병원')) facilityIcon = '🏨';
+  if (recommendedFacility.includes('요양원')) facilityIcon = '🏡';
+  
+  const resultHTML = `
+    <div class="modal-backdrop fixed inset-0 bg-black bg-opacity-70 backdrop-blur-md flex items-center justify-center z-50 p-4">
+      <div class="modal-content-3d bg-gradient-to-br from-white to-gray-50 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden border-4 border-white/50 shadow-2xl">
+        <div class="sticky top-0 bg-gradient-to-r from-blue-500 to-purple-600 backdrop-blur-lg border-b-4 border-white/30 px-6 py-4 flex justify-between items-center shadow-lg">
+          <h2 class="text-2xl font-bold text-white flex items-center">
+            <span class="bg-white/20 rounded-full w-10 h-10 flex items-center justify-center mr-3">
+              <i class="fas fa-chart-line"></i>
+            </span>
+            맞춤 전원 경로 분석 결과
+          </h2>
+          <button onclick="this.closest('.modal-backdrop').remove()" class="bg-white/20 hover:bg-white/30 text-white rounded-full w-10 h-10 flex items-center justify-center transition-all hover:rotate-90 hover:scale-110">
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+        
+        <div class="p-6 overflow-y-auto max-h-[calc(90vh-80px)] space-y-6">
+          
+          <!-- 환자 정보 요약 -->
+          <div class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg p-5 border-2 border-blue-200">
+            <h3 class="text-lg font-bold text-blue-800 mb-3 flex items-center">
+              <i class="fas fa-user-circle mr-2"></i>
+              ${patientSummary.name}님의 현재 상태
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+              <div class="bg-white rounded-lg p-3 text-center">
+                <div class="text-gray-600 text-xs mb-1">나이</div>
+                <div class="font-bold text-blue-700">${patientSummary.age}세</div>
+              </div>
+              <div class="bg-white rounded-lg p-3 text-center">
+                <div class="text-gray-600 text-xs mb-1">진단명</div>
+                <div class="font-bold text-blue-700">${patientSummary.diagnosis}</div>
+              </div>
+              <div class="bg-white rounded-lg p-3 text-center">
+                <div class="text-gray-600 text-xs mb-1">의식 수준</div>
+                <div class="font-bold text-${gcsLevel === '양호' ? 'green' : gcsLevel === '주의' ? 'orange' : 'red'}-700">
+                  GCS ${patientSummary.gcs}점 (${gcsLevel})
+                </div>
+              </div>
+              <div class="bg-white rounded-lg p-3 text-center">
+                <div class="text-gray-600 text-xs mb-1">섬망 위험</div>
+                <div class="font-bold text-${patientSummary.deliriumRisk === 'high' ? 'red' : patientSummary.deliriumRisk === 'moderate' ? 'orange' : 'green'}-700">
+                  ${patientSummary.deliriumRisk === 'high' ? '🔴 고위험' : patientSummary.deliriumRisk === 'moderate' ? '🟡 중위험' : '🟢 저위험'}
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 추천 시설 -->
+          <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-6 border-2 border-green-300">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-green-800 flex items-center">
+                <i class="fas fa-hospital-alt mr-2"></i>
+                추천 전원 경로
+              </h3>
+              <span class="bg-${urgencyColor}-100 text-${urgencyColor}-700 px-4 py-2 rounded-full text-sm font-bold">
+                ${urgencyText} 우선도
+              </span>
+            </div>
+            <div class="bg-white rounded-lg p-6 border-2 border-green-400 shadow-md">
+              <div class="text-center mb-4">
+                <div class="text-6xl mb-3">${facilityIcon}</div>
+                <h4 class="text-2xl font-bold text-green-700 mb-2">${recommendedFacility}</h4>
+                <p class="text-gray-600">환자분께 가장 적합한 시설입니다</p>
+              </div>
+              
+              <div class="bg-green-50 rounded-lg p-4">
+                <h5 class="font-bold text-green-800 mb-2 flex items-center">
+                  <i class="fas fa-lightbulb mr-2"></i>
+                  왜 이 시설을 추천하나요?
+                </h5>
+                <ul class="space-y-2">
+                  ${reasons.map(reason => `
+                    <li class="text-sm text-gray-700 flex items-start">
+                      <i class="fas fa-check-circle text-green-600 mr-2 mt-1"></i>
+                      <span>${reason}</span>
+                    </li>
+                  `).join('')}
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 예상 비용 -->
+          <div class="bg-gradient-to-r from-orange-50 to-amber-50 rounded-lg p-5 border-2 border-orange-200">
+            <h3 class="text-lg font-bold text-orange-800 mb-3 flex items-center">
+              <i class="fas fa-piggy-bank mr-2"></i>
+              예상 비용 (2인실 기준)
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-white rounded-lg p-4 border-2 border-orange-300">
+                <div class="text-sm text-gray-600 mb-1">하루 비용</div>
+                <div class="text-2xl font-bold text-orange-700">
+                  ${(estimatedCost.min / 10000).toFixed(0)}~${(estimatedCost.max / 10000).toFixed(0)}만원
+                </div>
+              </div>
+              <div class="bg-white rounded-lg p-4 border-2 border-orange-300">
+                <div class="text-sm text-gray-600 mb-1">월 본인부담금 (보험 적용 후)</div>
+                <div class="text-2xl font-bold text-orange-700">
+                  ${(estimatedCost.monthly.min / 10000).toFixed(0)}~${(estimatedCost.monthly.max / 10000).toFixed(0)}만원
+                </div>
+              </div>
+            </div>
+            <p class="text-xs text-gray-600 mt-3 bg-yellow-50 rounded px-3 py-2">
+              <i class="fas fa-info-circle mr-1"></i>
+              실제 비용은 병원, 지역, 환자 상태에 따라 달라질 수 있습니다
+            </p>
+          </div>
+          
+          <!-- 필요한 재활 치료 -->
+          ${rehabList.length > 0 ? `
+          <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-5 border-2 border-purple-200">
+            <h3 class="text-lg font-bold text-purple-800 mb-3 flex items-center">
+              <i class="fas fa-heartbeat mr-2"></i>
+              필요한 재활 치료 (${rehabList.length}개)
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              ${rehabList.map(rehab => `
+                <span class="bg-white px-3 py-2 rounded-lg text-sm font-semibold text-purple-700 border-2 border-purple-200">
+                  ${rehab}
+                </span>
+              `).join('')}
+            </div>
+          </div>
+          ` : ''}
+          
+          <!-- 다음 단계 안내 -->
+          <div class="bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg p-6 border-2 border-blue-300">
+            <h3 class="text-lg font-bold text-blue-800 mb-3 flex items-center">
+              <i class="fas fa-road mr-2"></i>
+              다음 단계
+            </h3>
+            <div class="space-y-3">
+              <button onclick="this.closest('.modal-backdrop').remove(); goToStep(2);" 
+                      class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 px-6 rounded-lg transition font-bold text-lg shadow-lg flex items-center justify-center">
+                <i class="fas fa-map-marked-alt mr-2"></i>
+                맞춤 경로 자세히 보기
+              </button>
+              <button onclick="this.closest('.modal-backdrop').remove(); goToStep(3);" 
+                      class="w-full bg-purple-600 hover:bg-purple-700 text-white py-4 px-6 rounded-lg transition font-bold text-lg shadow-lg flex items-center justify-center">
+                <i class="fas fa-calculator mr-2"></i>
+                비용 미리 계산하기
+              </button>
+              <button onclick="this.closest('.modal-backdrop').remove(); goToStep(4);" 
+                      class="w-full bg-green-600 hover:bg-green-700 text-white py-4 px-6 rounded-lg transition font-bold text-lg shadow-lg flex items-center justify-center">
+                <i class="fas fa-hospital-alt mr-2"></i>
+                추천 기관 찾아보기
+              </button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  `;
+  
+  document.body.insertAdjacentHTML('beforeend', resultHTML);
 }
 
 // 전원 가이드 표시
