@@ -685,6 +685,214 @@ function showCostGuide() {
         </div>
       </div>
 
+      <!-- 법적 근거 및 명확한 차이 -->
+      <div class="bg-gradient-to-r from-amber-50 to-orange-50 rounded-lg p-6 border-2 border-amber-300">
+        <h3 class="text-xl font-bold text-amber-900 mb-4 flex items-center">
+          <span class="bg-amber-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">📋</span>
+          요양병원 vs 재활병원 vs 요양원, 법적으로 뭐가 다를까요?
+        </h3>
+        
+        <div class="bg-red-50 rounded-lg p-4 mb-4 border-l-4 border-red-500">
+          <p class="text-sm text-red-900 font-bold mb-2">
+            <i class="fas fa-exclamation-triangle mr-1"></i>
+            이름이 비슷해서 헷갈리지만, 완전히 다른 기관이에요!
+          </p>
+          <p class="text-xs text-red-800">
+            각각 다른 법률로 운영되고, 보험도 다르고, 목적도 달라요
+          </p>
+        </div>
+
+        <!-- 법적 근거 비교 테이블 -->
+        <div class="overflow-x-auto mb-4">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="bg-amber-100">
+                <th class="px-3 py-2 text-left text-amber-900 font-bold border border-amber-200">구분</th>
+                <th class="px-3 py-2 text-center text-amber-900 font-bold border border-amber-200">🏥 재활병원</th>
+                <th class="px-3 py-2 text-center text-amber-900 font-bold border border-amber-200">🏨 요양병원</th>
+                <th class="px-3 py-2 text-center text-amber-900 font-bold border border-amber-200">🏡 요양원</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white">
+              <tr class="border-b border-gray-200">
+                <td class="px-3 py-2 border border-gray-200 font-semibold">📜 법적 근거</td>
+                <td class="px-3 py-2 text-center border border-gray-200 bg-green-50">
+                  <span class="text-green-800 font-semibold">의료법</span><br>
+                  <span class="text-xs text-green-600">(회복기재활의료기관)</span>
+                </td>
+                <td class="px-3 py-2 text-center border border-gray-200 bg-blue-50">
+                  <span class="text-blue-800 font-semibold">의료법</span><br>
+                  <span class="text-xs text-blue-600">(요양병원)</span>
+                </td>
+                <td class="px-3 py-2 text-center border border-gray-200 bg-purple-50">
+                  <span class="text-purple-800 font-semibold">노인복지법</span><br>
+                  <span class="text-xs text-purple-600">(복지시설)</span>
+                </td>
+              </tr>
+              <tr class="border-b border-gray-200">
+                <td class="px-3 py-2 border border-gray-200 font-semibold">💳 보험 체계</td>
+                <td class="px-3 py-2 text-center border border-gray-200 bg-green-50">
+                  <span class="text-green-800 font-bold">건강보험</span>
+                </td>
+                <td class="px-3 py-2 text-center border border-gray-200 bg-blue-50">
+                  <span class="text-blue-800 font-bold">건강보험</span>
+                </td>
+                <td class="px-3 py-2 text-center border border-gray-200 bg-purple-50">
+                  <span class="text-purple-800 font-bold">장기요양보험</span>
+                </td>
+              </tr>
+              <tr class="border-b border-gray-200">
+                <td class="px-3 py-2 border border-gray-200 font-semibold">🎯 입원 대상</td>
+                <td class="px-3 py-2 border border-gray-200 bg-green-50 text-xs">
+                  뇌졸중, 척수손상, 골절 수술 후<br>
+                  <strong class="text-green-700">급성기 직후 환자</strong>
+                </td>
+                <td class="px-3 py-2 border border-gray-200 bg-blue-50 text-xs">
+                  65세+ 노인성 질환<br>
+                  만성질환, 수술 후 회복기<br>
+                  <strong class="text-blue-700">치료+돌봄 모두 필요</strong>
+                </td>
+                <td class="px-3 py-2 border border-gray-200 bg-purple-50 text-xs">
+                  65세+ 장기요양등급<br>
+                  (1~5등급) 보유자<br>
+                  <strong class="text-purple-700">일상 돌봄 필요</strong>
+                </td>
+              </tr>
+              <tr class="border-b border-gray-200">
+                <td class="px-3 py-2 border border-gray-200 font-semibold">📅 입원 기간</td>
+                <td class="px-3 py-2 text-center border border-gray-200 bg-green-50">
+                  <span class="text-green-800 font-bold">45~90일</span><br>
+                  <span class="text-xs text-green-600">(골든타임 집중)</span>
+                </td>
+                <td class="px-3 py-2 text-center border border-gray-200 bg-blue-50">
+                  <span class="text-blue-800 font-bold">제한 없음</span><br>
+                  <span class="text-xs text-blue-600">(수개월~수년)</span>
+                </td>
+                <td class="px-3 py-2 text-center border border-gray-200 bg-purple-50">
+                  <span class="text-purple-800 font-bold">제한 없음</span><br>
+                  <span class="text-xs text-purple-600">(장기 거주)</span>
+                </td>
+              </tr>
+              <tr class="border-b border-gray-200">
+                <td class="px-3 py-2 border border-gray-200 font-semibold">👨‍⚕️ 의료진</td>
+                <td class="px-3 py-2 border border-gray-200 bg-green-50 text-xs">
+                  재활의학과 전문의<br>
+                  물리치료사, 작업치료사<br>
+                  <strong class="text-green-700">재활팀 구성</strong>
+                </td>
+                <td class="px-3 py-2 border border-gray-200 bg-blue-50 text-xs">
+                  의사 상주 (필수)<br>
+                  간호사 24시간 배치<br>
+                  <strong class="text-blue-700">의료기관</strong>
+                </td>
+                <td class="px-3 py-2 border border-gray-200 bg-purple-50 text-xs">
+                  의사 상주 X<br>
+                  요양보호사 중심<br>
+                  <strong class="text-purple-700">생활시설</strong>
+                </td>
+              </tr>
+              <tr class="border-b border-gray-200">
+                <td class="px-3 py-2 border border-gray-200 font-semibold">🎯 목적</td>
+                <td class="px-3 py-2 text-center border border-gray-200 bg-green-50">
+                  <span class="text-green-800 font-bold">기능 회복</span><br>
+                  <span class="text-xs text-green-600">사회 복귀</span>
+                </td>
+                <td class="px-3 py-2 text-center border border-gray-200 bg-blue-50">
+                  <span class="text-blue-800 font-bold">장기 치료</span><br>
+                  <span class="text-xs text-blue-600">치료 + 요양</span>
+                </td>
+                <td class="px-3 py-2 text-center border border-gray-200 bg-purple-50">
+                  <span class="text-purple-800 font-bold">생활 지원</span><br>
+                  <span class="text-xs text-purple-600">일상 돌봄</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-3 py-2 border border-gray-200 font-semibold">💰 월 평균 비용</td>
+                <td class="px-3 py-2 text-center border border-gray-200 bg-green-50">
+                  <span class="text-green-800 font-bold">160~200만원</span><br>
+                  <span class="text-xs text-green-600">본인 30~50만원</span>
+                </td>
+                <td class="px-3 py-2 text-center border border-gray-200 bg-blue-50">
+                  <span class="text-blue-800 font-bold">160~200만원</span><br>
+                  <span class="text-xs text-blue-600">본인 20~40만원</span>
+                </td>
+                <td class="px-3 py-2 text-center border border-gray-200 bg-purple-50">
+                  <span class="text-purple-800 font-bold">80~100만원</span><br>
+                  <span class="text-xs text-purple-600">본인 20~30만원</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 핵심 차이점 강조 -->
+        <div class="space-y-3">
+          <div class="bg-white rounded-lg p-4 border-l-4 border-green-500">
+            <h4 class="font-bold text-green-800 mb-2 flex items-center">
+              <span class="text-xl mr-2">🏥</span>
+              재활병원: "빨리 회복해서 집으로 돌아가자"
+            </h4>
+            <ul class="text-sm text-gray-700 space-y-1">
+              <li>✓ <strong>하루 3시간 이상</strong> 고강도 재활 치료</li>
+              <li>✓ 회복기 <strong>골든타임(3개월)</strong>에 집중</li>
+              <li>✓ 집으로 돌아가는 것이 목표</li>
+              <li>⚠️ 2019년 이후 <strong>"회복기 재활병원"</strong> 제도 신설</li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-lg p-4 border-l-4 border-blue-500">
+            <h4 class="font-bold text-blue-800 mb-2 flex items-center">
+              <span class="text-xl mr-2">🏨</span>
+              요양병원: "치료도 받고, 돌봄도 받고"
+            </h4>
+            <ul class="text-sm text-gray-700 space-y-1">
+              <li>✓ 의료 + 생활 돌봄 <strong>중간 지대</strong></li>
+              <li>✓ 의사가 상주하는 <strong>의료기관</strong></li>
+              <li>✓ 입원 기간 제한 없음 (장기 입원 가능)</li>
+              <li>⚠️ <strong>"요양병원" ≠ "요양원"</strong> 완전히 다름!</li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-lg p-4 border-l-4 border-purple-500">
+            <h4 class="font-bold text-purple-800 mb-2 flex items-center">
+              <span class="text-xl mr-2">🏡</span>
+              요양원: "편안하게 일상을 보내자"
+            </h4>
+            <ul class="text-sm text-gray-700 space-y-1">
+              <li>✓ <strong>장기요양등급</strong> 필수 (1~5등급)</li>
+              <li>✓ 의료 치료 X, <strong>일상 돌봄</strong> 중심</li>
+              <li>✓ 의사 상주 없음 (월 2회 방문 정도)</li>
+              <li>⚠️ 급한 치료 필요 시 <strong>외부 병원 이송</strong></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 헷갈리는 용어 정리 -->
+        <div class="mt-4 bg-yellow-50 rounded-lg p-4 border-2 border-yellow-300">
+          <h4 class="font-bold text-yellow-900 mb-2 flex items-center">
+            <i class="fas fa-lightbulb mr-2 text-yellow-600"></i>
+            헷갈리는 용어 정리
+          </h4>
+          <div class="space-y-2 text-sm text-gray-700">
+            <p class="flex items-start">
+              <span class="mr-2">1️⃣</span>
+              <span><strong>"요양병원" vs "요양원"</strong><br>
+              → 이름 비슷하지만 <strong class="text-red-600">완전히 다른 기관!</strong> 요양병원은 의료기관, 요양원은 복지시설</span>
+            </p>
+            <p class="flex items-start">
+              <span class="mr-2">2️⃣</span>
+              <span><strong>"재활병원" vs "요양병원"</strong><br>
+              → 재활병원은 <strong class="text-green-600">집중 재활이 목표</strong>, 요양병원은 장기 치료+돌봄</span>
+            </p>
+            <p class="flex items-start">
+              <span class="mr-2">3️⃣</span>
+              <span><strong>"회복기 재활병원"</strong><br>
+              → 2019년 이후 생긴 제도로, 보건복지부가 <strong class="text-blue-600">별도 지정</strong>한 고강도 재활 전문병원</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
       <!-- 재활병원 비용 -->
       <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-6 border-2 border-green-200">
         <h3 class="text-xl font-bold text-green-800 mb-4 flex items-center">
