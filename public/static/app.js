@@ -1065,6 +1065,172 @@ function showCostGuide() {
         </div>
       </div>
 
+      <!-- 선택을 위한 체크리스트 -->
+      <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg p-6 border-2 border-indigo-300">
+        <h3 class="text-xl font-bold text-indigo-900 mb-4 flex items-center">
+          <span class="bg-indigo-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">✓</span>
+          선택을 위한 체크리스트
+        </h3>
+
+        <div class="bg-white rounded-lg p-4 mb-4 border-l-4 border-indigo-500">
+          <p class="text-sm text-indigo-900 font-semibold mb-2">
+            <i class="fas fa-info-circle mr-1"></i>
+            환자분의 상태와 필요에 따라 적합한 기관을 선택하세요
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <!-- 1. 현재 의료 필요성 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-blue-200">
+            <h4 class="font-bold text-blue-800 mb-3 flex items-center">
+              <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">1</span>
+              현재 의료 필요성
+            </h4>
+            <div class="space-y-2 text-sm">
+              <div class="flex items-start p-2 bg-green-50 rounded">
+                <span class="text-green-600 mr-2 mt-0.5">🏥</span>
+                <div>
+                  <strong class="text-green-800">급성 재활 필요 (뇌졸중·척수손상 등)</strong><br>
+                  <span class="text-gray-700">→ <strong class="text-green-700">회복기 재활병원</strong> 우선 (골든타임 3개월 집중!)</span>
+                </div>
+              </div>
+              <div class="flex items-start p-2 bg-blue-50 rounded">
+                <span class="text-blue-600 mr-2 mt-0.5">🏨</span>
+                <div>
+                  <strong class="text-blue-800">만성질환·수술 후 회복, 의료+요양 동시 필요</strong><br>
+                  <span class="text-gray-700">→ <strong class="text-blue-700">요양병원</strong> (치료와 돌봄 모두)</span>
+                </div>
+              </div>
+              <div class="flex items-start p-2 bg-purple-50 rounded">
+                <span class="text-purple-600 mr-2 mt-0.5">🏡</span>
+                <div>
+                  <strong class="text-purple-800">일상 돌봄·장기요양등급 높은 경우</strong><br>
+                  <span class="text-gray-700">→ <strong class="text-purple-700">요양원</strong> (생활 지원 중심)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. 보험·비용 부담 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-orange-200">
+            <h4 class="font-bold text-orange-800 mb-3 flex items-center">
+              <span class="bg-orange-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">2</span>
+              보험·비용 부담
+            </h4>
+            <div class="space-y-2 text-sm">
+              <div class="flex items-start p-2 bg-green-50 rounded">
+                <span class="text-green-600 mr-2 mt-0.5">💳</span>
+                <div>
+                  <strong class="text-green-800">건강보험 중심</strong><br>
+                  <span class="text-gray-700">→ <strong class="text-green-700">요양병원·재활병원</strong> (본인 부담 20~30%)</span>
+                </div>
+              </div>
+              <div class="flex items-start p-2 bg-purple-50 rounded">
+                <span class="text-purple-600 mr-2 mt-0.5">🏛️</span>
+                <div>
+                  <strong class="text-purple-800">장기요양보험·본인 부담 20%</strong><br>
+                  <span class="text-gray-700">→ <strong class="text-purple-700">요양원</strong> (장기요양등급 필수)</span>
+                </div>
+              </div>
+              <div class="bg-yellow-50 p-2 rounded border-l-4 border-yellow-400">
+                <p class="text-xs text-yellow-800">
+                  <i class="fas fa-lightbulb mr-1"></i>
+                  <strong>팁:</strong> 장기요양등급이 있으면 요양원이 경제적으로 유리할 수 있어요
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. 입원 기간·연계 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-teal-200">
+            <h4 class="font-bold text-teal-800 mb-3 flex items-center">
+              <span class="bg-teal-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">3</span>
+              입원 기간·연계 계획
+            </h4>
+            <div class="space-y-2 text-sm">
+              <div class="flex items-start p-2 bg-blue-50 rounded">
+                <span class="text-blue-600 mr-2 mt-0.5">📅</span>
+                <div>
+                  <strong class="text-blue-800">장기 입원 필요 (수개월~수년)</strong><br>
+                  <span class="text-gray-700">→ <strong class="text-blue-700">요양병원</strong> (입원 기간 제한 없음)</span>
+                </div>
+              </div>
+              <div class="flex items-start p-2 bg-green-50 rounded">
+                <span class="text-green-600 mr-2 mt-0.5">⚡</span>
+                <div>
+                  <strong class="text-green-800">재활 집중 기간 (45~90일)</strong><br>
+                  <span class="text-gray-700">→ <strong class="text-green-700">재활병원</strong> (골든타임 집중 후 전원)</span>
+                </div>
+              </div>
+              <div class="bg-indigo-50 p-2 rounded border-l-4 border-indigo-400">
+                <p class="text-xs text-indigo-800">
+                  <i class="fas fa-route mr-1"></i>
+                  <strong>전환 플랜 설계:</strong> 재활병원(45~90일) → 요양병원(3~6개월) → 재택/요양원<br>
+                  연계 계획을 미리 세우면 전체 비용과 시간을 절감할 수 있어요!
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. 의료·재활 강도 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-pink-200">
+            <h4 class="font-bold text-pink-800 mb-3 flex items-center">
+              <span class="bg-pink-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">4</span>
+              의료·재활 강도
+            </h4>
+            <div class="space-y-2 text-sm">
+              <div class="flex items-start p-2 bg-green-50 rounded">
+                <span class="text-green-600 mr-2 mt-0.5">💪</span>
+                <div>
+                  <strong class="text-green-800">고강도 재활 필요 (하루 3시간+)</strong><br>
+                  <span class="text-gray-700">→ <strong class="text-green-700">재활병원</strong> (전문 인력·장비 확인 필수!)</span>
+                </div>
+              </div>
+              <div class="flex items-start p-2 bg-blue-50 rounded">
+                <span class="text-blue-600 mr-2 mt-0.5">🏥</span>
+                <div>
+                  <strong class="text-blue-800">일반 치료·돌봄</strong><br>
+                  <span class="text-gray-700">→ <strong class="text-blue-700">요양병원·요양원</strong> (치료 강도 사전 확인)</span>
+                </div>
+              </div>
+              <div class="bg-red-50 p-2 rounded border-l-4 border-red-400">
+                <p class="text-xs text-red-800">
+                  <i class="fas fa-exclamation-triangle mr-1"></i>
+                  <strong>주의:</strong> 요양병원도 재활 강도는 천차만별이에요!<br>
+                  반드시 물리치료사 인원, 하루 재활 시간을 직접 확인하세요
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 최종 결정 팁 -->
+        <div class="mt-4 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg p-4 border-2 border-purple-300">
+          <h4 class="font-bold text-purple-900 mb-2 flex items-center">
+            <i class="fas fa-star text-yellow-500 mr-2"></i>
+            최종 결정 전 꼭 확인하세요!
+          </h4>
+          <div class="space-y-1 text-sm text-gray-700">
+            <p class="flex items-start">
+              <span class="text-purple-600 mr-2">✓</span>
+              <span><strong>병원 방문:</strong> 실제 환경, 의료진, 재활 강도를 눈으로 확인</span>
+            </p>
+            <p class="flex items-start">
+              <span class="text-purple-600 mr-2">✓</span>
+              <span><strong>비용 견적:</strong> 여러 곳 비교 후 상세 견적서 요청</span>
+            </p>
+            <p class="flex items-start">
+              <span class="text-purple-600 mr-2">✓</span>
+              <span><strong>입원 대기:</strong> 인기 병원은 대기 기간이 길 수 있으니 미리 예약</span>
+            </p>
+            <p class="flex items-start">
+              <span class="text-purple-600 mr-2">✓</span>
+              <span><strong>전환 계획:</strong> 재활병원 → 요양병원 → 재택 순서로 단계별 계획 수립</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
 
     </div>
   `, 'max-w-4xl');
@@ -1522,6 +1688,146 @@ function showFacilityGuide() {
             <span class="text-green-600 mr-2">✓</span>
             <span>여러 병원을 <strong class="text-orange-600">꼭 비교</strong>하고 직접 방문해보세요!</span>
           </p>
+        </div>
+      </div>
+
+      <!-- 선택을 위한 체크리스트 -->
+      <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg p-6 border-2 border-indigo-300">
+        <h3 class="text-xl font-bold text-indigo-900 mb-4 flex items-center">
+          <span class="bg-indigo-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">✓</span>
+          선택을 위한 체크리스트
+        </h3>
+
+        <div class="bg-white rounded-lg p-4 mb-4 border-l-4 border-indigo-500">
+          <p class="text-sm text-indigo-900 font-semibold mb-2">
+            <i class="fas fa-info-circle mr-1"></i>
+            환자분의 상태와 필요에 따라 적합한 기관을 선택하세요
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <!-- 1. 현재 의료 필요성 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-blue-200">
+            <h4 class="font-bold text-blue-800 mb-3 flex items-center">
+              <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">1</span>
+              현재 의료 필요성
+            </h4>
+            <div class="space-y-2 text-sm">
+              <div class="flex items-start p-2 bg-green-50 rounded">
+                <span class="text-green-600 mr-2 mt-0.5">🏥</span>
+                <div>
+                  <strong class="text-green-800">급성 재활 필요 (뇌졸중·척수손상 등)</strong><br>
+                  <span class="text-gray-700">→ <strong class="text-green-700">회복기 재활병원</strong> 우선 (골든타임 3개월 집중!)</span>
+                </div>
+              </div>
+              <div class="flex items-start p-2 bg-blue-50 rounded">
+                <span class="text-blue-600 mr-2 mt-0.5">🏨</span>
+                <div>
+                  <strong class="text-blue-800">만성질환·수술 후 회복, 의료+요양 동시 필요</strong><br>
+                  <span class="text-gray-700">→ <strong class="text-blue-700">요양병원</strong> (치료와 돌봄 모두)</span>
+                </div>
+              </div>
+              <div class="flex items-start p-2 bg-purple-50 rounded">
+                <span class="text-purple-600 mr-2 mt-0.5">🏡</span>
+                <div>
+                  <strong class="text-purple-800">일상 돌봄·장기요양등급 높은 경우</strong><br>
+                  <span class="text-gray-700">→ <strong class="text-purple-700">요양원</strong> (생활 지원 중심)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. 보험·비용 부담 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-orange-200">
+            <h4 class="font-bold text-orange-800 mb-3 flex items-center">
+              <span class="bg-orange-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">2</span>
+              보험·비용 부담
+            </h4>
+            <div class="space-y-2 text-sm">
+              <div class="flex items-start p-2 bg-green-50 rounded">
+                <span class="text-green-600 mr-2 mt-0.5">💳</span>
+                <div>
+                  <strong class="text-green-800">건강보험 중심</strong><br>
+                  <span class="text-gray-700">→ <strong class="text-green-700">요양병원·재활병원</strong> (본인 부담 20~30%)</span>
+                </div>
+              </div>
+              <div class="flex items-start p-2 bg-purple-50 rounded">
+                <span class="text-purple-600 mr-2 mt-0.5">🏛️</span>
+                <div>
+                  <strong class="text-purple-800">장기요양보험·본인 부담 20%</strong><br>
+                  <span class="text-gray-700">→ <strong class="text-purple-700">요양원</strong> (장기요양등급 필수)</span>
+                </div>
+              </div>
+              <div class="bg-yellow-50 p-2 rounded border-l-4 border-yellow-400">
+                <p class="text-xs text-yellow-800">
+                  <i class="fas fa-lightbulb mr-1"></i>
+                  <strong>팁:</strong> 장기요양등급이 있으면 요양원이 경제적으로 유리할 수 있어요
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. 입원 기간·연계 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-teal-200">
+            <h4 class="font-bold text-teal-800 mb-3 flex items-center">
+              <span class="bg-teal-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">3</span>
+              입원 기간·연계 계획
+            </h4>
+            <div class="space-y-2 text-sm">
+              <div class="flex items-start p-2 bg-blue-50 rounded">
+                <span class="text-blue-600 mr-2 mt-0.5">📅</span>
+                <div>
+                  <strong class="text-blue-800">장기 입원 필요 (수개월~수년)</strong><br>
+                  <span class="text-gray-700">→ <strong class="text-blue-700">요양병원</strong> (입원 기간 제한 없음)</span>
+                </div>
+              </div>
+              <div class="flex items-start p-2 bg-green-50 rounded">
+                <span class="text-green-600 mr-2 mt-0.5">⚡</span>
+                <div>
+                  <strong class="text-green-800">재활 집중 기간 (45~90일)</strong><br>
+                  <span class="text-gray-700">→ <strong class="text-green-700">재활병원</strong> (골든타임 집중 후 전원)</span>
+                </div>
+              </div>
+              <div class="bg-indigo-50 p-2 rounded border-l-4 border-indigo-400">
+                <p class="text-xs text-indigo-800">
+                  <i class="fas fa-route mr-1"></i>
+                  <strong>전환 플랜 설계:</strong> 재활병원(45~90일) → 요양병원(3~6개월) → 재택/요양원<br>
+                  연계 계획을 미리 세우면 전체 비용과 시간을 절감할 수 있어요!
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. 의료·재활 강도 -->
+          <div class="bg-white rounded-lg p-4 border-2 border-pink-200">
+            <h4 class="font-bold text-pink-800 mb-3 flex items-center">
+              <span class="bg-pink-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">4</span>
+              의료·재활 강도
+            </h4>
+            <div class="space-y-2 text-sm">
+              <div class="flex items-start p-2 bg-green-50 rounded">
+                <span class="text-green-600 mr-2 mt-0.5">💪</span>
+                <div>
+                  <strong class="text-green-800">고강도 재활 필요 (하루 3시간+)</strong><br>
+                  <span class="text-gray-700">→ <strong class="text-green-700">재활병원</strong> (전문 인력·장비 확인 필수!)</span>
+                </div>
+              </div>
+              <div class="flex items-start p-2 bg-blue-50 rounded">
+                <span class="text-blue-600 mr-2 mt-0.5">🏥</span>
+                <div>
+                  <strong class="text-blue-800">일반 치료·돌봄</strong><br>
+                  <span class="text-gray-700">→ <strong class="text-blue-700">요양병원·요양원</strong> (치료 강도 사전 확인)</span>
+                </div>
+              </div>
+              <div class="bg-red-50 p-2 rounded border-l-4 border-red-400">
+                <p class="text-xs text-red-800">
+                  <i class="fas fa-exclamation-triangle mr-1"></i>
+                  <strong>주의:</strong> 요양병원도 재활 강도는 천차만별이에요!<br>
+                  병원 방문 시 반드시 "재활 치료 횟수와 시간"을 직접 물어보세요.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
