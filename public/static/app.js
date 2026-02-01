@@ -818,12 +818,165 @@ function showAnalysisResult(analysis) {
           </div>
           ` : ''}
           
+          <!-- 추천 병원 목록 -->
+          <div class="bg-gradient-to-r from-green-50 to-teal-50 rounded-lg p-6 border-2 border-green-300">
+            <h3 class="text-lg font-bold text-green-800 mb-4 flex items-center">
+              <i class="fas fa-hospital-alt mr-2"></i>
+              맞춤 추천 병원 (Top 3)
+            </h3>
+            <div id="recommendedFacilities" class="space-y-3">
+              <p class="text-gray-600 text-center py-4">
+                <i class="fas fa-spinner fa-spin mr-2"></i>
+                추천 병원을 검색하고 있습니다...
+              </p>
+            </div>
+          </div>
+          
         </div>
       </div>
     </div>
   `;
   
   document.body.insertAdjacentHTML('beforeend', resultHTML);
+  
+  // 추천 병원 로딩
+  setTimeout(() => {
+    loadRecommendedFacilities(analysis);
+  }, 500);
+}
+
+// 추천 병원 로딩 함수
+function loadRecommendedFacilities(analysis) {
+  const facilityContainer = document.getElementById('recommendedFacilities');
+  
+  if (!facilityContainer) return;
+  
+  // FacilityDatabase가 로드되었는지 확인
+  if (typeof FacilityDatabase === 'undefined') {
+    facilityContainer.innerHTML = `
+      <p class="text-red-600 text-center py-4">
+        <i class="fas fa-exclamation-triangle mr-2"></i>
+        병원 데이터베이스를 불러올 수 없습니다
+      </p>
+    `;
+    return;
+  }
+  
+  // 환자 데이터 준비
+  const patientData = {
+    recommendedFacility: analysis.recommendedFacility,
+    delirium_risk: analysis.patientSummary.delirium_risk,
+    dysphagia: analysis.patientSummary.dysphagia,
+    rehab_needs: analysis.rehabList,
+    gcs_total: analysis.patientSummary.gcs_total
+  };
+  
+  // 추천 병원 검색
+  const recommendedFacilities = FacilityDatabase.recommendFacilities(patientData);
+  
+  if (recommendedFacilities.length === 0) {
+    facilityContainer.innerHTML = `
+      <p class="text-gray-600 text-center py-4">
+        <i class="fas fa-info-circle mr-2"></i>
+        조건에 맞는 병원을 찾지 못했습니다. 검색 조건을 조정해주세요.
+      </p>
+    `;
+    return;
+  }
+  
+  // 추천 병원 표시
+  facilityContainer.innerHTML = recommendedFacilities.map((facility, index) => `
+    <div class="bg-white rounded-lg p-4 border-2 ${index === 0 ? 'border-green-400 shadow-lg' : 'border-gray-200'} hover:shadow-xl transition">
+      ${index === 0 ? '<div class="inline-block bg-green-500 text-white text-xs font-bold px-2 py-1 rounded mb-2"><i class="fas fa-crown mr-1"></i>추천 1순위</div>' : ''}
+      
+      <div class="flex items-start justify-between mb-3">
+        <div class="flex-1">
+          <h4 class="font-bold text-lg text-gray-900 mb-1">
+            ${index + 1}. ${facility.name}
+          </h4>
+          <p class="text-sm text-gray-600">
+            <i class="fas fa-map-marker-alt mr-1 text-red-500"></i>
+            ${facility.address}
+          </p>
+        </div>
+        <div class="text-right ml-3">
+          <div class="text-yellow-500 font-bold">
+            <i class="fas fa-star"></i> ${facility.rating.overall}
+          </div>
+          <div class="text-xs text-gray-500">
+            (${facility.rating.review_count}명)
+          </div>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-2 gap-2 mb-3">
+        <div class="text-sm">
+          <span class="text-gray-600">유형:</span>
+          <span class="font-semibold ml-1">
+            ${facility.type === 'recovery_rehab' ? '회복기 재활병원' : 
+              facility.type === 'general_rehab' ? '일반 재활병원' :
+              facility.type === 'nursing_hospital' ? '요양병원' : '요양원'}
+          </span>
+        </div>
+        <div class="text-sm">
+          <span class="text-gray-600">병상:</span>
+          <span class="font-semibold ml-1">
+            ${facility.beds ? facility.beds.total : facility.capacity.total}개
+          </span>
+        </div>
+      </div>
+      
+      <div class="bg-blue-50 rounded p-3 mb-3">
+        <div class="text-sm font-semibold text-gray-700 mb-1">💰 예상 비용 (2인실 기준)</div>
+        <div class="flex justify-between items-center">
+          <span class="text-xs text-gray-600">1일 본인부담</span>
+          <span class="font-bold text-blue-700">
+            ${facility.cost.daily_cost.double_room.copay.toLocaleString()}원
+          </span>
+        </div>
+        <div class="flex justify-between items-center mt-1">
+          <span class="text-xs text-gray-600">월 예상 본인부담</span>
+          <span class="font-bold text-blue-700">
+            ${facility.cost.monthly_estimate.min.toLocaleString()}~${facility.cost.monthly_estimate.max.toLocaleString()}원
+          </span>
+        </div>
+      </div>
+      
+      ${facility.specialized_programs ? `
+      <div class="mb-3">
+        <div class="text-xs font-semibold text-gray-700 mb-1">🎯 특화 프로그램</div>
+        <div class="flex flex-wrap gap-1">
+          ${facility.specialized_programs.slice(0, 3).map(program => `
+            <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded">${program}</span>
+          `).join('')}
+          ${facility.specialized_programs.length > 3 ? `<span class="text-xs text-gray-500">외 ${facility.specialized_programs.length - 3}개</span>` : ''}
+        </div>
+      </div>
+      ` : ''}
+      
+      <div class="flex gap-2 mt-3">
+        <a href="tel:${facility.phone}" class="flex-1 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold py-2 px-3 rounded text-center transition">
+          <i class="fas fa-phone mr-1"></i>
+          전화하기
+        </a>
+        ${facility.website ? `
+        <a href="${facility.website}" target="_blank" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-3 rounded text-center transition">
+          <i class="fas fa-external-link-alt mr-1"></i>
+          홈페이지
+        </a>
+        ` : ''}
+      </div>
+      
+      ${facility.notes && facility.notes.length > 0 ? `
+      <div class="mt-3 pt-3 border-t border-gray-200">
+        <div class="text-xs text-gray-600">
+          <i class="fas fa-info-circle mr-1"></i>
+          ${facility.notes[0]}
+        </div>
+      </div>
+      ` : ''}
+    </div>
+  `).join('');
 }
 
 // 전원 가이드 표시

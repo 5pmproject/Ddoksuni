@@ -40,6 +40,7 @@ app.get('/', (c) => {
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
         <script src="/static/medical-knowledge-base.js"></script>
+        <script src="/static/facility-database.js"></script>
         <script>
           tailwind.config = {
             theme: {
