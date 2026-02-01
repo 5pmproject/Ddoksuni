@@ -293,11 +293,7 @@ async function handlePatientSubmitInModal(e) {
     const modal = document.querySelector('.fixed.inset-0');
     if (modal) modal.remove();
     
-    // 환영 메시지 숨기고 진행 상태 표시
-    document.getElementById('welcomeMessage').style.display = 'none';
-    document.getElementById('progressSteps').classList.remove('hidden');
-    
-    // 분석 결과 표시
+    // 분석 결과 표시 (progressSteps는 숨김 상태 유지)
     showAnalysisResult(analysis);
     
     submitBtn.disabled = false;
@@ -832,6 +828,14 @@ function showAnalysisResult(analysis) {
             </div>
           </div>
           
+          <!-- 홈으로 돌아가기 버튼 -->
+          <div class="mt-6 text-center">
+            <button onclick="goBackToHome()" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-lg shadow-xl transition transform hover:scale-105">
+              <i class="fas fa-home mr-2"></i>
+              홈으로 돌아가기
+            </button>
+          </div>
+          
         </div>
       </div>
     </div>
@@ -977,6 +981,33 @@ function loadRecommendedFacilities(analysis) {
       ` : ''}
     </div>
   `).join('');
+}
+
+// 홈으로 돌아가기 함수
+function goBackToHome() {
+  // 분석 결과 모달 닫기
+  const modal = document.querySelector('.modal-backdrop');
+  if (modal) {
+    modal.remove();
+  }
+  
+  // 환영 메시지 표시
+  const welcomeMsg = document.getElementById('welcomeMessage');
+  if (welcomeMsg) {
+    welcomeMsg.style.display = 'block';
+  }
+  
+  // 진행 단계 숨기기
+  const progressSteps = document.getElementById('progressSteps');
+  if (progressSteps) {
+    progressSteps.classList.add('hidden');
+  }
+  
+  // 페이지 상단으로 스크롤
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  
+  // 환자 정보 초기화 (선택사항)
+  currentPatient = null;
 }
 
 // 전원 가이드 표시
