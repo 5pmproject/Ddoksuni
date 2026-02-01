@@ -311,97 +311,130 @@ async function handlePatientSubmitInModal(e) {
   }
 }
 
-// 환자 데이터 분석 함수
+// 환자 데이터 분석 함수 (고급 의료 지식 데이터베이스 활용)
 function analyzePatientData(patient) {
-  const { gcs_total, diagnosis, age, delirium_risk, dysphagia, rehab_needs, ltc_grade } = patient;
+  console.log('🔍 환자 데이터 분석 시작:', patient);
   
-  let recommendedFacility = '';
-  let reasons = [];
-  let estimatedCost = { min: 0, max: 0, monthly: { min: 0, max: 0 } };
-  let urgency = 'normal';
+  const KB = window.MedicalKnowledgeBase || {};
+  const { gcs_total, diagnosis, age, delirium_risk, dysphagia, rehab_needs, ltc_grade, diagnosis_date } = patient;
   
-  // 진단명 기반 분석
-  const acuteDiagnoses = ['뇌경색', '뇌출혈', '뇌졸중', '척수손상', '외상성 뇌손상'];
-  const isAcuteDiagnosis = acuteDiagnoses.some(d => diagnosis?.includes(d));
+  // 1. 진단명 분석 및 질병 데이터 가져오기
+  let diagnosisData = null;
+  let diagnosisKey = null;
   
-  // 고강도 재활 필요 여부
-  const needsIntensiveRehab = rehab_needs.robot || rehab_needs.vr || 
-                               (rehab_needs.physical && rehab_needs.occupational && rehab_needs.speech);
-  
-  // 의료적 필요 수준
-  const needsMedicalCare = gcs_total < 13 || delirium_risk === 'high' || dysphagia === 'severe';
-  
-  // 추천 시설 결정 로직
-  if (isAcuteDiagnosis && gcs_total < 13 && needsIntensiveRehab) {
-    recommendedFacility = '회복기 재활병원';
-    reasons = [
-      `급성기 질환(${diagnosis})으로 집중 재활이 필요합니다`,
-      `GCS ${gcs_total}점으로 중등도 이상의 의식 장애가 있습니다`,
-      `골든타임 3개월 내 집중 재활로 기능 회복 가능성이 높습니다`
-    ];
-    if (needsIntensiveRehab) reasons.push('로봇·VR 등 고강도 재활 치료가 필요합니다');
-    estimatedCost = { min: 150000, max: 200000, monthly: { min: 300000, max: 500000 } };
-    urgency = 'high';
-  } else if (isAcuteDiagnosis || needsIntensiveRehab) {
-    recommendedFacility = '일반 재활병원';
-    reasons = [
-      `${diagnosis} 진단으로 재활 치료가 필요합니다`,
-      `GCS ${gcs_total}점으로 의식 상태가 비교적 안정적입니다`,
-      `물리·작업·언어 치료를 통해 기능 개선이 가능합니다`
-    ];
-    estimatedCost = { min: 120000, max: 150000, monthly: { min: 250000, max: 350000 } };
-    urgency = 'normal';
-  } else if (needsMedicalCare || delirium_risk === 'high' || dysphagia !== 'none') {
-    recommendedFacility = '요양병원';
-    reasons = [
-      `의료적 관리와 간호가 지속적으로 필요합니다`,
-      `섬망 관리나 연하장애 치료가 필요합니다`,
-      `의사 상주로 24시간 의료 서비스를 받을 수 있습니다`
-    ];
-    if (delirium_risk === 'high') reasons.push('섬망 위험이 높아 전문 관리가 필요합니다');
-    if (dysphagia === 'severe') reasons.push('연하장애가 심해 전문 치료가 필요합니다');
-    estimatedCost = { min: 100000, max: 150000, monthly: { min: 200000, max: 400000 } };
-    urgency = 'normal';
-  } else if (ltc_grade && parseInt(ltc_grade) <= 3) {
-    recommendedFacility = '요양원';
-    reasons = [
-      `장기요양등급 ${ltc_grade}급으로 일상생활 지원이 주로 필요합니다`,
-      `의료적 치료보다는 생활 돌봄이 중심입니다`,
-      `장기요양보험 적용으로 경제적 부담이 적습니다`
-    ];
-    estimatedCost = { min: 80000, max: 120000, monthly: { min: 200000, max: 400000 } };
-    urgency = 'low';
-  } else {
-    recommendedFacility = '요양병원';
-    reasons = [
-      `전반적인 건강 상태를 고려할 때 의료와 요양이 함께 필요합니다`,
-      `장기적인 치료와 돌봄이 가능한 환경이 적합합니다`
-    ];
-    estimatedCost = { min: 100000, max: 130000, monthly: { min: 200000, max: 400000 } };
-    urgency = 'normal';
+  for (const [key, data] of Object.entries(KB.diagnoses || {})) {
+    if (diagnosis && diagnosis.includes(key)) {
+      diagnosisData = data;
+      diagnosisKey = key;
+      break;
+    }
   }
   
-  // 필요한 재활 치료 정리
+  console.log('📋 진단 데이터:', diagnosisKey, diagnosisData);
+  
+  // 2. GCS 레벨 분석
+  let gcsLevelData = null;
+  if (gcs_total === 15) {
+    gcsLevelData = KB.gcsLevels?.[15];
+  } else if (gcs_total >= 13) {
+    gcsLevelData = KB.gcsLevels?.['13-14'];
+  } else if (gcs_total >= 9) {
+    gcsLevelData = KB.gcsLevels?.['9-12'];
+  } else {
+    gcsLevelData = KB.gcsLevels?.['3-8'];
+  }
+  
+  console.log('🧠 GCS 레벨:', gcsLevelData);
+  
+  // 3. 재활 필요도 분석
+  const rehabScore = calculateRehabScore(rehab_needs);
+  const needsIntensiveRehab = rehabScore >= 3 || rehab_needs.robot || rehab_needs.vr;
+  const needsSpecializedRehab = rehab_needs.swallowing || rehab_needs.cognitive || rehab_needs.speech;
+  
+  console.log('♿ 재활 점수:', rehabScore, '고강도 필요:', needsIntensiveRehab);
+  
+  // 4. 발병일로부터 경과 시간 계산
+  let daysSinceOnset = null;
+  if (diagnosis_date) {
+    const onsetDate = new Date(diagnosis_date);
+    const today = new Date();
+    daysSinceOnset = Math.floor((today - onsetDate) / (1000 * 60 * 60 * 24));
+  }
+  
+  const withinGoldenTime = diagnosisData?.goldenTime && daysSinceOnset <= diagnosisData.goldenTime;
+  
+  console.log('⏰ 경과 일수:', daysSinceOnset, '골든타임 내:', withinGoldenTime);
+  
+  // 5. 의료적 필요도 평가
+  const medicalNeedsScore = calculateMedicalNeedsScore({
+    gcs_total,
+    delirium_risk,
+    dysphagia,
+    diagnosisCategory: diagnosisData?.category
+  });
+  
+  console.log('🏥 의료 필요도:', medicalNeedsScore);
+  
+  // 6. 종합 평가 및 시설 추천
+  const recommendation = determineOptimalFacility({
+    diagnosisData,
+    gcsLevelData,
+    rehabScore,
+    needsIntensiveRehab,
+    needsSpecializedRehab,
+    medicalNeedsScore,
+    withinGoldenTime,
+    ltc_grade,
+    age,
+    delirium_risk,
+    dysphagia
+  });
+  
+  console.log('✅ 최종 추천:', recommendation);
+  
+  // 7. 체크리스트 생성
+  const checklist = generateChecklist(diagnosisData, gcsLevelData, recommendation);
+  
+  // 8. 전원 경로 생성
+  const pathway = generateTransferPathway(diagnosisData, recommendation);
+  
+  // 9. 상세 분석 리포트 생성
+  const detailedAnalysis = generateDetailedAnalysis({
+    patient,
+    diagnosisData,
+    gcsLevelData,
+    recommendation,
+    rehabScore,
+    medicalNeedsScore,
+    withinGoldenTime,
+    daysSinceOnset
+  });
+  
+  // 10. 재활 치료 목록
   const rehabList = [];
-  if (rehab_needs.physical) rehabList.push('💪 물리치료');
-  if (rehab_needs.occupational) rehabList.push('🖐️ 작업치료');
-  if (rehab_needs.speech) rehabList.push('🗣️ 언어치료');
-  if (rehab_needs.swallowing) rehabList.push('🍽️ 연하치료');
-  if (rehab_needs.cognitive) rehabList.push('🧠 인지재활');
-  if (rehab_needs.psychological) rehabList.push('💭 심리상담');
-  if (rehab_needs.robot) rehabList.push('🤖 로봇재활');
-  if (rehab_needs.vr) rehabList.push('🥽 VR재활');
-  if (rehab_needs.vestibular) rehabList.push('🌀 전정재활');
-  if (rehab_needs.lymphedema) rehabList.push('💧 림프부종관리');
-  if (rehab_needs.prosthesis) rehabList.push('🦿 의지·보조기');
-  if (rehab_needs.wheelchair) rehabList.push('♿ 휠체어·보행보조기');
+  if (rehab_needs.physical) rehabList.push({ name: '💪 물리치료', priority: 'high' });
+  if (rehab_needs.occupational) rehabList.push({ name: '🖐️ 작업치료', priority: 'high' });
+  if (rehab_needs.speech) rehabList.push({ name: '🗣️ 언어치료', priority: 'high' });
+  if (rehab_needs.swallowing) rehabList.push({ name: '🍽️ 연하치료', priority: 'critical' });
+  if (rehab_needs.cognitive) rehabList.push({ name: '🧠 인지재활', priority: 'moderate' });
+  if (rehab_needs.psychological) rehabList.push({ name: '💭 심리상담', priority: 'moderate' });
+  if (rehab_needs.robot) rehabList.push({ name: '🤖 로봇재활', priority: 'high' });
+  if (rehab_needs.vr) rehabList.push({ name: '🥽 VR재활', priority: 'moderate' });
+  if (rehab_needs.vestibular) rehabList.push({ name: '🌀 전정재활', priority: 'moderate' });
+  if (rehab_needs.lymphedema) rehabList.push({ name: '💧 림프부종관리', priority: 'moderate' });
+  if (rehab_needs.prosthesis) rehabList.push({ name: '🦿 의지·보조기', priority: 'high' });
+  if (rehab_needs.wheelchair) rehabList.push({ name: '♿ 휠체어·보행보조기', priority: 'moderate' });
   
   return {
-    recommendedFacility,
-    reasons,
-    estimatedCost,
-    urgency,
+    recommendedFacility: recommendation.facility,
+    facilityData: recommendation.facilityData,
+    reasons: recommendation.reasons,
+    estimatedCost: recommendation.costs,
+    urgency: recommendation.urgency,
     rehabList,
+    checklist,
+    pathway,
+    detailedAnalysis,
     gcsLevel: gcs_total >= 13 ? '양호' : gcs_total >= 9 ? '주의' : '중증',
     patientSummary: {
       name: patient.name,
@@ -409,7 +442,232 @@ function analyzePatientData(patient) {
       diagnosis: patient.diagnosis,
       gcs: gcs_total,
       deliriumRisk: delirium_risk,
-      dysphagia: dysphagia
+      dysphagia: dysphagia,
+      daysSinceOnset
+    }
+  };
+}
+
+// 재활 필요도 점수 계산
+function calculateRehabScore(rehab_needs) {
+  let score = 0;
+  if (rehab_needs.physical) score += 1;
+  if (rehab_needs.occupational) score += 1;
+  if (rehab_needs.speech) score += 1;
+  if (rehab_needs.swallowing) score += 2; // 연하는 더 중요
+  if (rehab_needs.cognitive) score += 1;
+  if (rehab_needs.psychological) score += 0.5;
+  if (rehab_needs.robot) score += 2; // 로봇은 고강도
+  if (rehab_needs.vr) score += 1.5;
+  if (rehab_needs.vestibular) score += 1;
+  if (rehab_needs.lymphedema) score += 1;
+  return score;
+}
+
+// 의료 필요도 점수 계산
+function calculateMedicalNeedsScore(params) {
+  const { gcs_total, delirium_risk, dysphagia, diagnosisCategory } = params;
+  let score = 0;
+  
+  // GCS 기반
+  if (gcs_total < 9) score += 5;
+  else if (gcs_total < 13) score += 3;
+  else if (gcs_total < 15) score += 1;
+  
+  // 섬망 위험
+  if (delirium_risk === 'high') score += 3;
+  else if (delirium_risk === 'moderate') score += 2;
+  else if (delirium_risk === 'low') score += 0;
+  
+  // 연하장애
+  if (dysphagia === 'severe') score += 4;
+  else if (dysphagia === 'moderate') score += 2;
+  
+  // 진단 카테고리
+  const highMedicalCategories = ['acute_stroke', 'cardiac', 'respiratory', 'cancer'];
+  if (highMedicalCategories.includes(diagnosisCategory)) score += 2;
+  
+  return score;
+}
+
+// 최적 시설 결정
+function determineOptimalFacility(params) {
+  const KB = window.MedicalKnowledgeBase || {};
+  const {
+    diagnosisData,
+    gcsLevelData,
+    rehabScore,
+    needsIntensiveRehab,
+    needsSpecializedRehab,
+    medicalNeedsScore,
+    withinGoldenTime,
+    ltc_grade,
+    age,
+    delirium_risk,
+    dysphagia
+  } = params;
+  
+  let facilityType = 'nursing_hospital'; // 기본값
+  let reasons = [];
+  let urgency = 'normal';
+  
+  // 우선순위 1: 회복기 재활병원
+  if (diagnosisData?.category === 'acute_stroke' && withinGoldenTime && rehabScore >= 3) {
+    if (gcsLevelData?.level === 'moderate' || (gcsLevelData?.level === 'mild' && needsIntensiveRehab)) {
+      facilityType = 'recovery_rehab';
+      urgency = 'high';
+      reasons = [
+        `${diagnosisData.preferredFacility === 'recovery_rehab' ? '급성기 질환으로 골든타임 내 집중 재활이 필수입니다' : '재활 치료가 필요합니다'}`,
+        `발병 후 ${params.withinGoldenTime ? '골든타임' : ''}으로 기능 회복 가능성이 높습니다`,
+        `GCS ${params.gcs_total || '평가됨'}으로 재활병원 입원이 가능한 상태입니다`,
+        needsIntensiveRehab ? '로봇·VR 등 고강도 재활 장비가 필요합니다' : '',
+        needsSpecializedRehab ? '전문 재활 치료사의 집중 케어가 필요합니다' : ''
+      ].filter(r => r);
+    }
+  }
+  
+  // 우선순위 2: 척수손상
+  if (diagnosisData?.category === 'spinal_injury' && withinGoldenTime) {
+    facilityType = 'recovery_rehab';
+    urgency = 'critical';
+    reasons = [
+      '척수손상은 골든타임 내 집중 재활이 필수적입니다',
+      '배뇨·배변 관리, 욕창 예방 등 전문 케어가 필요합니다',
+      '보행 로봇, 전동 휠체어 훈련이 가능한 시설이 필요합니다'
+    ];
+  }
+  
+  // 우선순위 3: 일반 재활병원
+  if (facilityType === 'nursing_hospital' && rehabScore >= 2 && medicalNeedsScore < 5) {
+    if (diagnosisData?.category === 'orthopedic' || (rehabScore >= 2 && !withinGoldenTime)) {
+      facilityType = 'general_rehab';
+      urgency = 'normal';
+      reasons = [
+        '물리·작업·언어 치료를 통한 기능 회복이 가능합니다',
+        'GCS 점수가 안정적이어서 일반 재활병원 입원이 적합합니다',
+        '집중적인 재활 프로그램이 필요합니다'
+      ];
+    }
+  }
+  
+  // 우선순위 4: 요양병원
+  if (facilityType === 'nursing_hospital') {
+    reasons = ['의료적 관리와 간호가 지속적으로 필요합니다'];
+    
+    if (medicalNeedsScore >= 5) {
+      reasons.push('의식 수준이나 전신 상태로 인해 의사 상주가 필요합니다');
+    }
+    if (delirium_risk === 'high') {
+      reasons.push('섬망 위험이 높아 24시간 관찰과 전문 관리가 필요합니다');
+    }
+    if (dysphagia === 'severe' || dysphagia === 'moderate') {
+      reasons.push('연하장애로 인한 흡인성 폐렴 예방이 필요합니다');
+    }
+    if (diagnosisData?.category === 'cardiac' || diagnosisData?.category === 'respiratory') {
+      reasons.push('심폐 기능 모니터링과 응급 대응이 가능한 의료 환경이 필요합니다');
+    }
+    if (diagnosisData?.category === 'cancer') {
+      reasons.push('항암 치료 연계 및 통증 관리가 필요합니다');
+    }
+    if (reasons.length === 1) {
+      reasons.push('장기적인 치료와 돌봄이 가능한 환경이 적합합니다');
+      reasons.push('재활 치료와 의료 서비스를 함께 받을 수 있습니다');
+    }
+  }
+  
+  // 우선순위 5: 요양원
+  if (ltc_grade && parseInt(ltc_grade) <= 3 && medicalNeedsScore < 3) {
+    if (diagnosisData?.category === 'dementia' || age >= 80) {
+      facilityType = 'nursing_home';
+      urgency = 'low';
+      reasons = [
+        `장기요양등급 ${ltc_grade}급으로 요양원 입소가 가능합니다`,
+        '일상생활 지원과 돌봄이 주된 필요사항입니다',
+        '장기요양보험 적용으로 본인 부담금이 20%로 경제적입니다',
+        '의료적 치료보다는 편안한 생활 환경이 중요합니다'
+      ];
+    }
+  }
+  
+  // 시설 데이터 가져오기
+  const facilityData = KB.facilities?.[facilityType] || {};
+  
+  // 비용 계산
+  const costs = facilityData.costs || { daily: { min: 100000, max: 150000 }, monthly: { min: 200000, max: 400000 } };
+  
+  return {
+    facility: facilityData.name || '요양병원',
+    facilityType,
+    facilityData,
+    reasons,
+    urgency,
+    costs
+  };
+}
+
+// 체크리스트 생성
+function generateChecklist(diagnosisData, gcsLevelData, recommendation) {
+  const KB = window.MedicalKnowledgeBase || {};
+  const category = diagnosisData?.category || 'general';
+  
+  // 질병별 체크리스트
+  const diseaseChecklist = KB.checklistsByCondition?.[category] || [];
+  
+  // 시설별 체크리스트
+  const facilityChecklist = [
+    { item: '병원 방문 및 상담', importance: 'high', detail: '2-3곳 직접 방문 권장' },
+    { item: '재활 치료 프로그램 확인', importance: 'high', detail: '하루 몇 회, 몇 시간 진행되는지' },
+    { item: '의료진 구성 확인', importance: 'moderate', detail: '전문의, 치료사 수' },
+    { item: '병실 환경 확인', importance: 'moderate', detail: '1인실/2인실/다인실 비용' },
+    { item: '식사 및 영양 관리', importance: 'moderate', detail: '특수 식이 가능 여부' },
+    { item: '면회 시간 및 외출 규정', importance: 'low', detail: '가족 면회 자유도' }
+  ];
+  
+  return [...diseaseChecklist, ...facilityChecklist];
+}
+
+// 전원 경로 생성
+function generateTransferPathway(diagnosisData, recommendation) {
+  const KB = window.MedicalKnowledgeBase || {};
+  
+  // 진단 기반 경로 템플릿
+  let pathwayTemplate = null;
+  if (diagnosisData?.category === 'acute_stroke') {
+    pathwayTemplate = KB.pathwayTemplates?.acute_stroke_optimal;
+  } else if (diagnosisData?.category === 'dementia') {
+    pathwayTemplate = KB.pathwayTemplates?.dementia_care;
+  } else {
+    pathwayTemplate = KB.pathwayTemplates?.chronic_care;
+  }
+  
+  return pathwayTemplate || {
+    name: '표준 케어 경로',
+    stages: [
+      { facility: recommendation.facility, duration: '3-6개월', goal: '안정화 및 재활' }
+    ]
+  };
+}
+
+// 상세 분석 리포트 생성
+function generateDetailedAnalysis(params) {
+  const { patient, diagnosisData, gcsLevelData, recommendation, rehabScore, medicalNeedsScore, withinGoldenTime, daysSinceOnset } = params;
+  
+  return {
+    healthStatus: {
+      consciousness: gcsLevelData?.description || '평가 필요',
+      riskLevel: gcsLevelData?.riskLevel || 'moderate',
+      medicalNeeds: medicalNeedsScore >= 5 ? '높음' : medicalNeedsScore >= 3 ? '보통' : '낮음'
+    },
+    rehabPotential: {
+      score: rehabScore,
+      level: rehabScore >= 5 ? '고강도 재활 필요' : rehabScore >= 3 ? '중등도 재활 필요' : '기본 재활 필요',
+      goldenTime: withinGoldenTime ? '골든타임 내' : daysSinceOnset ? `발병 후 ${daysSinceOnset}일 경과` : '정보 없음'
+    },
+    recommendations: {
+      primary: recommendation.facility,
+      alternative: recommendation.facilityType === 'recovery_rehab' ? '요양병원' : 
+                    recommendation.facilityType === 'nursing_hospital' ? '요양원' : '재활병원',
+      urgency: recommendation.urgency
     }
   };
 }

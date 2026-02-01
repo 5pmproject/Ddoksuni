@@ -39,6 +39,7 @@ app.get('/', (c) => {
         <title>똑순이 - 간병하는 당신을 돌봐드립니다</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+        <script src="/static/medical-knowledge-base.js"></script>
         <script>
           tailwind.config = {
             theme: {
