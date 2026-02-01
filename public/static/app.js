@@ -818,31 +818,6 @@ function showAnalysisResult(analysis) {
           </div>
           ` : ''}
           
-          <!-- 다음 단계 안내 -->
-          <div class="bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg p-6 border-2 border-blue-300">
-            <h3 class="text-lg font-bold text-blue-800 mb-3 flex items-center">
-              <i class="fas fa-road mr-2"></i>
-              다음 단계
-            </h3>
-            <div class="space-y-3">
-              <button onclick="this.closest('.modal-backdrop').remove(); goToStep(2);" 
-                      class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 px-6 rounded-lg transition font-bold text-lg shadow-lg flex items-center justify-center">
-                <i class="fas fa-map-marked-alt mr-2"></i>
-                맞춤 경로 자세히 보기
-              </button>
-              <button onclick="this.closest('.modal-backdrop').remove(); goToStep(3);" 
-                      class="w-full bg-purple-600 hover:bg-purple-700 text-white py-4 px-6 rounded-lg transition font-bold text-lg shadow-lg flex items-center justify-center">
-                <i class="fas fa-calculator mr-2"></i>
-                비용 미리 계산하기
-              </button>
-              <button onclick="this.closest('.modal-backdrop').remove(); goToStep(4);" 
-                      class="w-full bg-green-600 hover:bg-green-700 text-white py-4 px-6 rounded-lg transition font-bold text-lg shadow-lg flex items-center justify-center">
-                <i class="fas fa-hospital-alt mr-2"></i>
-                추천 기관 찾아보기
-              </button>
-            </div>
-          </div>
-          
         </div>
       </div>
     </div>
